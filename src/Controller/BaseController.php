@@ -4,20 +4,17 @@ namespace App\Controller;
 
 use App\Classes\Config\Config;
 use App\Entity\Blog;
-use App\Entity\Resultat;
-use App\Form\ChoixCourseType;
 use App\Form\EcrireType;
 use Swift_Mailer;
 use Swift_Message;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class BaseController extends AbstractController
 {
+
     /**
      * @Route("/", name="root")
      * @param RegistryInterface $doctrine
@@ -65,12 +62,12 @@ class BaseController extends AbstractController
     // Courses
 
     /**
-     * @Route("/ecrire", name="ecrire")
+     * @Route("/contact", name="index_contact")
      * @param Request $request
      * @param Swift_Mailer $mailer
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function ecrire(Request $request,Swift_Mailer $mailer)
+    public function contact(Request $request,Swift_Mailer $mailer)
     {
         $form = $this->createForm(EcrireType::class);
 
@@ -79,9 +76,9 @@ class BaseController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $contactFormData = $form->getData();
-            $message = (new Swift_Message('You Got Mail!'))
+            $message = (new Swift_Message('Mail de contact site Cartouche 118'))
                 ->setFrom($contactFormData['from'])
-                ->setTo('contact@cross-biviers.fr')
+                ->setTo('contact@cartouche118.fr')
                 ->setBody(
                     $contactFormData['message'],
                     'text/plain'
@@ -90,11 +87,11 @@ class BaseController extends AbstractController
 
             $res = $mailer->send($message);
             $this->addFlash('info', 'Message envoyé');
-            return $this->redirectToRoute('ecrire');
+            //return $this->redirectToRoute('index_contact');
         }
 
-        return $this->render('pages/ecrire.html.twig',[
-            'formEcrire' => $form->createView()
+        return $this->render('pages/index_contact.html.twig',[
+            'formContact' => $form->createView()
         ]);
     }
 }
