@@ -86,8 +86,12 @@ class BaseController extends AbstractController
             ;
 
             $res = $mailer->send($message);
-            $this->addFlash('info', 'Message envoyé');
-            //return $this->redirectToRoute('index_contact');
+            if ($res == false) {
+                $this->addFlash('danger', "Votre message n'a pas pu être envoyé");
+            } else {
+                $this->addFlash('info', 'Message envoyé');
+                return $this->redirect($request->getUri());
+            }
         }
 
         return $this->render('pages/index_contact.html.twig',[
