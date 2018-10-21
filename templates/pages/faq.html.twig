@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Questions fréquentes :  !{% endblock %}
+
+{% block main_page %}
+
+    {% import 'macros/bouton.html.twig' as control %}
+
+    <div class="container">
+
+        <h1 class="my-4">Questions les plus souvent posées</h1>
+
+        <div class="mb-4" id="accordion" role="tablist" aria-multiselectable="true">
+
+            {% set index = 0 %}
+
+            {% for post in postFAQ %}
+
+                {% if index == 0 %}
+                    {% set active = true %}
+                {% else %}
+                    {%  set active = false %}
+                {% endif %}
+
+                <div class="card">
+                    <div class="card-header" role="tab" id="heading{{ index }}">
+                        <h5 class="mb-0">
+                            <a data-toggle="collapse"
+                               {% if active != true %}
+                                    class="collapsed"
+                               {% endif %}
+                               data-parent="#accordion"
+                               href="#collapse{{ index }}"
+                               aria-expanded="true"
+                               aria-controls="collapseOne">{{ post.title | raw }}</a>
+                        </h5>
+                    </div>
+
+                    <div id="collapse{{ index }}"
+                         class="collapse{% if active == true %} show{% endif%}"
+                         role="tabpanel"
+                         aria-labelledby="headingOne">
+                        <div class="card-body">
+                            {{ post.content | raw }}
+                        </div>
+                    </div>
+
+                </div>
+                {%  set index = index + 1 %}
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}

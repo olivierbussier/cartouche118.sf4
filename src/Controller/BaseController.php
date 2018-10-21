@@ -32,10 +32,6 @@ class BaseController extends AbstractController
 
         $dirImages = Config::PATH_BLOG;
 
-        // affichage de toutes les images du rep pub
-
-        $pubs = glob('public/imp/*.*');
-
         return $this->render(
             'pages/index.html.twig', [
                 'imblog' => $dirImages,
@@ -44,6 +40,27 @@ class BaseController extends AbstractController
                 'postFeature'   => $postsF
         ]);
     }
+
+    /**
+     * @Route("/faq", name="index_faq")
+     * @param RegistryInterface $doctrine
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function indexFAQ(RegistryInterface $doctrine)
+    {
+        $repo = $doctrine->getRepository(Blog::class);
+        /** @var BlogRepository $repo */
+        $postsFAQ = $repo->getAllPosts(BlogTypeChoice::FAQ);
+
+        $dirImages = Config::PATH_BLOG;
+
+        return $this->render(
+            'pages/faq.html.twig', [
+            'imblog'  => $dirImages,
+            'postFAQ' => $postsFAQ
+        ]);
+    }
+
     /**
      * @Route("/preview/{blogId}", name="root_preview")
      * @param RegistryInterface $doctrine

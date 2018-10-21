@@ -8,12 +8,14 @@ class BlogTypeChoice {
     public const MARKETING = 'marketing';
     public const PORTFOLIO = 'portfolio';
     public const FEATURE   = 'feature';
+    public const FAQ       = 'FAQ';
 
     public const CHOICES   = [
         'Carrousel' => self::CAROUSEL,
-        'Marketing' => self::MARKETING,
+        //'Marketing' => self::MARKETING,
         'Portfolio' => self::PORTFOLIO,
-        'Feature'   => self::FEATURE
+        'Feature'   => self::FEATURE,
+        'FAQ'       => self::FAQ
     ];
 
     private $type;

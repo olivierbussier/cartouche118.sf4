@@ -26,7 +26,7 @@ class BlogController extends AbstractController
      * @param string $type
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function index(RegistryInterface $doctrine, Request $request, $type = 'marketing')
+    public function index(RegistryInterface $doctrine, Request $request, $type = BlogTypeChoice::PORTFOLIO)
     {
         /**
          * @var $blogsRepo BlogRepository
@@ -56,6 +56,7 @@ class BlogController extends AbstractController
 
         return $this->render('intranet/blog_index.html.twig',[
             'blogs' => $blogs,
+            'type'  => $type,
             'form'  => $form->createView()
         ]);
     }
@@ -179,7 +180,7 @@ class BlogController extends AbstractController
     }
 
     /**
-     * @Route("/intranet/admin_blog/new", name="blog_admin_create")
+     * @Route("/intranet/admin_blog/new/{type}", name="blog_admin_create")
      * @Route("/intranet/admin_blog/edit/{blogId}", name="blog_admin_edit")
      * @param RegistryInterface $doctrine
      * @param Request $request
@@ -188,7 +189,7 @@ class BlogController extends AbstractController
      * @throws \Doctrine\ORM\NoResultException
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function create(RegistryInterface $doctrine, Request $request, $blogId=0)
+    public function create(RegistryInterface $doctrine, Request $request, $type, $blogId=0)
     {
         /**
          * @var $blogsRepo BlogRepository
@@ -201,6 +202,8 @@ class BlogController extends AbstractController
         if ($blogId == 0) {
             $blog = new Blog();
             $action = 'create';
+            $blog->setType($type);
+            //$em->persist($blog);
         } else {
             $blog = $blogsRepo->find($blogId);
             $action = 'edit';

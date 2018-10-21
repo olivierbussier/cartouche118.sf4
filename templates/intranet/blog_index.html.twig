@@ -20,7 +20,7 @@
 
             {{ control.bouton(
                 ' Nouvelle publication',
-                url('blog_admin_create'),
+                url('blog_admin_create', {type: type}),
                 '',
                 'btn-block btn-default',
                 'film') }}
@@ -36,7 +36,7 @@
                             <td>
                                 {{ control.bouton(
                                     'V',
-                                    url("root_preview") ~ "/" ~ blog.id,
+                                    url("root_preview", {blogId: blog.id}),
                                     '',
                                     'btn btn-outline-primary btn-sm previewbox-anchor',
                                     '') }}
