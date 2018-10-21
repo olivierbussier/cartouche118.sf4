@@ -184,12 +184,13 @@ class BlogController extends AbstractController
      * @Route("/intranet/admin_blog/edit/{blogId}", name="blog_admin_edit")
      * @param RegistryInterface $doctrine
      * @param Request $request
+     * @param int $type
      * @param int $blogId
      * @return \Symfony\Component\HttpFoundation\Response
      * @throws \Doctrine\ORM\NoResultException
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function create(RegistryInterface $doctrine, Request $request, $type, $blogId=0)
+    public function create(RegistryInterface $doctrine, Request $request, $type = 0, $blogId = 0)
     {
         /**
          * @var $blogsRepo BlogRepository
@@ -200,6 +201,9 @@ class BlogController extends AbstractController
         $dirImages = Config::PATH_BLOG;
 
         if ($blogId == 0) {
+            if ($type == 0) {
+                return $this->redirectToRoute('blog_admin_index');
+            }
             $blog = new Blog();
             $action = 'create';
             $blog->setType($type);

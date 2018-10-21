@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Page d'accueil :  !{% endblock %}
+{% block title %}Page d'accueil de Cartouche 118{% endblock %}
 
 {% block main_page %}
 
@@ -8,18 +8,38 @@
 
     <div class="container">
 
-        <h1 class="my-4">Bienvenue sur le site de Cartouche 118</h1>
+        <h1 class="my-4">Nos services</h1>
 
-        {% set mois = {
-            '01' : "Janvier", '02' : "Février",  '03' : "Mars",
-            '04' : "Avril",   '05' : "Mai",      '06' : "Juin",
-            '07' : "Juillet", '08' : "Aout",     '09' : "Septembre",
-            '10' : "Octobre", '11' : "Novembre", '12' : "Décembre"} %}
+        {# Section Marketing #}
 
         <div class="row">
+
+            {% for post in postMarketing %}
+
+                <div class="col-lg-4 mb-4">
+                    <div class="card h-100">
+                        <h4 class="card-header">{{ post.title | raw }}</h4>
+                        <div class="card-body">
+                            <p class="card-text">{{ post.headline | raw }}</p>
+                        </div>
+                        <div class="card-footer">
+                            <a href="{{ url('view_blog_mkt',{blogId: post.id}) }}#" class="btn btn-primary">En savoir plus</a>
+                        </div>
+                    </div>
+                </div>
+
+            {% endfor %}
+
+        </div>
+        <!-- /.row -->
+
+        <h1 class="my-4">Les clients parlent de nous</h1>
+
+        <div class="row">
+
+            {# Section portfolio #}
+
             {% for post in postPortfolio %}
-                {% set tabdate = post.postedAt|date('d-m-Y') | split('-') %}
-                {% set htmltext = post.content  %}
 
                 <div class="col-lg-4 col-sm-6 portfolio-item">
                     <div class="card h-100">
@@ -28,19 +48,23 @@
                             <h4 class="card-title">
                                 <a href="#">{{ post.title }}</a>
                             </h4>
-                            <p class="card-text">{{ htmltext | raw }}</p>
+                            <p class="card-text">{{ post.headline | raw }}</p>
                         </div>
                     </div>
                 </div>
+
             {% endfor %}
         </div>
 
-        <!-- Features Section -->
+        <h1 class="my-4">Nos produits</h1>
+
+        {# Section produits #}
+
         {% for  post in postFeature %}
             <div class="row">
                 <div class="col-lg-6">
-                    <h2>{{ post.title }}</h2>
-                    <div>{{ post.content }}</div>
+                    <h2>{{ post.title | raw }}</h2>
+                    <div>{{ post.headline | raw }}</div>
                 </div>
                 <div class="col-lg-6">
                     <img class="img-fluid rounded w-100" src="{{ asset(imblog ~ "/" ~ post.image) }}" alt="">

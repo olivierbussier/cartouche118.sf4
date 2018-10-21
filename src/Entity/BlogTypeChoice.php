@@ -12,7 +12,7 @@ class BlogTypeChoice {
 
     public const CHOICES   = [
         'Carrousel' => self::CAROUSEL,
-        //'Marketing' => self::MARKETING,
+        'Marketing' => self::MARKETING,
         'Portfolio' => self::PORTFOLIO,
         'Feature'   => self::FEATURE,
         'FAQ'       => self::FAQ

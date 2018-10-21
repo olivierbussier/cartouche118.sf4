@@ -26,6 +26,7 @@ class BaseController extends AbstractController
     {
         $repo = $doctrine->getRepository(Blog::class);
         /** @var BlogRepository $repo */
+        $postsM = $repo->getAllPosts(BlogTypeChoice::MARKETING);
         $postsC = $repo->getAllPosts(BlogTypeChoice::CAROUSEL);
         $postsP = $repo->getAllPosts(BlogTypeChoice::PORTFOLIO);
         $postsF = $repo->getAllPosts(BlogTypeChoice::FEATURE);
@@ -35,9 +36,29 @@ class BaseController extends AbstractController
         return $this->render(
             'pages/index.html.twig', [
                 'imblog' => $dirImages,
+                'postMarketing' => $postsM,
                 'postCarousel'  => $postsC,
                 'postPortfolio' => $postsP,
                 'postFeature'   => $postsF
+        ]);
+    }
+
+    /**
+     * @Route("/view_article/mkt/{blogId}", name="view_blog_mkt")
+     * @param RegistryInterface $doctrine
+     * @param $blogId
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function viewPost(RegistryInterface $doctrine, $blogId)
+    {
+        $repo = $doctrine->getRepository(Blog::class);
+        /** @var BlogRepository $repo */
+        $post = $repo->find($blogId);
+
+        return $this->render(
+            'pages/view_mkt.html.twig', [
+            'post'   => $post,
+            'imblog' => Config::PATH_BLOG
         ]);
     }
 

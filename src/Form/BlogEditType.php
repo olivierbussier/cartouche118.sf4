@@ -24,6 +24,12 @@ class BlogEditType extends AbstractType
                     'placeholder' => 'Entrez un titre pour l\'article'
                 ]
             ])
+            ->add('headline', CKEditorType::class, [
+                'label' => 'Synthèse de l\'article',
+                'config' => [
+                    'uiColor' => '#ffffff'
+                ]
+            ])
             ->add('content', CKEditorType::class, [
                 'label' => 'Contenu de l\'article',
                 'config' => [
