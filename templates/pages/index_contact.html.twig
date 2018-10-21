@@ -8,10 +8,44 @@
 
     <div class="container">
 
+        <h1>Comment nous contacter ?</h1>
+        <div class="row">
+            <!-- Map Column -->
+            <div class="col-lg-8 mb-4">
+                <!-- Embedded Google Map -->
+                <iframe width="100%"
+                        height="400px"
+                        frameborder="0"
+                        scrolling="no"
+                        marginheight="0"
+                        marginwidth="0"
+                        src="http://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=fr&amp;geocode=&amp;q=118+Cours+Jean+Jaur%C3%A8s,+Grenoble,+France&amp;aq=1&amp;sll=45.184033,5.721946&amp;sspn=0.052813,0.132093&amp;ie=UTF8&amp;hq=&amp;hnear=118+Cours+Jean+Jaur%C3%A8s,+38000+Grenoble,+Is%C3%A8re,+Rh%C3%B4ne-Alpes,+France&amp;ll=45.180887,5.716324&amp;spn=0.02904,0.054932&amp;z=14&amp;iwloc=A&amp;output=embed"></iframe>
+            </div>
+            <!-- Contact Details Column -->
+            <div class="col-lg-4 mb-4">
+                <h3>Passez nous voir au magasin</h3>
+                <p>
+                    118 Cours Jean-Jaurès,
+                    <br>38000 Grenoble
+                </p>
+                <p>
+                    <abbr title="Phone">Téléphone</abbr>: +33 4 76 48 35 58
+                </p>
+                <p>
+                    <abbr title="Email">Email</abbr>:
+                    <a href="mailto:name@example.com">contact@cartouche118.fr</a>
+                </p>
+                <p>
+                    <abbr title="Hours">Horaires</abbr>: Ouvert du Lundi au Samedi
+                                                    de 10h00 - 19h00
+                </p>
+            </div>
+        </div>
+        <!-- /.row -->
 
         <div class="col-xs-12">
 
-            <h1>Contactez-nous</h1>
+            <h3>Ou envoyez-nous un mail</h3>
 
             {% for label, messages in app.flashes %}
                 {% for message in messages %}
