@@ -5,7 +5,9 @@ namespace App\Controller;
 use App\Classes\Blog\BlogHelpers;
 use App\Classes\Config\Config;
 use App\Entity\Blog;
+use App\Entity\BlogTypeChoice;
 use App\Form\BlogEditType;
+use App\Form\BlogTypeChoiceType;
 use App\Repository\BlogRepository;
 use DateTime;
 use Symfony\Bridge\Doctrine\RegistryInterface;
@@ -18,26 +20,43 @@ use Symfony\Component\Routing\Annotation\Route;
 class BlogController extends AbstractController
 {
     /**
-     * @Route("/intranet/admin_blog", name="blog_admin_index")
+     * @Route("/intranet/admin_blog/index/{type}", name="blog_admin_index")
      * @param RegistryInterface $doctrine
      * @param Request $request
+     * @param string $type
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function index(RegistryInterface $doctrine, Request $request)
+    public function index(RegistryInterface $doctrine, Request $request, $type = 'marketing')
     {
         /**
          * @var $blogsRepo BlogRepository
          */
         $blogsRepo = $doctrine->getRepository(Blog::class);
 
+        $typeBlog = new BlogTypeChoice();
+
+        $typeBlog->setType($type);
+
+        $form = $this->createForm(BlogTypeChoiceType::class, $typeBlog);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $type = $typeBlog->getType();
+            if ($type != '') {
+                return $this->redirectToRoute('blog_admin_index',['type' => $type]);
+            }
+        }
+
         $em = $this->getDoctrine()->getManager();
 
         // Afficher les blogs
 
-        $blogs     = $blogsRepo->getAllPosts();
+        $blogs     = $blogsRepo->getAllPosts($type);
 
         return $this->render('intranet/blog_index.html.twig',[
             'blogs' => $blogs,
+            'form'  => $form->createView()
         ]);
     }
 
@@ -75,14 +94,16 @@ class BlogController extends AbstractController
     /**
      * @Route("/intranet/admin_blog/up/{blogId}", name="blog_admin_up")
      * @param RegistryInterface $doctrine
-     * @param Request $request
-     * @param string $blogId
+     * @param int $blogId
      * @return \Symfony\Component\HttpFoundation\Response
      * @throws \Doctrine\ORM\NoResultException
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function up(RegistryInterface $doctrine, Request $request, $blogId = '')
+    public function up(RegistryInterface $doctrine, $blogId = 0)
     {
+        if ($blogId == 0) {
+            return $this->redirectToRoute("blog_admin_index");
+        }
         /**
          * @var $blogsRepo BlogRepository
          */
@@ -90,10 +111,12 @@ class BlogController extends AbstractController
 
         $em = $this->getDoctrine()->getManager();
 
+        /** @Var Bloc $blogSrc */
         $blogSrc = $blogsRepo->find($blogId);
+
         $positionSrc = $blogSrc->getPosition();
 
-        $positionDest = $blogsRepo->selectPosJustBelow($positionSrc);
+        $positionDest = $blogsRepo->selectPosJustBelow($blogSrc);
 
         $blogDest = $blogsRepo->selectByPosition($positionDest);
 
@@ -115,14 +138,17 @@ class BlogController extends AbstractController
     /**
      * @Route("/intranet/admin_blog/down/{blogId}", name="blog_admin_down")
      * @param RegistryInterface $doctrine
-     * @param Request $request
-     * @param string $blogId
+     * @param int $blogId
      * @return \Symfony\Component\HttpFoundation\Response
      * @throws \Doctrine\ORM\NoResultException
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function down(RegistryInterface $doctrine, Request $request, $blogId = '')
+    public function down(RegistryInterface $doctrine, $blogId = 0)
     {
+        if ($blogId == 0) {
+            return $this->redirectToRoute("blog_admin_index");
+        }
+
         /**
          * @var $blogsRepo BlogRepository
          */
@@ -133,7 +159,7 @@ class BlogController extends AbstractController
         $blogSrc = $blogsRepo->find($blogId);
         $positionSrc = $blogSrc->getPosition();
 
-        $positionDest = $blogsRepo->selectPosJustAbove($positionSrc);
+        $positionDest = $blogsRepo->selectPosJustAbove($blogSrc);
 
         $blogDest = $blogsRepo->selectByPosition($positionDest);
 
@@ -157,6 +183,7 @@ class BlogController extends AbstractController
      * @Route("/intranet/admin_blog/edit/{blogId}", name="blog_admin_edit")
      * @param RegistryInterface $doctrine
      * @param Request $request
+     * @param int $blogId
      * @return \Symfony\Component\HttpFoundation\Response
      * @throws \Doctrine\ORM\NoResultException
      * @throws \Doctrine\ORM\NonUniqueResultException
@@ -173,8 +200,10 @@ class BlogController extends AbstractController
 
         if ($blogId == 0) {
             $blog = new Blog();
+            $action = 'create';
         } else {
             $blog = $blogsRepo->find($blogId);
+            $action = 'edit';
         }
 
         $form = $this->createForm(BlogEditType::class, $blog);
@@ -186,12 +215,12 @@ class BlogController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            if ($blog->getId() == null) {
+            if ($action == 'create') {
                 // Nouveau, remplir postedAt et Position
 
                 // Set Position
 
-                $pos = $blogsRepo->selectPosJustAbove(999999999);
+                $pos = $blogsRepo->selectPosJustAbove();
                 $blog->setPosition($pos + 1);
 
                 // Set Date
@@ -200,6 +229,7 @@ class BlogController extends AbstractController
             }
 
             $fl = $blog->getFile();
+            $type = $blog->getType();
 
             if ($fl != null) {
 
@@ -211,38 +241,24 @@ class BlogController extends AbstractController
                     $oldImage = $im;
                 }
 
-                // Gestion de l'image
-                // Si création, pas besoin de tester si une ancienne image est à effacer
-
-                // Mise à l'échelle de la photo:
-                //  - Si l'image est sur toute la largeur, alors on réduit a 1200px en largeur
-                //  - Si l'image est a gauche ou a droite, alors on réduit a 400px en largeur
-
-                /**
-                 * @var UploadedFile $image
-                 */
-                $image = $form['file']->getData();
-
-                $info = getimagesize($image->getPathname());
-
-                if ($info[0] > $info[1]) {
-                    $orient = 'paysage';
-                } else {
-                    $orient = 'portrait';
-                }
-                switch ($blog->getPositionImage()) {
-                    case 'dessus':
-                    case 'dessous':
-                        $largeur = 1400;
+                switch ($type) {
+                    case BlogTypeChoice::CAROUSEL:
+                        $largeur = 1900;
                         break;
-                    case 'gauche':
-                    case 'droite':
+                    case BlogTypeChoice::FEATURE:
+                    case BlogTypeChoice::PORTFOLIO:
+                    case BlogTypeChoice::MARKETING:
                         $largeur = 400;
                         break;
                     default:
                         $largeur = 400;
                         break;
                 }
+                /**
+                 * @var UploadedFile $image
+                 */
+                $image = $form['file']->getData();
+
                 $im = BlogHelpers::StorePhoto($image->getPathname(), $dirImages, $largeur);
 
                 if ($oldImage) {
@@ -252,6 +268,8 @@ class BlogController extends AbstractController
             }
             $em->persist($blog);
             $em->flush();
+
+            return $this->redirectToRoute('blog_admin_index', ['type' => $type]);
         }
 
         return $this->render('intranet/blog_edit.html.twig',[

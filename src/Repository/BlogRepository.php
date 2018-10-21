@@ -46,8 +46,10 @@ class BlogRepository extends ServiceEntityRepository
      * @throws \Doctrine\ORM\NoResultException
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function selectPosJustBelow($position)
+    public function selectPosJustBelow(Blog $blog)
     {
+        $position = $blog->getPosition();
+
         $res = $this->createQueryBuilder('b')
             ->select('min(b.position)')
             ->where("b.position > $position")
@@ -58,13 +60,19 @@ class BlogRepository extends ServiceEntityRepository
     }
 
     /**
-     * @param $position
+     * @param Blog $blog
      * @return int
      * @throws \Doctrine\ORM\NoResultException
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function selectPosJustAbove($position)
+    public function selectPosJustAbove(Blog $blog = null)
     {
+        if ($blog == null) {
+            $position = 999999999;
+        } else {
+            $position = $blog->getPosition();
+        }
+
         $res = $this->createQueryBuilder('b')
             ->select('max(b.position)')
             ->where("b.position < $position")
@@ -92,12 +100,14 @@ class BlogRepository extends ServiceEntityRepository
     }
 
     /**
+     * @param string $type
      * @return Blog[] Returns an array of Blog objects
      */
 
-    public function getAllPosts()
+    public function getAllPosts($type = 'marketing')
     {
         return $this->createQueryBuilder('b')
+            ->where("b.type = '$type'")
             ->orderBy('b.position', 'desc')
             //->setMaxResults(10)
             ->getQuery()
@@ -105,6 +115,22 @@ class BlogRepository extends ServiceEntityRepository
             ;
     }
 
+    /**
+     * Select par type
+     * @param string $type
+     * @return Blog[] Returns an array of Blog objects
+     */
+
+    public function getPostsByType(string $type)
+    {
+        return $this->createQueryBuilder('b')
+            ->where("b.type = '$type'")
+            ->orderBy('b.position', 'desc')
+            //->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
 
 //    /**
 //     * @return BlogText[] Returns an array of BlogText objects

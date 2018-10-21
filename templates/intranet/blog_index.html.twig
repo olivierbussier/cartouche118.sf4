@@ -14,6 +14,10 @@
 
         <div class="col-xs-12">
 
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+            {{ form_end(form) }}
+
             {{ control.bouton(
                 ' Nouvelle publication',
                 url('blog_admin_create'),
@@ -31,42 +35,42 @@
                         <tr>
                             <td>
                                 {{ control.bouton(
-                                    '',
+                                    'V',
                                     url("root_preview") ~ "/" ~ blog.id,
                                     '',
-                                    'btn btn-default btn-xs previewbox-anchor',
-                                    'eye-open') }}
+                                    'btn btn-outline-primary btn-sm previewbox-anchor',
+                                    '') }}
                             </td>
 
                             <td>
                                 {{ control.bouton(
-                                    '',
+                                    'X',
                                     url('blog_admin_delete',{blogId: blog.id}),
                                     '',
-                                    'btn btn-default btn-xs',
-                                    'remove-circle') }}
+                                    'btn btn-outline-primary btn-sm',
+                                    '') }}
                             </td>
 
                             <td>
                                 {{ control.bouton(
-                                    '',
+                                    'E',
                                     url('blog_admin_edit',{blogId: blog.id}),
                                     '',
-                                    'btn btn-default btn-xs',
-                                    'edit') }}
+                                    'btn btn-outline-primary btn-sm',
+                                    '') }}
                             </td>
 
                             <td>{{ blog.title }}</td>
-                            <td>{{ blog.content[0:170] }}</td>
+                            <td>{{ blog.content[0:170] | raw }}</td>
 
                             {% if not loop.first and loop.length > 1 %}
                                 <td>
                                     {{ control.bouton(
+                                        'U',
+                                        url('blog_admin_up',{blogId: blog.id}),
                                         '',
-                                        url('blog_admin_up') ~ '/' ~ blog.id,
-                                        '',
-                                        'btn btn-default btn-xs',
-                                        'triangle-top') }}
+                                        'btn btn-outline-primary btn-sm',
+                                        '') }}
                                 </td>
                             {% else %}
                                 <td></td>
@@ -75,11 +79,11 @@
                             {% if not loop.last and loop.length > 1 %}
                                 <td>
                                     {{ control.bouton(
+                                        'D',
+                                        url('blog_admin_down', {blogId: blog.id}),
                                         '',
-                                        url('blog_admin_down') ~ '/' ~ blog.id,
-                                        '',
-                                        'btn btn-default btn-xs',
-                                        'triangle-bottom') }}
+                                        'btn btn-outline-primary btn-sm',
+                                        '') }}
                                 </td>
                             {% else %}
                                 <td></td>

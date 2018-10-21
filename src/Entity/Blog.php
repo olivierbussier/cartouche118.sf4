@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use phpDocumentor\Reflection\Types\Integer;
 use Symfony\Component\HttpFoundation\File\File;
 
 /**
@@ -25,6 +26,11 @@ class Blog
     private $postedAt;
 
     /**
+     * @ORM\Column(type="integer")
+     */
+    private $position;
+
+    /**
      * @ORM\Column(type="string", length=255)
      */
     private $title;
@@ -32,22 +38,27 @@ class Blog
     /**
      * @ORM\Column(type="text", nullable=true)
      */
+    private $headline;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
     private $content;
 
     /**
-     * @ORM\Column(type="integer")
+     * Ne doit contenir que les mots suivants:
+     *  - carrousel
+     *  - marketing
+     *  - portfolio
+     *  - feature
+     * @ORM\Column(type="string", length=32)
      */
-    private $position;
+    private $type;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $link;
-
-    /**
-     * @ORM\Column(type="string", length=16)
-     */
-    private $positionImage;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -85,6 +96,22 @@ class Blog
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getHeadline()
+    {
+        return $this->headline;
+    }
+
+    /**
+     * @param mixed $headline
+     */
+    public function setHeadline($headline): void
+    {
+        $this->headline = $headline;
+    }
+
     public function getContent(): ?string
     {
         return $this->content;
@@ -97,18 +124,6 @@ class Blog
         return $this;
     }
 
-    public function getPosition(): ?int
-    {
-        return $this->position;
-    }
-
-    public function setPosition(int $position): self
-    {
-        $this->position = $position;
-
-        return $this;
-    }
-
     public function getLink(): ?string
     {
         return $this->link;
@@ -117,18 +132,6 @@ class Blog
     public function setLink(?string $link): self
     {
         $this->link = $link;
-
-        return $this;
-    }
-
-    public function getPositionImage(): ?string
-    {
-        return $this->positionImage;
-    }
-
-    public function setPositionImage(?string $positionImage): self
-    {
-        $this->positionImage = $positionImage;
 
         return $this;
     }
@@ -155,5 +158,37 @@ class Blog
         $this->file = $file;
 
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param mixed $type
+     */
+    public function setType($type): void
+    {
+        $this->type = $type;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPosition()
+    {
+        return $this->position;
+    }
+
+    /**
+     * @param mixed $position
+     */
+    public function setPosition(int $position): void
+    {
+        $this->position = $position;
     }
 }

@@ -8,7 +8,7 @@
 
     <div class="container">
 
-        <div class="col-xs-12">
+        <div class="col">
             <h3>{{ app.user.Prenom ~ ' ' ~ app.user.nom ~ ' (' ~ (app.user.username) ~ ')' }} , Bienvenue sur l'Intranet Plongeur</h3>
             {{ dump(app.user.roles) }}
         </div>
@@ -24,19 +24,18 @@
             {% include 'intranet/menu/inc_admin_publication.html.twig' %}
         {% endif %}
 
-        <div class="container">
-            <div class="col-xs-12">
-                <h3>Pour vous déconnecter :</h3>
-            </div>
-            <div class="col-xs-12">
-                {{  control.bouton(
-                    ' Déconnexion',
-                    url('deconnexion'),
-                    '',
-                    'btn-block btn-default',
-                    'quit')
-                }}
-            </div>
+        <div class="col">
+            <h3>Pour vous déconnecter :</h3>
+        </div>
+
+        <div class="col">
+            {{  control.bouton(
+                ' Déconnexion',
+                url('deconnexion'),
+                '',
+                'btn-outline-primary btn-block',
+                '')
+            }}
         </div>
 
     </div>

@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Classes\Config\Config;
 use App\Entity\Blog;
+use App\Entity\BlogTypeChoice;
 use App\Form\EcrireType;
+use App\Repository\BlogRepository;
 use Swift_Mailer;
 use Swift_Message;
 use Symfony\Bridge\Doctrine\RegistryInterface;
@@ -22,7 +24,11 @@ class BaseController extends AbstractController
      */
     public function index(RegistryInterface $doctrine)
     {
-        $posts = $doctrine->getRepository(Blog::class)->getAllPosts();
+        $repo = $doctrine->getRepository(Blog::class);
+        /** @var BlogRepository $repo */
+        $postsC = $repo->getAllPosts(BlogTypeChoice::CAROUSEL);
+        $postsP = $repo->getAllPosts(BlogTypeChoice::PORTFOLIO);
+        $postsF = $repo->getAllPosts(BlogTypeChoice::FEATURE);
 
         $dirImages = Config::PATH_BLOG;
 
@@ -33,7 +39,9 @@ class BaseController extends AbstractController
         return $this->render(
             'pages/index.html.twig', [
                 'imblog' => $dirImages,
-                'posts' => $posts
+                'postCarousel'  => $postsC,
+                'postPortfolio' => $postsP,
+                'postFeature'   => $postsF
         ]);
     }
     /**

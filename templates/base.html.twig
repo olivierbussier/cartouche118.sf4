@@ -1,123 +1,203 @@
 <!DOCTYPE html>
-<html><head>
+<html lang="fr">
+
+    <head>
     <!-- Global Site Tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-50183564-2"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-"></script>
 
-        function gtag() {
-            dataLayer.push(arguments)
-        }
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <meta name="keywords" content=""/>
+        <meta http-equiv="content-language" content="fr">
+        <meta name="language" content="fr">
 
-        gtag('js', new Date());
+        <link rel="icon" type="image/x-icon" href="{{ asset("c118.ico") }}"/>
 
-        gtag('config', 'UA-50183564-2');
-    </script>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
-    <meta charset="UTF-8">
-    <meta http-equiv="content-language" content="fr">
-    <meta name="language" content="fr">
-    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1">
-    <meta name="description" content="Cartouche 118"/>
-    <meta name="keywords" content=""/>
-    <link rel="icon" type="image/x-icon" href="{{ asset("c118.ico") }}"/>
-    <script type="text/javascript" id="cookiebanner"
-            src="{{ asset("js/cookiebanner.min.js") }}"
-            data-position="top"
-            data-fg="#ffffff"
-            data-bg="#3b5269"
-            data-link="#dddddd"
-            data-moreinfo="http://www.cnil.fr/vos-obligations/sites-web-cookies-et-autres-traceurs/que-dit-la-loi/"
-            data-message="Les cookies assurent le bon fonctionnement de notre site Internet.
-                              En utilisant ce dernier, vous acceptez leur utilisation."
-            data-linkmsg="En savoir plus"
-            data-effect="fade"
-            data-expires="{{ "now"|date_modify('+30days')|date('r') }}"
-            data-zindex="1000"
-            data-height="64px"
-            data-font-size="22px">
-    </script>
+        {% block stylesheets %}
+            <!-- Bootstrap core CSS -->
+            <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+            <!-- Custom styles for this template -->
+            <link href="{{ asset('css/modern-business.css') }}" rel="stylesheet">
+        {% endblock %}
 
-    {% block stylesheets %}
-        <link rel="stylesheet" type="text/css" href="{{ asset("css/c118.css") }}">
-        <link rel="stylesheet" type="text/css" href="{{ asset("css/menu_top.css") }}">
-        <link rel="stylesheet" type="text/css" href="{{ asset("css/c118_frame.css") }}">
-        <link rel="stylesheet" type="text/css" href="{{ asset("css/fonts/raleway.css") }}">
-    {% endblock %}
+        {% block javascripts_head %}
+            <script>
+                window.dataLayer = window.dataLayer || [];
 
-    {% block javascripts_head %}
-        <script type="text/javascript" src="{{ asset("js/jquery-3.1.1.min.js") }}"></script>
-        <script type="text/javascript" src="{{ asset("js/menu_top.js") }}"></script>
-        <script type="text/javascript" src="{{ asset("js/bootstrap.min.js") }}"></script>
-    {% endblock %}
+                function gtag() {
+                    dataLayer.push(arguments)
+                }
+                gtag('js', new Date());
+                gtag('config', 'UA-50183564-2');
+            </script>
+            <script type="text/javascript" id="cookiebanner"
+                src="{{ asset("js/cookiebanner.min.js") }}"
+                data-position="top"
+                data-fg="#ffffff"
+                data-bg="#3b5269"
+                data-link="#dddddd"
+                data-moreinfo="http://www.cnil.fr/vos-obligations/sites-web-cookies-et-autres-traceurs/que-dit-la-loi/"
+                data-message="Les cookies assurent le bon fonctionnement de notre site Internet.
+                                  En utilisant ce dernier, vous acceptez leur utilisation."
+                data-linkmsg="En savoir plus"
+                data-effect="fade"
+                data-expires="{{ "now"|date_modify('+30days')|date('r') }}"
+                data-zindex="1000"
+                data-height="64px"
+                data-font-size="22px">
+            </script>
+        {% endblock %}
 
-    <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}Welcome!{% endblock %}</title>
 
     </head>
     <body>
         {% block body %}
-        {% import 'macros/menuItem.html.twig' as Menu %}
-        <div class="site-container">
-            <div class="iconic">
-                <button class="hamburger hamburger--arrow" type="button" href="#" id="menu-icon">
-                    <span class="hamburger-box">
-                        <span class="hamburger-inner"></span>
-                    </span>
-                </button>
-                <script>
-                    var $hamburger = $("#menu-icon");
-                    $hamburger.on("click", function (e) {
-                        $hamburger.toggleClass("is-active");
-                    });
-                </script>
-            </div>
 
-            <div class="site-pusher">
-                <div id="page" class="round">
-                    <div id="bandeau">
-                        <picture>
-                            <source media="(min-width: 450px)" srcset="{{ asset("im/bandeau.jpg") }}">
-                            <source media="(max-width: 450px)" srcset="{{ asset("im/bandeau360.jpg") }}">
-                            <img src="{{ asset("im/bandeau_def.jpg") }}">
-                        </picture>
+            {% import 'macros/menuItem.html.twig' as Menu %}
+
+            {% block navigation %}
+                <!-- Navigation -->
+                <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-success fixed-top wmax">
+                    <div class="container">
+                        <a class="navbar-brand" href="{{ url('root') }}">Page d'accueil</a>
+                        <button class="navbar-toggler navbar-toggler-right"
+                                type="button" data-toggle="collapse"
+                                data-target="#navbarResponsive"
+                                aria-controls="navbarResponsive"
+                                aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+
+                        <div class="collapse navbar-collapse" id="navbarResponsive">
+                            <ul class="navbar-nav ml-auto">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ url('root') }}">Accueil</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ url('index_contact') }}">Contact</a>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Portfolio
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
+                                        <a class="dropdown-item" href="{{ url('index_intranet') }}">Accès à l'intranet</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
+                </nav>
+            {% endblock %}
 
-                    <div id="siteWrapper">
-                        <header>
-                            <nav>
-                                <div id="headerTop"></div>
-                                <ul id="menu">
-                                    {{ Menu.item('root', 'Accueil') }}
-                                    <li><a href="#">C118 Pratique</a>
-                                        <ul>
-                                            {{ Menu.item('index_intranet', 'Accès Intranet') }}
-                                        </ul>
-                                    </li>
-                                    {{ Menu.item('index_contact', 'Contact') }}
-                                </ul>
-                            </nav>
-                        </header>
-                        <div id="content" class="round pad-menu">
+            {% block header %}
 
-                        {% block main_page %}{% endblock %}
+                <header>
+                    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                        <ol class="carousel-indicators">
 
-                        </div> <!-- div id="content" class="round" name="ifr" -->
-                        <div style="clear: both"></div>
+                            {% set index = 0 %}
+                            {% for blog in carousel.blogs %}
+                                <li data-target="#carouselExampleIndicators" data-slide-to="{{ index }}"
+                                {% if index == 0 %}
+                                    class="active"
+                                    {% set index = index +1 %}
+                                {% endif %}></li>
+                            {% endfor %}
+                        </ol>
+                        <div class="carousel-inner">
+                            {% set active = ' active' %}
+                            {% for blog in carousel.blogs %}
+                                <div class="carousel-item{{ active }}">
+                                    {% set active = '' %}
+                                    <img class="d-block wmax" src="{{ asset('imblog/' ~ blog.image) }}" alt="carousel">
+                                    <div class="carousel-caption d-none d-md-block">
+                                        <h5>{{ blog.title | raw }}</h5>
+                                        <p>{{ blog.content | raw }}</p>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
                     </div>
-                </div>
-                <div id="footer">
+                </header>
+{#
+                <header>
+                    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                        <ol class="carousel-indicators">
+                            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                        </ol>
+                        <div class="carousel-inner" role="listbox">
+                            <!-- Slide One - Set the background image for this slide in the line below -->
+                            <div class="carousel-item active" style="background-image: url('{{ asset('im/1.jpg') }}')">
+                                <div class="carousel-caption d-none d-md-block">
+                                    <h3>First Slide</h3>
+                                    <p>This is a description for the first slide.</p>
+                                </div>
+                            </div>
+                            <!-- Slide Two - Set the background image for this slide in the line below -->
+                            <div class="carousel-item" style="background-image: url('{{ asset('im/2.jpg') }}')">
+                                <div class="carousel-caption d-none d-md-block">
+                                    <h3>Second Slide</h3>
+                                    <p>This is a description for the second slide.</p>
+                                </div>
+                            </div>
+                            <!-- Slide Three - Set the background image for this slide in the line below -->
+                            <div class="carousel-item" style="background-image: url('{{ asset('im/3.jpg') }}')">
+                                <div class="carousel-caption d-none d-md-block">
+                                    <h3>Third Slide</h3>
+                                    <p>This is a description for the third slide.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                </header>
+#}
+            {% endblock %}
 
-                    {% set tag = readfile(asset('.revision')) %}
+            {% block main_page %}
+                <!-- Page Content -->
+            {% endblock %}
 
-                    <p>Copyright &copy; 2007-2017 GUC Plongée - {{ tag }}</p>
+            {% block footer %}
+                <!-- Footer -->
+                <footer class="py-5 bg-success">
+                    <div class="container">
+                        {% set tag = readfile(asset('.revision')) %}
+                        <p class="m-0 text-center text-white">Copyright &copy; 2007-2017 GUC Plongée - {{ tag }}</p>
+                    </div>
+                    <!-- /.container -->
+                </footer>
+            {% endblock %}
 
-                </div>
-                <div class="site-cache" id="site-cache"></div>
-            </div>
-        </div>
-    {% endblock %}
-    {% block body_end %}{% endblock %}
+        {% endblock %}
+
+        <!-- Bootstrap core JavaScript -->
+        {% block javascripts_end %}
+            <script src="{{ asset('js/jquery.min.js') }}"></script>
+            <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+        {% endblock %}
+        {% block body_end %}{% endblock %}
     </body>
-    {% block javascripts_end %}{% endblock %}
-    {% block footer_end %}{% endblock %}
+
 </html>

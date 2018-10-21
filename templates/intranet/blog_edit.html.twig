@@ -23,6 +23,7 @@
                 {{ form_row(formBlogEdit.title) }}
                 {{ form_row(formBlogEdit.content) }}
                 {{ form_row(formBlogEdit.link) }}
+                {{ form_row(formBlogEdit.type) }}
 
             </div>
 
@@ -41,22 +42,22 @@
                         <h3>portrait</h3>
                         <img class="imgleft hlim" src="{{ asset(imblog ~ '/' ~ image) }}" />
                     {% endif %}
-                {% else %}
-                    <img class="imgleft hlim" src="{{ asset('im/default.jpg') }}" />
+
                 {% endif %}
             </div>
 
             <div class="col-xs-4">
                 {{ form_row(formBlogEdit.file) }}
-                {{ form_row(formBlogEdit.positionImage) }}
 
-                {{ control.bouton(
-                    'Supprimer l\'image',
-                    url('blog_admin_delete_image', {'blogId': id}),
-                    '',
-                    'btn btn-default btn-danger btn-block',
-                    'triangle-cross')
-                }}
+                {% if image %}
+                    {{ control.bouton(
+                        'Supprimer l\'image',
+                        url('blog_admin_delete_image', {'blogId': id}),
+                        '',
+                        'btn btn-default btn-danger btn-block',
+                        'triangle-cross')
+                    }}
+                {% endif %}
 
                 {{ form_row(formBlogEdit.Enregister) }}
 

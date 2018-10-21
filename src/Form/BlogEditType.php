@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Classes\Blog\BlogHelpers;
 use App\Entity\Blog;
+use App\Entity\BlogTypeChoice;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -29,26 +30,15 @@ class BlogEditType extends AbstractType
                     'uiColor' => '#ffffff'
                 ]
             ])
-/*            ->add('content', null, [
-                'label' => 'Contenu de l\'article',
-                'attr' => [
-                    'placeholder' => 'Entrez le texte à afficher'
-                ]
-            ])*/
             ->add('link', null, [
                 'label' => 'Lien vers un site',
                 'attr' => [
                     'placeholder' => 'Lien ou aller quand on clicque sur l\'image'
                 ]
             ])
-            ->add('positionImage',ChoiceType::class,[
-                'label' => 'Position de l\'image',
-                'choices' => [
-                    'Dessus'  => 'dessus' ,
-                    'Dessous' => 'dessous',
-                    'Gauche'  => 'gauche' ,
-                    'Droite'  => 'droite'
-                ]
+            ->add('type',ChoiceType::class,[
+                'label' => 'Type de texte',
+                'choices' => [ BlogTypeChoice::CHOICES ]
             ])
             ->add('file', FileType::class, ['empty_data' => '', 'required' => false])
             ->add('Enregister', SubmitType::class, [
