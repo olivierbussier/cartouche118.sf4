@@ -48,8 +48,6 @@ class BlogController extends AbstractController
             }
         }
 
-        $em = $this->getDoctrine()->getManager();
-
         // Afficher les blogs
 
         $blogs     = $blogsRepo->getAllPosts($type);
@@ -64,32 +62,29 @@ class BlogController extends AbstractController
     /**
      * @Route("/intranet/admin_blog/delete/{blogId}", name="blog_admin_delete")
      * @param RegistryInterface $doctrine
-     * @param Request $request
      * @param string $blogId
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function delete(RegistryInterface $doctrine, Request $request, $blogId = '')
+    public function delete(RegistryInterface $doctrine, $blogId = '')
     {
         /**
          * @var $blogsRepo BlogRepository
          */
         $blogsRepo = $doctrine->getRepository(Blog::class);
 
-        $em = $this->getDoctrine()->getManager();
+        $blog = $blogsRepo->find($blogId);
+        if ($blog) {
 
-        if (!$blogsRepo->deleteById($blogId)) {
-            throw $this->createNotFoundException(
-                "Blog non trouvé : ID = " . $blogId
-            );
+            if (!$blogsRepo->deleteById($blogId)) {
+                throw $this->createNotFoundException(
+                    "Blog non trouvé : ID = " . $blogId
+                );
+            }
+
+            return $this->redirectToRoute('blog_admin_index', ['type' => $blog->getType()]);
+        } else {
+            return $this->redirectToRoute('blog_admin_index');
         }
-
-        // Afficher les blogs
-
-        $blogs     = $blogsRepo->getAllPosts();
-
-        return $this->render('intranet/blog_index.html.twig',[
-            'blogs' => $blogs,
-        ]);
     }
 
     /**
@@ -127,13 +122,7 @@ class BlogController extends AbstractController
         $em->persist($blogSrc);
         $em->flush();
 
-        // Afficher les blogs
-
-        $blogs     = $blogsRepo->getAllPosts();
-
-        return $this->render('intranet/blog_index.html.twig',[
-            'blogs' => $blogs,
-        ]);
+        return $this->redirectToRoute('blog_admin_index', ['type' => $blogSrc->getType()]);
     }
 
     /**
@@ -170,13 +159,7 @@ class BlogController extends AbstractController
         $em->persist($blogSrc);
         $em->flush();
 
-        // Afficher les blogs
-
-        $blogs     = $blogsRepo->getAllPosts();
-
-        return $this->render('intranet/blog_index.html.twig',[
-            'blogs' => $blogs,
-        ]);
+        return $this->redirectToRoute('blog_admin_index', ['type' => $blogSrc->getType()]);
     }
 
     /**

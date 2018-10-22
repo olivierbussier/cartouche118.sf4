@@ -2,10 +2,8 @@
 
 namespace App\Controller\Intranet;
 
-use App\Classes\Sheets\Sheets;
-use App\Entity\Adherent;
+
 use App\Entity\User;
-use App\Repository\AdherentRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;

@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accès non autorisé{% endblock %}
+
+{% block main_page %}
+
+    {% import 'macros/bouton.html.twig' as control %}
+
+    <div class="container">
+
+        <div class="col">
+            <h3>{{ msg }}</h3>
+
+            {{ dump(request) }}
+
+        </div>
+
+    </div>
+
+{% endblock %}
