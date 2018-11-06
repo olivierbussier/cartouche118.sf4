@@ -18,13 +18,14 @@ class BlogTypeChoiceType extends AbstractType
         $builder
             ->add('type',ChoiceType::class,[
                 'label' => 'Type de texte',
-                'choices' => [ BlogTypeChoice::CHOICES ]
+                'choices' => BlogTypeChoice::CHOICES,
+                'attr' => [ 'onchange' => 'submit()' ]
             ])
-            ->add('Envoyer', SubmitType::class, [
+            /*->add('Envoyer', SubmitType::class, [
                 'attr' => [
                     'class' => 'btn btn-default btn-block'
                 ]
-            ])
+            ])*/
         ;
     }
 

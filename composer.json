@@ -6,6 +6,7 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "friendsofsymfony/ckeditor-bundle": "^1.2",
+        "jeroendesloovere/vcard": "^1.7",
         "sensio/framework-extra-bundle": "^5.1",
         "symfony/asset": "*",
         "symfony/console": "*",
@@ -25,6 +26,7 @@
         "symfony/yaml": "*"
     },
     "require-dev": {
+        "fzaninotto/faker": "^1.8",
         "symfony/debug-pack": "*",
         "symfony/dotenv": "*",
         "symfony/maker-bundle": "^1.0",

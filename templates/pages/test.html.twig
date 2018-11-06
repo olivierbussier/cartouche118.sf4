@@ -1,0 +1,101 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Page de test{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('test/jquery-ui.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block main_page %}
+
+    {% import 'macros/bouton.html.twig' as control %}
+
+    <div class="container">
+
+        <div class="col">
+
+            {% for facture in data %}
+                <div class="row">
+                    <div class="col">{{ facture.reference }}</div>
+                    <div class="col">{{ facture.client.nom }}</div>
+                    <div class="col">{{ facture.client.adresse }}</div>
+                </div>
+                {% set totalht = 0 %}
+                <table class="table table-bordered table-hover tab-content">
+                    <tr>
+                        <th>Produit</th><th>Fournisseur</th><th>Catégorie</th>
+                        <th>Quantité</th><th>Montant HT</th><th>TVA</th>
+                        <th>Remise</th>
+                        <th>Taxes</th><th>Prix TTC</th>
+                    </tr>
+
+                {% set totalHT    = 0 %}
+                {% set totalTaxes = 0 %}
+
+                {% for ligneFacture in facture.ligneFactures %}
+                    <tr>
+                        {% set prixht  = ligneFacture.produit.prixHT %}
+                        {% set totalHT = totalHT + prixht %}
+                        {% set tva    = ligneFacture.Produit.CategorieProduit.tva %}
+                        {#<div class="col">{{ ligneFacture.createdAt | toString}}</div> #}
+                        <td>{{ ligneFacture.produit.nom }}</td>
+                        <td>{{ ligneFacture.produit.categorieProduit.fournisseur.nom }}</td>
+                        <td>{{ ligneFacture.produit.categorieProduit.nom }}</td>
+                        <td>{{ ligneFacture.quantite }}</td>
+                        <td>{{ prixht }}€</td>
+                        <td>{{ tva }}%</td>
+                        <td>{{ ligneFacture.remise }}%</td>
+                        <td>{{ prixht * (tva/100) }}€</td>
+                        <td>{{ prixht + (prixht * (tva/100)) }}€</td>
+                    </tr>
+
+                    {% for taxe in ligneFacture.produit.categorieProduit.taxes %}
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            {% set prixHT  = taxe.montant %}
+                            {% set totalTaxes = totalTaxes + prixHT %}
+                            <td>{{ taxe.nom }}</td>
+                            <td>&nbsp;</td>
+                            <td>{{ prixHT }}€</td>
+                            <td>{{ tva }}%</td>
+                            <td>&nbsp;</td>
+                            <td>{{ taxe.montant * (tva/100) }}€</td>
+                            <td>{{ taxe.montant + (taxe.montant * (tva/100)) }}€</td>
+                        </tr>
+                    {% endfor %}
+                {% endfor %}
+                    <tr><td colspan="6">Total HT</td><td>{{ totalHT }}</td></tr>
+                    <tr><td colspan="6">Total Taxes</td><td>{{ totalTaxes }}</td></tr>
+                    <tr><td colspan="6">Total HT + Taxes</td><td>{{ totalTaxes + totalHT }}</td></tr>
+                </table>
+                <div class="row"><div class="col">--</div></div>
+            {% endfor %}
+
+            <table class="table">
+                <tbody id="sortable">
+                    <tr><td>1</td><td>nom</td></tr>
+                    <tr><td>2</td><td>nom</td></tr>
+                    <tr><td>3</td><td>nom</td></tr>
+                    <tr><td>4</td><td>nom</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block javascripts_end %}
+    {{ parent() }}
+    <script src="{{ asset('test/jquery-ui.js') }}"></script>
+    <script>
+        $( function() {
+            var item = $( "#sortable" );
+                item.sortable();
+                item.disableSelection();
+        } );
+    </script>
+{% endblock %}
+

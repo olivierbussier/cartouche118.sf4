@@ -1,0 +1,141 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Administration clients{% endblock %}
+
+{% block main_page %}
+
+    {% import 'macros/bouton.html.twig' as control %}
+    {% import "macros/textAjax.html.twig" as ajax %}
+
+    <style>
+        .client_container {
+            width: 100%;
+            border: 1px grey solid;
+            margin-bottom: 10px;
+        }
+        .client_props {
+            width: 100%;
+            border: 1px grey solid;
+        }
+        .client_typeitem {
+            width: 100%;
+            border: 1px grey solid;
+        }
+        .client_item_titre {
+            width: 100%;
+            border: 1px grey solid;
+            color:red;
+        }
+        .client_item {
+            width: 100%;
+            border: 1px grey solid;
+        }
+        .client_item_content {
+            padding: 0;
+            margin: 1px;
+        }
+    </style>
+
+    <div class="container">
+
+        <nav aria-label="NavClients">
+            <ul class="pagination pagination-sm">
+                <li class="page-item"><a class="page-link" href="{{ url('view_clients', {startPage: max(0,currentPage - 1)}) }}">Previous</a></li>
+                {% for i in 1..nbPages %}
+                    {% if i == currentPage + 1 %}
+                        {% set active = ' active' %}
+                    {% else %}
+                        {% set active = '' %}
+                    {% endif %}
+                    <li class="page-item{{ active }}"><a class="page-link" href="{{ url('view_clients', {startPage: i - 1}) }}">{{ i }}</a></li>
+                {% endfor %}
+                <li class="page-item"><a class="page-link" href="{{ url('view_clients', {startPage: min(nbPages - 1,currentPage + 1)}) }}">Next</a></li>
+            </ul>
+        </nav>
+
+        <div class="row">
+            {{ dump(url('ajax_search_clients')) }}
+            {{ ajax.text('Recherche', path('ajax_search_clients')) }}
+        </div>
+
+        {% for client in clients %}
+
+            <div class="client_container">
+
+                <div class="client_props">
+                    {{ '(' ~ client.fullname ~ ')' ~ client.nom ~ ', ' ~ client.prenom }} ({{ client.additional }})
+                </div>
+{#
+                <div class="client_item">
+                    <div class="row">
+                        {% for addresse in client.adresses %}
+                            <div class="col-sm">
+                                <div class="client_item_titre">
+                                    {{ addresse.nom }}
+                                </div>
+                                <div class="client_item">
+                                    <pre class="client_item_content">adr1 : {{ addresse.adresse1 }}</pre>
+                                    <pre class="client_item_content">adr2 : {{ addresse.adresse2 }}</pre>
+                                    <pre class="client_item_content">codep : {{ addresse.codepostal }}</pre>
+                                    <pre class="client_item_content">ville : {{ addresse.ville }}</pre>
+                                    <pre class="client_item_content">pays : {{ addresse.pays }}</pre>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="client_item">
+                    <div class="row">
+                        {% for telephone in client.telephones %}
+                            <div class="col-sm">
+                                <div class="client_item_titre">
+                                    {{ telephone.nom }}
+                                </div>
+                                <div class="client_item">
+                                    {{ telephone.telephone }}<br />
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="client_item">
+                    <div class="row">
+                        {% for mail in client.emails %}
+                            <div class="col-sm">
+                                <div class="client_item_titre">
+                                    mail : {{ mail.nom }}
+                                </div>
+                                <div class="client_item">
+                                    {{ mail.email }}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="client_item">
+                    <div class="row">
+                        {% for note in client.notes %}
+                            <div class="col-sm">
+                                <div class="client_item_titre">
+                                    Note:
+                                </div>
+                                <div class="client_item">
+                                    <pre>{{ note.text }}</pre>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+#}
+            </div>
+
+        {% endfor %}
+
+    </div>
+
+{% endblock %}
+
+

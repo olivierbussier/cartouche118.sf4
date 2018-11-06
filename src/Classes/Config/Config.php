@@ -25,4 +25,6 @@ class Config
         self::LOG_DB => self::PATH_LOGS . 'log_db.log',
         self::LOG_ML => self::PATH_LOGS . 'log_ml.log'
     ];
+
+    public const NB_ITEM_PAR_PAGE = 250;
 }

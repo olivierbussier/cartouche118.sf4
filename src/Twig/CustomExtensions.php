@@ -9,6 +9,8 @@ use Twig_Function;
 
 class CustomExtensions extends AbstractExtension
 {
+    static private $idCount = 1;
+
     public function getFunctions()
     {
         return array(
@@ -16,7 +18,13 @@ class CustomExtensions extends AbstractExtension
             new Twig_Function('fileExists'         , array($this, 'fileExists')),
             new Twig_Function('rationalizeFilename', array($this, 'rationalizeFilename')),
             new Twig_Function('testDroit'          , array($this, 'testDroit')),
+            new Twig_Function('genID'              , array($this, 'genID')),
         );
+    }
+
+    public function genID($text)
+    {
+        return $text . self::$idCount++;
     }
 
     public function readFile(string $filename)

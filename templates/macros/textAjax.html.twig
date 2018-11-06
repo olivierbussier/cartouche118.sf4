@@ -1,0 +1,37 @@
+{% macro text(label, ajaxUrl, defval, class_sup, glyph) %}
+    <script>
+        {% set idCount = genID('') %}
+        function x_{{ idCount }}(id, ui) {
+            var tmp = ui['item']['value'];
+            $(id).autocomplete('search', tmp)
+        }
+
+        $(function () {
+            $("#id_{{ idCount }}").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        type: "POST",
+                        url:"{{ ajaxUrl }}",
+                        data: {term:request.term,my_variable2:"variable2_data"},
+                        success: response,
+                        dataType: 'json',
+                        delay: 0
+                    });
+                },
+                minLength: 2,
+                select: function (event, ui) {
+                    x_{{ idCount }}("#id_{{ idCount }}", ui)
+                }
+            })
+        })
+    </script>
+    <div class="ui-widget">
+        {% if label != '' %}
+            <label for="id_{{ idCount }}">{{ label }}</label>
+        {% endif %}
+        <input id="id_{{ idCount }}" value="{{ defval }}">
+    </div>
+
+    {% set idCount = idCount + 1 %}
+
+{% endmacro %}
