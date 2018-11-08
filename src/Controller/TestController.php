@@ -126,6 +126,8 @@ class TestController extends AbstractController {
             $cl = new Client();
             $cl->setPrenom($fak->firstName);
             $cl->setNom($fak->name);
+            $cl->setFullName($fak->firstName . ' ' . $fak->lastName);
+            $cl->setAdditional($fak->title);
             $nadr = rand(1,3);
             for ($i=0;$i<$nadr;$i++) {
                 $adr = new Adresse();
@@ -133,6 +135,7 @@ class TestController extends AbstractController {
                 $adr->setAdresse1($fak->streetAddress);
                 $adr->setCodePostal($fak->postcode);
                 $adr->setVille($fak->city);
+                $adr->setPays($fak->country);
                 $em->persist($adr);
                 $cl->addAdress($adr);
             }

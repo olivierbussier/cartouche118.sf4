@@ -22,7 +22,7 @@ class Roles
     private $role;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="roles")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="roles", cascade={"persist"})
      */
     private $adherent;
 

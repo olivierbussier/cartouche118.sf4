@@ -43,11 +43,19 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255)
      */
     private $password;
+    private $confirmPassword;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Roles", mappedBy="adherent")
+     * @ORM\OneToMany(targetEntity="App\Entity\Roles", mappedBy="adherent", cascade={"persist"})
      */
     private $roles;
+
+    public function __toString()
+    {
+        return "-------";
+
+        // TODO: Implement __toString() method.
+    }
 
     public function __construct()
     {
@@ -169,5 +177,21 @@ class User implements UserInterface
     public function getSalt()
     {
         // TODO: Implement getSalt() method.
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getConfirmPassword()
+    {
+        return $this->confirmPassword;
+    }
+
+    /**
+     * @param mixed $confirmPassword
+     */
+    public function setConfirmPassword($confirmPassword): void
+    {
+        $this->confirmPassword = $confirmPassword;
     }
 }

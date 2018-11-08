@@ -2,18 +2,29 @@
 
 namespace App\Controller\Intranet;
 
+use App\Entity\Facture;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
 class FactureController extends AbstractController
 {
     /**
-     * @Route("/intranet/facture/view", name="view_factures")
+     * @Route("/intranet/facture/view/{ref}", name="view_factures")
      */
-    public function index()
+    public function index($ref=0)
     {
-        return $this->render('facture/index.html.twig', [
-            'controller_name' => 'FactureController',
+        if ($ref == 0) {
+            $this->redirect('view_clients');
+        }
+        $doctrine = $this->getDoctrine();
+        $em = $doctrine->getManager();
+
+        $fac = $em->getRepository(Facture::class);
+
+        $facture = $fac->find(['id' => $ref]);
+
+        return $this->render('intranet/facture/index.html.twig', [
+            'facture' => $facture
         ]);
     }
 }

@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Administration clients{% endblock %}
+
+{% block main_page %}
+
+    {% import 'macros/bouton.html.twig' as control %}
+    {% import "macros/textAjax.html.twig" as ajax %}
+
+    <div class="container">
+
+        {{ dump(facture) }}
+
+    </div>
+
+{% endblock %}
+
+

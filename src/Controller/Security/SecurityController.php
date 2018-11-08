@@ -5,6 +5,8 @@ namespace App\Controller\Security;
 use App\Classes\Form\FormConst;
 use App\Entity\Adherent;
 use App\Entity\Role;
+use App\Entity\Roles;
+use App\Entity\User;
 use App\Form\RegistrationType;
 use DateTime;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -26,9 +28,7 @@ class SecurityController extends Controller
      */
     public function Registration(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder)
     {
-        $user = new Adherent();
-
-        $user->setInscrType(FormConst::REGISTER);
+        $user = new User();
 
         $form = $this->createForm(RegistrationType::class, $user);
 
@@ -39,17 +39,15 @@ class SecurityController extends Controller
             $hash = $encoder->encodePassword($user, $user->getPassword());
             $user->setPassword($hash);
 
-            // Doits par défaut
+            $role = new Roles();
+            $role->setRole('ROLE_USER');
+            $user->addRole($role);
+            $manager->persist($role);
+            $role = new Roles();
+            $role->setRole('ROLE_PUB');
+            $user->addRole($role);
+            $manager->persist($role);
 
-            //$user->setRoles('ROLE_USER');
-
-            $user->setCodeSecret('');
-            $user->setDateNaissance(new DateTime('now'));
-            $user->setNiveauSca('');
-            $user->setNiveauApn('');
-            $user->addRole((new Role())->setRole('ROLE_USER'));
-
-            $manager->persist($user);
             $manager->flush();
 
             return $this->redirectToRoute('connexion');

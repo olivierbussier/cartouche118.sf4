@@ -65,6 +65,13 @@
                 <div class="client_props">
                     {{ '(' ~ client.fullname ~ ')' ~ client.nom ~ ', ' ~ client.prenom }} ({{ client.additional }})
                 </div>
+                <div class="client_fact">
+                    {% for facture in client.factures %}
+                        <div class="col">
+                            <a href="{{ path('view_factures',{ref: facture.id}) }}">{{ facture.reference }}</a>
+                        </div>
+                    {% endfor %}
+                </div>
 {#
                 <div class="client_item">
                     <div class="row">
