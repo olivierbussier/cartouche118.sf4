@@ -1,10 +1,6 @@
 {% macro text(label, ajaxUrl, defval, class_sup, glyph) %}
     <script>
         {% set idCount = genID('') %}
-        function x_{{ idCount }}(id, ui) {
-            var tmp = ui['item']['value'];
-            $(id).autocomplete('search', tmp)
-        }
 
         $(function () {
             $("#id_{{ idCount }}").autocomplete({
@@ -20,7 +16,7 @@
                 },
                 minLength: 2,
                 select: function (event, ui) {
-                    x_{{ idCount }}("#id_{{ idCount }}", ui)
+                    $("#id_{{ idCount }}").autocomplete('search', ui['item']['value'])
                 }
             })
         })
