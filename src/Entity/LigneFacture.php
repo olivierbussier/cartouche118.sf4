@@ -29,7 +29,7 @@ class LigneFacture
     private $quantite;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string")
      */
     private $remiseType;
 
@@ -135,5 +135,4 @@ class LigneFacture
 
         return $this;
     }
-
 }

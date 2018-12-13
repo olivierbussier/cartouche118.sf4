@@ -42,7 +42,7 @@ class BlogEditType extends AbstractType
                     'placeholder' => 'Lien ou aller quand on clicque sur l\'image'
                 ]
             ])
-            ->add('type',ChoiceType::class,[
+            ->add('type', ChoiceType::class, [
                 'label' => 'Type de texte',
                 'choices' => [ BlogTypeChoice::CHOICES ]
             ])

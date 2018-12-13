@@ -104,4 +104,3 @@ class Taxe
         return $this;
     }
 }
-

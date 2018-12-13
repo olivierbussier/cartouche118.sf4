@@ -2,7 +2,8 @@
 
 namespace App\Entity;
 
-class BlogTypeChoice {
+class BlogTypeChoice
+{
 
     public const CAROUSEL  = 'carousel';
     public const MARKETING = 'marketing';

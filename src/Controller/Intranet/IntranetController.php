@@ -2,7 +2,6 @@
 
 namespace App\Controller\Intranet;
 
-
 use App\Entity\User;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Component\Routing\Annotation\Route;

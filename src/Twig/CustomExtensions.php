@@ -14,11 +14,11 @@ class CustomExtensions extends AbstractExtension
     public function getFunctions()
     {
         return array(
-            new Twig_Function('readfile'           , array($this, 'readFile')),
-            new Twig_Function('fileExists'         , array($this, 'fileExists')),
+            new Twig_Function('readfile', array($this, 'readFile')),
+            new Twig_Function('fileExists', array($this, 'fileExists')),
             new Twig_Function('rationalizeFilename', array($this, 'rationalizeFilename')),
-            new Twig_Function('testDroit'          , array($this, 'testDroit')),
-            new Twig_Function('genID'              , array($this, 'genID')),
+            new Twig_Function('testDroit', array($this, 'testDroit')),
+            new Twig_Function('genID', array($this, 'genID')),
         );
     }
 
@@ -41,7 +41,7 @@ class CustomExtensions extends AbstractExtension
     {
         // Convert spaces, caracteres accentués  to '_'
 
-        $retfile = str_replace(' ','_',$file);
+        $retfile = str_replace(' ', '_', $file);
         //$retfile = str_replace('-','_',$retfile);
 
         return $retfile;

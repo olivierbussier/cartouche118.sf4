@@ -35,7 +35,6 @@ class SecurityController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $hash = $encoder->encodePassword($user, $user->getPassword());
             $user->setPassword($hash);
 
@@ -70,11 +69,10 @@ class SecurityController extends Controller
         $error = $authenticationUtils->getLastAuthenticationError();
         $lastuser = $authenticationUtils->getLastUsername();
 
-        return $this->render('intranet/login.html.twig',[
+        return $this->render('intranet/login.html.twig', [
             'error'     => $error,
             'lastUser'  => $lastuser
-        ]
-);
+        ]);
     }
 
     /**

@@ -2,7 +2,8 @@
 
 namespace App\Classes\Blog;
 
-class BlogHelpers {
+class BlogHelpers
+{
 
     public const AUCUNE  = 0;
     public const DESSUS  = 1;
@@ -77,17 +78,17 @@ class BlogHelpers {
 
         if (($NewIm == false) ||
             (imagecopyresampled(
-                    $NewIm,
-                    $imarray,
-                    0,
-                    0,         // X,Y cible
-                    0,
-                    0,         // X,Y source
-                    $NewW,
-                    $NewH, // W,H cible
-                    $OriW,
-                    $OriH  // W,H source
-                ) == false)) {
+                $NewIm,
+                $imarray,
+                0,
+                0,         // X,Y cible
+                0,
+                0,         // X,Y source
+                $NewW,
+                $NewH, // W,H cible
+                $OriW,
+                $OriH  // W,H source
+            ) == false)) {
             return false;
         }
 

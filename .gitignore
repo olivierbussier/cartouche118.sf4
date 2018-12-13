@@ -19,3 +19,8 @@
 node*/
 sass-tools/.sass-cache/
 public/imblog/
+
+###> squizlabs/php_codesniffer ###
+/.phpcs-cache
+/phpcs.xml
+###< squizlabs/php_codesniffer ###

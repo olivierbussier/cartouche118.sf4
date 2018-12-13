@@ -19,7 +19,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class TestController extends AbstractController {
+class TestController extends AbstractController
+{
 
     const tva = ['TVAHT',                     'percentHT', '20.00', ];
 
@@ -88,13 +89,15 @@ class TestController extends AbstractController {
     private function getRand(array $arr)
     {
         $cnt = count($arr);
-        $rnd = rand(0,$cnt-1);
+        $rnd = rand(0, $cnt-1);
         return $arr[$rnd];
     }
 
     /**
      * @Route("/cretab/{nbFact}", name="test1")
+     * @param int $nbFact
      * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \Exception
      */
     public function createTables($nbFact = 10)
     {
@@ -110,9 +113,9 @@ class TestController extends AbstractController {
         $this->delData(Email::class);
         $this->delData(Adresse::class);
         $this->delData(Client::class);
+        $this->delData(Taxe::class);
         $this->delData(CategorieProduit::class);
         $this->delData(Fournisseur::class);
-        $this->delData(Taxe::class);
 
         // Création des clients et des notes
 
@@ -122,16 +125,18 @@ class TestController extends AbstractController {
 
         $adrType = ['Maison', 'pro', 'Home'];
 
-        for($x=0;$x<100;$x++) {
+        for ($x=0; $x<100; $x++) {
             $cl = new Client();
-            $cl->setPrenom($fak->firstName);
-            $cl->setNom($fak->name);
-            $cl->setFullName($fak->firstName . ' ' . $fak->lastName);
+            $prenom = $fak->firstName;
+            $nom    = $fak->lastName;
+            $cl->setPrenom($prenom);
+            $cl->setNom($nom);
+            $cl->setFullName($prenom . ' ' . $nom);
             $cl->setAdditional($fak->title);
-            $nadr = rand(1,3);
-            for ($i=0;$i<$nadr;$i++) {
+            $nadr = rand(1, 3);
+            for ($i=0; $i<$nadr; $i++) {
                 $adr = new Adresse();
-                $adr->setNom($adrType[rand(0,2)]);
+                $adr->setNom($adrType[rand(0, 2)]);
                 $adr->setAdresse1($fak->streetAddress);
                 $adr->setCodePostal($fak->postcode);
                 $adr->setVille($fak->city);
@@ -139,24 +144,24 @@ class TestController extends AbstractController {
                 $em->persist($adr);
                 $cl->addAdress($adr);
             }
-            $ntel = rand(1,3);
-            for ($i=0;$i<$ntel;$i++) {
+            $ntel = rand(1, 3);
+            for ($i=0; $i<$ntel; $i++) {
                 $tl = new Telephone();
-                $tl->setNom($adrType[rand(0,2)]);
+                $tl->setNom($adrType[rand(0, 2)]);
                 $tl->setTelephone($fak->phoneNumber);
                 $em->persist($tl);
                 $cl->addTelephone($tl);
             }
-            $nmel = rand(1,3);
-            for ($i=0;$i<$nmel;$i++) {
+            $nmel = rand(1, 3);
+            for ($i=0; $i<$nmel; $i++) {
                 $ml = new Email();
-                $ml->setNom($adrType[rand(0,2)]);
+                $ml->setNom($adrType[rand(0, 2)]);
                 $ml->setEmail($fak->companyEmail);
                 $em->persist($ml);
                 $cl->addEmail($ml);
             }
-            $nNotes = rand(0,4);
-            for ($j=0;$j<$nNotes;$j++) {
+            $nNotes = rand(0, 4);
+            for ($j=0; $j<$nNotes; $j++) {
                 $nt = new Note();
                 $nt->setClient($cl);
                 $nt->setCreatedAt(new \DateTime());
@@ -166,8 +171,6 @@ class TestController extends AbstractController {
             $em->persist($cl);
             $clients[] = $cl;
         }
-        // Creation des taxes
-
         // Création des fournisseurs
 
         $fou = [];
@@ -196,13 +199,18 @@ class TestController extends AbstractController {
             }
         }
 
+        // Creation des taxes
+
         $tax = [];
         foreach (self::taxe as $c) {
             $t = new Taxe();
             $t->setNom($c[0]);
             $t->setType($c[1]);
             $t->setMontant($c[2]);
-            $t->setCategorieProduit($cat[$c[3]]);
+            /** @var CategorieProduit $cpr */
+            $cpr = $cat[$c[3]];
+            $t->setCategorieProduit($cpr);
+            $cpr->addTax($t);
             $em->persist($t);
             $tax[] = $t;
         }
@@ -230,23 +238,39 @@ class TestController extends AbstractController {
 
         $factures = [];
 
-        for($i=0;$i<$nbFact;$i++) {
+        for ($i=0; $i<$nbFact; $i++) {
             $fac = new Facture();
             $fac->setClient($this->getRand($clients));
             $dat = $fak->dateTimeBetween('-5 years', 'now');
             $fac->setCreatedAt($dat);
             $fac->setReference($dat->format('Ymd') . '-' . $fac->getClient());
+            $fac->setPrixHT(0);
+            $fac->setEcoHT(0);
+            $fac->setEcoTTC(0);
             // Creation des ventes
-            $rnd = rand(1,12);
-            for ($j=0;$j<$rnd;$j++) {
+            $rnd = rand(1, 12);
+            for ($j=0; $j<$rnd; $j++) {
                 $lf = new LigneFacture();
                 $lf->setCreatedAt($dat);
                 /** @var Produit $pr */
                 $pr = $this->getRand($prd);
-                $lf->setProduit($pr);
                 $lf->setRemiseType('percent');
                 $lf->setRemise(0);
-                $lf->setQuantite(rand(1,10));
+
+                $quan = rand(1, 10);
+                $lf->setQuantite($quan);
+
+                $fac->setPrixHT($fac->getPrixHT() + $pr->getPrixHT() * $quan);
+                $tva = $pr->getCategorieProduit()->getTva();
+                $fac->setPrixTTC($fac->getPrixTTC() + $pr->getPrixHT() * $quan * (1+$tva/100.0));
+                $lf->setProduit($pr);
+                // Ecotaxes
+                foreach ($pr->getCategorieProduit()->getTaxes() as $tax) {
+                    /** @var Taxe $tax */
+                    $fac->setEcoHT($fac->getEcoHT() + $quan * $tax->getMontant());
+                    $fac->setEcoTTC($fac->getEcoTTC() + $quan * $tax->getMontant() * 1.2);
+                }
+
                 $fac->addLigneFacture($lf);
                 $em->persist($lf);
             }
@@ -255,7 +279,7 @@ class TestController extends AbstractController {
         }
         $em->flush();
 
-        return new Response('ok');
+        return $this->render('intranet/test.html.twig');
     }
 
     private function convertString(String $text)
@@ -272,6 +296,7 @@ class TestController extends AbstractController {
     /**
      * @Route("/importvcf", name="importvcf")
      * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \Exception
      */
     public function createCli()
     {
@@ -366,7 +391,7 @@ class TestController extends AbstractController {
         }
         $em->flush();
 
-        return new Response('ok');
+        return $this->render('intranet/test.html.twig');
     }
 
     /**

@@ -9,8 +9,104 @@
 
     <div class="container">
 
-        {{ dump(facture) }}
+        <table class="table table-striped table-hover table-sm">
+            <tr>
+                <th>Date facture :</th><td>{{ facture.createdAt | date('d/m/Y') }}</td>
+                <th>Référence :</th><td>{{ facture.reference }}</td>
+                <th>Client :</th><td>{{ facture.client.prenom }} {{ facture.client.nom }}<br>
+                                     {{ facture.client.fullname }}
+                </td>
+            </tr>
+        </table>
 
+        <table class="table table-striped table-hover table-sm">
+            <tr>
+                {% for adresse in facture.client.adresses %}
+                    <td>
+                        <table class="table">
+                            <tr><th>Catégorie</th><td>{{ adresse.nom }}</td></tr>
+                            <tr><th>Adresse 1</th><td>{{ adresse.adresse1 }}</td></tr>
+                            <tr><th>Adresse 2</th><td>{{ adresse.adresse2 }}</td></tr>
+                            <tr><th>Code Postal</th><td>{{ adresse.codePostal }}</td></tr>
+                            <tr><th>Ville</th><td>{{ adresse.ville }}</td></tr>
+                            <tr><th>Pays</th><td>{{ adresse.pays }}</td></tr>
+                        </table>
+                    </td>
+                {% endfor %}
+            </tr>
+        </table>
+
+        <table class="table table-striped table-hover table-sm">
+            <tr>
+                <th>Catégorie</th><th>Désignation</th><th>Fournisseur</th><th>prix H.T</th><th>Remise</th><th>Taxe</th><th>quantité</th><th>Total H.T</th><th>Total Taxes</th><th>Total TTC</th>
+            </tr>
+            {% set TotalHT  = 0 %}
+            {% set TotalTTC = 0 %}
+            {% set TotalTax = 0 %}
+            {% set TotalEcoHT = 0 %}
+            {% set TotalEcoTTC = 0 %}
+            {% for ligne in facture.ligneFactures %}
+                <tr>
+                    <td>{{ ligne.produit.categorieProduit }}</td>
+                    <td>{{ ligne.produit.nom }}</td>
+                    <td>{{ ligne.produit.categorieProduit.fournisseur.nom }}</td>
+                    <td>{{ ligne.produit.prixHT }}€</td>
+                    <td>{{ ligne.remiseType }}: {{ ligne.remise }}%</td>
+                    <td>{{ ligne.produit.categorieProduit.tva }}%</td>
+                    <td>{{ ligne.quantite }}</td>
+                    {% set ligneHT  = ligne.quantite * ligne.produit.prixHT %}
+                    {% set ligneTax = ligneHT *     (ligne.produit.categorieProduit.tva / 100) %}
+                    {% set ligneTTC = ligneHT * (1 + ligne.produit.categorieProduit.tva / 100) %}
+                    <td class="text-right">{{ ligneHT | number_format(2,'.',',') }}€</td>
+                    <td class="text-right">{{ ligneTax | number_format(2,'.',',') }}€</td>
+                    <td class="text-right">{{ ligneTTC | number_format(2,'.',',') }}€</td>
+                    {% set TotalHT  = TotalHT  + ligneHT %}
+                    {% set TotalTax = TotalTax + ligneTax %}
+                    {% set TotalTTC = TotalTTC + ligneTTC %}
+                </tr>
+                {% if ligne.produit.categorieProduit.taxes is not empty %}
+                    <tr>
+
+                    {% for taxe in ligne.produit.categorieProduit.taxes %}
+                        {#<td>{{ taxe.categorieProduit }}</td>#}
+                        <td></td>
+                        <td>{{ taxe.nom }}</td>
+                        <td></td>
+                        <td>{{ taxe.type }}: {{ taxe.montant }}€</td>
+                        <td></td><td></td>
+                        <td>{{ ligne.quantite }}</td>
+                        {% set taxeHT  = ligne.quantite * taxe.montant %}
+                        {% set taxeTax = taxeHT * 0.2 %}
+                        {% set taxeTTC = taxeHT * 1.2 %}
+
+                        {% set TotalHT  = TotalHT  + taxeHT %}
+                        {% set TotalTax = TotalTax + taxeTax %}
+                        {% set TotalTTC = TotalTTC + taxeTTC %}
+
+                        {% set TotalEcoHT  = TotalEcoHT  + taxeHT %}
+                        {% set TotalEcoTTC = TotalEcoTTC + taxeTTC %}
+
+                        <td class="text-right">{{ taxeHT | number_format(2,'.',',') }}€</td>
+                        <td class="text-right">{{ taxeTax | number_format(2,'.',',') }}€</td>
+                        <td class="text-right">{{ taxeTTC | number_format(2,'.',',') }}€</td>
+                    {% endfor %}
+                    </tr>
+                {% endif %}
+            {% endfor %}
+            <tr>
+                <th  class="text-right" colspan="7">Totaux : </th>
+                <th class="text-right">{{ TotalHT  | number_format(2,'.',',')}}€</th>
+                <th class="text-right">{{ TotalTax | number_format(2,'.',',')}}€</th>
+                <th class="text-right">{{ TotalTTC | number_format(2,'.',',')}}€</th>
+            </tr>
+            <tr>
+                <th  class="text-right" colspan="7">Dont écotaxes : </th>
+                <th class="text-right">{{ TotalEcoHT  | number_format(2,'.',',')}}€</th>
+                <th></th>
+                <th class="text-right">{{ TotalEcoTTC | number_format(2,'.',',')}}€</th>
+            </tr>
+        </table>
+{{ dump(facture) }}
     </div>
 
 {% endblock %}

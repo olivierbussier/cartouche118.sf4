@@ -16,7 +16,7 @@ class BlogTypeChoiceType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('type',ChoiceType::class,[
+            ->add('type', ChoiceType::class, [
                 'label' => 'Type de texte',
                 'choices' => BlogTypeChoice::CHOICES,
                 'attr' => [ 'onchange' => 'submit()' ]

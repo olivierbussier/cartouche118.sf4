@@ -37,7 +37,6 @@
         </nav>
 
         <div class="row">
-            {{ dump(url('ajax_search_clients')) }}
             {{ ajax.text('Recherche', path('ajax_search_clients')) }}
         </div>
 
@@ -48,78 +47,16 @@
                 <div class="client_props">
                     {{ '(' ~ client.fullname ~ ')' ~ client.nom ~ ', ' ~ client.prenom }} ({{ client.additional }})
                 </div>
+
                 <div class="client_fact">
                     {% for facture in client.factures %}
                         <div class="col">
                             <a href="{{ path('view_factures',{ref: facture.id}) }}">{{ facture.reference }}</a>
+                            {{ facture.getPrixHT }} {{ facture.getPrixTTC }}
                         </div>
                     {% endfor %}
                 </div>
-{#
-                <div class="client_item">
-                    <div class="row">
-                        {% for addresse in client.adresses %}
-                            <div class="col-sm">
-                                <div class="client_item_titre">
-                                    {{ addresse.nom }}
-                                </div>
-                                <div class="client_item">
-                                    <pre class="client_item_content">adr1 : {{ addresse.adresse1 }}</pre>
-                                    <pre class="client_item_content">adr2 : {{ addresse.adresse2 }}</pre>
-                                    <pre class="client_item_content">codep : {{ addresse.codepostal }}</pre>
-                                    <pre class="client_item_content">ville : {{ addresse.ville }}</pre>
-                                    <pre class="client_item_content">pays : {{ addresse.pays }}</pre>
-                                </div>
-                            </div>
-                        {% endfor %}
-                    </div>
-                </div>
 
-                <div class="client_item">
-                    <div class="row">
-                        {% for telephone in client.telephones %}
-                            <div class="col-sm">
-                                <div class="client_item_titre">
-                                    {{ telephone.nom }}
-                                </div>
-                                <div class="client_item">
-                                    {{ telephone.telephone }}<br />
-                                </div>
-                            </div>
-                        {% endfor %}
-                    </div>
-                </div>
-
-                <div class="client_item">
-                    <div class="row">
-                        {% for mail in client.emails %}
-                            <div class="col-sm">
-                                <div class="client_item_titre">
-                                    mail : {{ mail.nom }}
-                                </div>
-                                <div class="client_item">
-                                    {{ mail.email }}
-                                </div>
-                            </div>
-                        {% endfor %}
-                    </div>
-                </div>
-
-                <div class="client_item">
-                    <div class="row">
-                        {% for note in client.notes %}
-                            <div class="col-sm">
-                                <div class="client_item_titre">
-                                    Note:
-                                </div>
-                                <div class="client_item">
-                                    <pre>{{ note.text }}</pre>
-                                </div>
-                            </div>
-                        {% endfor %}
-                    </div>
-                </div>
-#}
             </div>
 
         {% endfor %}

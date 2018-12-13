@@ -29,6 +29,26 @@ class Facture
     private $reference;
 
     /**
+     * @ORM\Column(type="decimal", precision=10, scale=2)
+     */
+    private $prixHT;
+
+    /**
+     * @ORM\Column(type="decimal", precision=10, scale=2)
+     */
+    private $prixTTC;
+
+    /**
+     * @ORM\Column(type="decimal", precision=10, scale=2)
+     */
+    private $ecoHT;
+
+    /**
+     * @ORM\Column(type="decimal", precision=10, scale=2)
+     */
+    private $ecoTTC;
+
+    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Client", inversedBy="factures")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -114,5 +134,69 @@ class Facture
         }
 
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPrixHT()
+    {
+        return $this->prixHT;
+    }
+
+    /**
+     * @param mixed $prixHT
+     */
+    public function setPrixHT($prixHT): void
+    {
+        $this->prixHT = $prixHT;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPrixTTC()
+    {
+        return $this->prixTTC;
+    }
+
+    /**
+     * @param mixed $prixTTC
+     */
+    public function setPrixTTC($prixTTC): void
+    {
+        $this->prixTTC = $prixTTC;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEcoHT()
+    {
+        return $this->ecoHT;
+    }
+
+    /**
+     * @param mixed $ecoHT
+     */
+    public function setEcoHT($ecoHT): void
+    {
+        $this->ecoHT = $ecoHT;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEcoTTC()
+    {
+        return $this->ecoTTC;
+    }
+
+    /**
+     * @param mixed $ecoTTC
+     */
+    public function setEcoTTC($ecoTTC): void
+    {
+        $this->ecoTTC = $ecoTTC;
     }
 }

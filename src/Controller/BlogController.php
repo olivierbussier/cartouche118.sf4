@@ -16,7 +16,6 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
-
 class BlogController extends AbstractController
 {
     /**
@@ -44,7 +43,7 @@ class BlogController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $type = $typeBlog->getType();
             if ($type != '') {
-                return $this->redirectToRoute('blog_admin_index',['type' => $type]);
+                return $this->redirectToRoute('blog_admin_index', ['type' => $type]);
             }
         }
 
@@ -52,7 +51,7 @@ class BlogController extends AbstractController
 
         $blogs     = $blogsRepo->getAllPosts($type);
 
-        return $this->render('intranet/blog_index.html.twig',[
+        return $this->render('intranet/blog_index.html.twig', [
             'blogs' => $blogs,
             'type'  => $type,
             'form'  => $form->createView()
@@ -74,7 +73,6 @@ class BlogController extends AbstractController
 
         $blog = $blogsRepo->find($blogId);
         if ($blog) {
-
             if (!$blogsRepo->deleteById($blogId)) {
                 throw $this->createNotFoundException(
                     "Blog non trouvé : ID = " . $blogId
@@ -204,7 +202,6 @@ class BlogController extends AbstractController
         $im = $blog->getImage();
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             if ($action == 'create') {
                 // Nouveau, remplir postedAt et Position
 
@@ -222,7 +219,6 @@ class BlogController extends AbstractController
             $type = $blog->getType();
 
             if ($fl != null) {
-
                 $oldImage = null;
 
                 if ($im != null) {
@@ -252,7 +248,7 @@ class BlogController extends AbstractController
                 $im = BlogHelpers::StorePhoto($image->getPathname(), $dirImages, $largeur);
 
                 if ($oldImage) {
-                    unlink("$dirImages/$oldImage");
+                    @unlink("$dirImages/$oldImage");
                 }
                 $blog->setImage($im);
             }
@@ -262,7 +258,7 @@ class BlogController extends AbstractController
             return $this->redirectToRoute('blog_admin_index', ['type' => $type]);
         }
 
-        return $this->render('intranet/blog_edit.html.twig',[
+        return $this->render('intranet/blog_edit.html.twig', [
             'formBlogEdit' => $form->createView(),
             'orient' => $orient,
             'image'  => $im,
@@ -301,6 +297,6 @@ class BlogController extends AbstractController
             $em->persist($blog);
             $em->flush();
         }
-        return $this->redirectToRoute("blog_admin_edit",['blogId' => $blogId]);
+        return $this->redirectToRoute("blog_admin_edit", ['blogId' => $blogId]);
     }
 }

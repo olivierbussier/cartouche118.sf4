@@ -11,7 +11,7 @@ class FactureController extends AbstractController
     /**
      * @Route("/intranet/facture/view/{ref}", name="view_factures")
      */
-    public function index($ref=0)
+    public function index($ref = 0)
     {
         if ($ref == 0) {
             $this->redirect('view_clients');

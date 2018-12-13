@@ -7,13 +7,13 @@ use App\Entity\BlogTypeChoice;
 use App\Repository\BlogRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
-
 class CarouselService
 {
 
     private $blogs;
 
-    public function __construct(RegistryInterface $doctrine) {
+    public function __construct(RegistryInterface $doctrine)
+    {
 
         /**
          * @var $blogsRepo BlogRepository

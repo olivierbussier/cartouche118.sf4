@@ -34,13 +34,15 @@ class BaseController extends AbstractController
         $dirImages = Config::PATH_BLOG;
 
         return $this->render(
-            'pages/index.html.twig', [
+            'pages/index.html.twig',
+            [
                 'imblog' => $dirImages,
                 'postMarketing' => $postsM,
                 'postCarousel'  => $postsC,
                 'postPortfolio' => $postsP,
                 'postFeature'   => $postsF
-        ]);
+            ]
+        );
     }
 
     /**
@@ -56,10 +58,12 @@ class BaseController extends AbstractController
         $post = $repo->find($blogId);
 
         return $this->render(
-            'pages/view_mkt.html.twig', [
+            'pages/view_mkt.html.twig',
+            [
             'post'   => $post,
             'imblog' => Config::PATH_BLOG
-        ]);
+            ]
+        );
     }
 
     /**
@@ -76,10 +80,12 @@ class BaseController extends AbstractController
         $dirImages = Config::PATH_BLOG;
 
         return $this->render(
-            'pages/faq.html.twig', [
+            'pages/faq.html.twig',
+            [
             'imblog'  => $dirImages,
             'postFAQ' => $postsFAQ
-        ]);
+            ]
+        );
     }
 
     /**
@@ -99,10 +105,12 @@ class BaseController extends AbstractController
         $dirImages = Config::PATH_BLOG;
 
         return $this->render(
-            'pages/index_preview.html.twig', [
+            'pages/index_preview.html.twig',
+            [
             'post' => $post,
             'imblog' => $dirImages
-        ]);
+            ]
+        );
     }
 
     // Courses
@@ -113,14 +121,13 @@ class BaseController extends AbstractController
      * @param Swift_Mailer $mailer
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function contact(Request $request,Swift_Mailer $mailer)
+    public function contact(Request $request, Swift_Mailer $mailer)
     {
         $form = $this->createForm(EcrireType::class);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $contactFormData = $form->getData();
             $message = (new Swift_Message('Mail de contact site Cartouche 118'))
                 ->setFrom($contactFormData['from'])
@@ -128,7 +135,7 @@ class BaseController extends AbstractController
                 ->setBody(
                     $contactFormData['message'],
                     'text/plain'
-                    )
+                )
             ;
 
             $res = $mailer->send($message);
@@ -140,7 +147,7 @@ class BaseController extends AbstractController
             }
         }
 
-        return $this->render('pages/index_contact.html.twig',[
+        return $this->render('pages/index_contact.html.twig', [
             'formContact' => $form->createView()
         ]);
     }
