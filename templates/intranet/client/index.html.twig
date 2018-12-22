@@ -17,6 +17,10 @@
             width: 100%;
             border: 1px grey solid;
         }
+        .client_note {
+            width: 100%;
+            border: 1px red solid;
+        }
     </style>
 
     <div class="container">
@@ -37,7 +41,10 @@
         </nav>
 
         <div class="row">
-            {{ ajax.text('Recherche', path('ajax_search_clients')) }}
+            <form method="post" action="{{ url('show_client') }}">
+                {{ ajax.text('Recherche', 'recherche', path('ajax_search_clients')) }}
+                <input type="submit">
+            </form>
         </div>
 
         {% for client in clients %}
@@ -45,7 +52,9 @@
             <div class="client_container">
 
                 <div class="client_props">
+
                     {{ '(' ~ client.fullname ~ ')' ~ client.nom ~ ', ' ~ client.prenom }} ({{ client.additional }})
+
                 </div>
 
                 <div class="client_fact">

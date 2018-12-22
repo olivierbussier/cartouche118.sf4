@@ -164,7 +164,7 @@ class TestController extends AbstractController
             for ($j=0; $j<$nNotes; $j++) {
                 $nt = new Note();
                 $nt->setClient($cl);
-                $nt->setCreatedAt(new \DateTime());
+                $nt->setCreatedAt(new \DateTime($fak->date()));
                 $nt->setText($fak->text(800));
                 $em->persist($nt);
             }
