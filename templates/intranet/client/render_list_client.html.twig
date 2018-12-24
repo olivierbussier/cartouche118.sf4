@@ -1,0 +1,66 @@
+<style>
+    .client_container {
+        width: 100%;
+        border: 1px grey solid;
+        margin-bottom: 10px;
+    }
+    .client_props {
+        width: 100%;
+        border: 1px grey solid;
+    }
+    .client_note {
+        width: 100%;
+        border: 1px red solid;
+    }
+</style>
+
+{% if nbPages > 1 %}
+    <nav aria-label="NavClients">
+        <ul class="pagination pagination-sm">
+            <li class="page-item"><a class="page-link" href="{{ url('view_clients', {startPage: max(0,currentPage - 1), recherche: term}) }}">Previous</a></li>
+            {% for i in 1..nbPages %}
+                {% if i == currentPage + 1 %}
+                    {% set active = ' active' %}
+                {% else %}
+                    {% set active = '' %}
+                {% endif %}
+                <li class="page-item{{ active }}"><a class="page-link" href="{{ url('view_clients', {startPage: i - 1, recherche: term}) }}">{{ i }}</a></li>
+            {% endfor %}
+            <li class="page-item"><a class="page-link" href="{{ url('view_clients', {startPage: min(nbPages - 1,currentPage + 1), recherche: term}) }}">Next</a></li>
+        </ul>
+    </nav>
+{% endif %}
+
+{% for client in clients %}
+
+    <div class="client_container">
+
+        <div class="client_props">
+
+           <a href="{{ url('show_client', {id: client.id}) }}">{{ client.id }} / {{ client.additional }} {{ client.nom ~ ', ' ~ client.prenom }}</a>
+
+        </div>
+
+        {% for note in client.notes %}
+            <div class="client_props">
+                <p>{{ note.createdAt | date('d/m/Y') }}</p>
+                <p><pre>{{ note.text }}</pre></p>
+            </div>
+        {% endfor %}
+
+
+        <div class="client_fact">
+            {% for facture in client.factures %}
+                <div class="col">
+                    <a href="{{ path('view_factures',{ref: facture.id}) }}">{{ facture.reference }}</a>
+                    {{ facture.getPrixHT }} {{ facture.getPrixTTC }}
+                </div>
+            {% endfor %}
+        </div>
+
+    </div>
+
+{% endfor %}
+
+
+

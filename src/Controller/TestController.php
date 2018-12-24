@@ -94,12 +94,13 @@ class TestController extends AbstractController
     }
 
     /**
-     * @Route("/cretab/{nbFact}", name="test1")
+     * @Route("/cretab/{nbClients}/{nbFact}", name="test1")
+     * @param int $nbClients
      * @param int $nbFact
      * @return \Symfony\Component\HttpFoundation\Response
      * @throws \Exception
      */
-    public function createTables($nbFact = 10)
+    public function createTables($nbClients = 100, $nbFact = 10)
     {
 
         $doctrine = $this->getDoctrine();
@@ -125,7 +126,7 @@ class TestController extends AbstractController
 
         $adrType = ['Maison', 'pro', 'Home'];
 
-        for ($x=0; $x<100; $x++) {
+        for ($x=0; $x<$nbClients; $x++) {
             $cl = new Client();
             $prenom = $fak->firstName;
             $nom    = $fak->lastName;

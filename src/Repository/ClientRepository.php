@@ -2,8 +2,10 @@
 
 namespace App\Repository;
 
+use App\Classes\Config\Config;
 use App\Entity\Client;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -34,7 +36,24 @@ class ClientRepository extends ServiceEntityRepository
         ;
     }
 
+    public function getFilterAndPagination($term, $pageNb)
+    {
+        $qb = $this->createQueryBuilder('c');
 
+        $qb->select('c')
+            //->from('App\\Entity\\Client', 'c')
+            ->leftJoin(
+                'c.notes', 'n')
+            ->where("c.nom like :term")
+            ->orWhere('c.prenom like :term')
+            ->orWhere('c.fullName like :term')
+            ->orWhere('n.text like :term')
+            ->setParameter('term', "%$term%")
+            ->setFirstResult($pageNb * Config::NB_ITEM_PAR_PAGE)
+            ->setMaxResults(Config::NB_ITEM_PAR_PAGE);
+
+        return new Paginator($qb);
+    }
     /*
     public function findOneBySomeField($value): ?Client
     {

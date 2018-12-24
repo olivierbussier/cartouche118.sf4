@@ -7,71 +7,20 @@
     {% import 'macros/bouton.html.twig' as control %}
     {% import "macros/textAjax.html.twig" as ajax %}
 
-    <style>
-        .client_container {
-            width: 100%;
-            border: 1px grey solid;
-            margin-bottom: 10px;
-        }
-        .client_props {
-            width: 100%;
-            border: 1px grey solid;
-        }
-        .client_note {
-            width: 100%;
-            border: 1px red solid;
-        }
-    </style>
-
     <div class="container">
 
-        <nav aria-label="NavClients">
-            <ul class="pagination pagination-sm">
-                <li class="page-item"><a class="page-link" href="{{ url('view_clients', {startPage: max(0,currentPage - 1)}) }}">Previous</a></li>
-                {% for i in 1..nbPages %}
-                    {% if i == currentPage + 1 %}
-                        {% set active = ' active' %}
-                    {% else %}
-                        {% set active = '' %}
-                    {% endif %}
-                    <li class="page-item{{ active }}"><a class="page-link" href="{{ url('view_clients', {startPage: i - 1}) }}">{{ i }}</a></li>
-                {% endfor %}
-                <li class="page-item"><a class="page-link" href="{{ url('view_clients', {startPage: min(nbPages - 1,currentPage + 1)}) }}">Next</a></li>
-            </ul>
-        </nav>
-
         <div class="row">
-            <form method="post" action="{{ url('show_client') }}">
-                {{ ajax.text('Recherche', 'recherche', path('ajax_search_clients')) }}
-                <input type="submit">
+
+            <form method="post" action="{{ path('show_client') }}">
+                {{ ajax.text('Recherche', 'recherche', path('ajax_search_clients'), term, currentPage) }}
             </form>
         </div>
 
-        {% for client in clients %}
-
-            <div class="client_container">
-
-                <div class="client_props">
-
-                    {{ '(' ~ client.fullname ~ ')' ~ client.nom ~ ', ' ~ client.prenom }} ({{ client.additional }})
-
-                </div>
-
-                <div class="client_fact">
-                    {% for facture in client.factures %}
-                        <div class="col">
-                            <a href="{{ path('view_factures',{ref: facture.id}) }}">{{ facture.reference }}</a>
-                            {{ facture.getPrixHT }} {{ facture.getPrixTTC }}
-                        </div>
-                    {% endfor %}
-                </div>
-
-            </div>
-
-        {% endfor %}
+        <div id="render_list">
+        </div>
 
     </div>
-
+    <script>
+        {{ ajax.script(path('ajax_search_clients'), "'" ~ term ~ "'", currentPage) }}
+    </script>
 {% endblock %}
-
-

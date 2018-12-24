@@ -1,20 +1,30 @@
-{% macro text(label, fieldName, ajaxUrl, defval, class_sup) %}
+{% macro script(ajaxUrl, term, pageNb) %}
+
+        $.ajax({
+            type: "POST",
+            url: '{{ ajaxUrl }}',
+            data: {term: {{ term | raw}}, pageNb:{{ pageNb }} },
+            success: function(data) {
+                $('#render_list').html(data)
+            },
+            datatype: 'html',
+            delay: 0
+        });
+
+{% endmacro %}
+
+
+{% macro text(label, fieldName, ajaxUrl, defval, pageNb) %}
+    {% import _self as ajx %}
     <script>
         {% set idCount = genID('') %}
 
         $(function () {
             $("#id_{{ idCount }}").autocomplete({
-                source: function (request, response) {
-                    $.ajax({
-                        type: "POST",
-                        url:"{{ ajaxUrl }}",
-                        data: {term:request.term,my_variable2:"variable2_data"},
-                        success: response,
-                        dataType: 'json',
-                        delay: 0
-                    });
+                source: function (request) {
+                    {{ ajx.script(ajaxUrl, 'request.term', pageNb) }}
                 },
-                minLength: 2,
+                minLength: 0,
                 select: function (event, ui) {
                     $("#id_{{ idCount }}").autocomplete('search', ui['item']['value'])
                 }
