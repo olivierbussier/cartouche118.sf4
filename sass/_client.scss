@@ -1,0 +1,19 @@
+@import "compass/css3/border-radius";
+
+@import "variables";
+
+.client_container {
+  width: 100%;
+  border: 1px grey solid;
+  margin-bottom: 10px;
+}
+.client_props {
+  width: 100%;
+  border: 1px grey solid;
+}
+.client_note {
+  width: 100%;
+  border: 1px red solid;
+}
+
+
