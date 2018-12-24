@@ -16,7 +16,8 @@
 
 {% if nbPages > 1 %}
     <nav aria-label="NavClients">
-        <ul class="pagination pagination-sm">
+
+        <ul class="pagination pagination-sm d-flex flex-wrap justify-content">
             <li class="page-item"><a class="page-link" href="{{ url('view_clients', {startPage: max(0,currentPage - 1), recherche: term}) }}">Previous</a></li>
             {% for i in 1..nbPages %}
                 {% if i == currentPage + 1 %}
@@ -28,6 +29,7 @@
             {% endfor %}
             <li class="page-item"><a class="page-link" href="{{ url('view_clients', {startPage: min(nbPages - 1,currentPage + 1), recherche: term}) }}">Next</a></li>
         </ul>
+
     </nav>
 {% endif %}
 
