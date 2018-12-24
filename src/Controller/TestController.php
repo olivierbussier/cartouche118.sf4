@@ -94,7 +94,7 @@ class TestController extends AbstractController
     }
 
     /**
-     * @Route("/cretab/{nbClients}/{nbFact}", name="test1")
+     * @Route("/cretab/{nbClients}/{nbFact}", name="crebase")
      * @param int $nbClients
      * @param int $nbFact
      * @return \Symfony\Component\HttpFoundation\Response

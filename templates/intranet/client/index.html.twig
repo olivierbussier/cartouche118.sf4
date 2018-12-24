@@ -11,16 +11,20 @@
 
         <div class="row">
 
-            <form method="post" action="{{ path('show_client') }}">
-                {{ ajax.text('Recherche', 'recherche', path('ajax_search_clients'), term, currentPage) }}
-            </form>
+            <div class="col">
+                <form method="post" action="{{ path('show_client') }}">
+                    <div class="form-group">
+                        {{ ajax.text('', 'recherche', path('ajax_search_clients'), term, currentPage) }}
+                    </div>
+                </form>
+            </div>
         </div>
 
         <div id="render_list">
         </div>
 
     </div>
-    <script>
-        {{ ajax.script(path('ajax_search_clients'), "'" ~ term ~ "'", currentPage) }}
-    </script>
+
+    {{ ajax.script(path('ajax_search_clients'), "'" ~ term ~ "'", currentPage) }}
+
 {% endblock %}

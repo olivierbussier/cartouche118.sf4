@@ -77,8 +77,10 @@ class ClientController extends AbstractController
         $nbPages = ((int)($nbClients / Config::NB_ITEM_PAR_PAGE)) + (($nbClients % Config::NB_ITEM_PAR_PAGE) != 0 ? 1 : 0);
 
         if ($nbPages == 0) {
+            // Rien a afficher
             $pageNb = 0;
         } elseif ($pageNb > $nbPages - 1) {
+            // Le nombre de pages a diminué, il faut recharger les éléments à afficher
             $pageNb = $nbPages - 1;
             $clients = $cr->getFilterAndPagination($term, $pageNb);
         }

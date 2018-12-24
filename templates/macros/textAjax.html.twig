@@ -1,5 +1,5 @@
 {% macro script(ajaxUrl, term, pageNb) %}
-
+    <script>
         $.ajax({
             type: "POST",
             url: '{{ ajaxUrl }}',
@@ -10,19 +10,28 @@
             datatype: 'html',
             delay: 0
         });
-
+    </script>
 {% endmacro %}
 
 
 {% macro text(label, fieldName, ajaxUrl, defval, pageNb) %}
-    {% import _self as ajx %}
+
     <script>
         {% set idCount = genID('') %}
 
         $(function () {
             $("#id_{{ idCount }}").autocomplete({
                 source: function (request) {
-                    {{ ajx.script(ajaxUrl, 'request.term', pageNb) }}
+                    $.ajax({
+                        type: "POST",
+                        url: '{{ ajaxUrl }}',
+                        data: {term: request.term, pageNb:{{ pageNb }} },
+                        success: function(data) {
+                            $('#render_list').html(data)
+                        },
+                        datatype: 'html',
+                        delay: 0
+                    });
                 },
                 minLength: 0,
                 select: function (event, ui) {
@@ -35,7 +44,7 @@
         {% if label != '' %}
             <label for="id_{{ idCount }}">{{ label }}</label>
         {% endif %}
-        <input name="{{ fieldName }}" id="id_{{ idCount }}" value="{{ defval }}">
+        <input name="{{ fieldName }}" class="form-control" id="id_{{ idCount }}" value="{{ defval }}" placeholder="Texte à rechercher">
     </div>
 
     {% set idCount = idCount + 1 %}

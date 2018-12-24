@@ -3,6 +3,7 @@
 namespace App\Twig;
 
 use App\Entity\Adherent;
+use App\Entity\User;
 use Symfony\Bridge\Twig\AppVariable;
 use Twig\Extension\AbstractExtension;
 use Twig_Function;
@@ -54,7 +55,7 @@ class CustomExtensions extends AbstractExtension
      */
     public function testDroit(AppVariable $app, $droit)
     {
-        /** @var Adherent $cx */
+        /** @var User $cx */
         $cx = $app->getUser();
         if ($cx) {
             $roles = $cx->getRoles();
