@@ -94,15 +94,28 @@
                                     </div>
                                 </li>
 
+                                {% if testDroit(app, 'ROLE_VENDEUR') %}
+
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Menu Vendeur
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
+                                            <a class="dropdown-item" href="{{ path('view_clients') }}">Clients</a>
+                                            <a class="dropdown-item" href="{{ path('view_commandes') }}">Commandes</a>
+                                        </div>
+                                    </li>
+
+                                {% endif %}
+
                                 {% if testDroit(app, 'ROLE_PUB') %}
 
                                     <li class="nav-item dropdown">
                                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            Clients
+                                            Menu Publications
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
-                                            <a class="dropdown-item" href="{{ path('view_clients') }}">Clients</a>
-                                            <a class="dropdown-item" href="{{ path('view_factures') }}">Factures</a>
+                                            <a class="dropdown-item" href="{{ path('blog_admin_index') }}">Admin de la page d'accueil</a>
                                         </div>
                                     </li>
 
@@ -112,11 +125,11 @@
 
                                     <li class="nav-item dropdown">
                                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            Admin
+                                            Menu Admin
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
-                                            <a class="dropdown-item" href="{{ path('importvcf') }}">Import VCF file</a>
-                                            <a class="dropdown-item" href="{{ path('crebase',{nbClients: 500, nbFact:500}) }}">Créer 500 clients/500 Factures</a>
+                                            <a class="dropdown-item" href="{{ path('commandevcf',{nbCommandes: 2000}) }}">Import VCF file/Créer 2000 commandes</a>
+                                            <a class="dropdown-item" href="{{ path('crebase',{nbClients: 500, nbFact:500}) }}">Créer 500 fak Clients/500 Commandes</a>
                                         </div>
                                     </li>
 
@@ -177,7 +190,7 @@
                 <footer class="py-5 bg-success">
                     <div class="container">
                         {% set tag = readfile(asset('.revision')) %}
-                        <p class="m-0 text-center text-white">Copyright &copy; 2007-2017 GUC Plongée - {{ tag }}</p>
+                        <p class="m-0 text-center text-white">Copyright &copy; 2007-2018 Cartouche 118 - {{ tag }}</p>
                     </div>
                     <!-- /.container -->
                 </footer>

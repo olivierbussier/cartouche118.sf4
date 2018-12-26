@@ -26,10 +26,10 @@ class BaseController extends AbstractController
     {
         $repo = $doctrine->getRepository(Blog::class);
         /** @var BlogRepository $repo */
-        $postsM = $repo->getAllPosts(BlogTypeChoice::MARKETING);
-        $postsC = $repo->getAllPosts(BlogTypeChoice::CAROUSEL);
-        $postsP = $repo->getAllPosts(BlogTypeChoice::PORTFOLIO);
-        $postsF = $repo->getAllPosts(BlogTypeChoice::FEATURE);
+        $postsC  = $repo->getAllPosts(BlogTypeChoice::CAROUSEL);
+        $postsS  = $repo->getAllPosts(BlogTypeChoice::SERVICES);
+        $postsCl = $repo->getAllPosts(BlogTypeChoice::CLIENTS);
+        $postsP  = $repo->getAllPosts(BlogTypeChoice::PRODUITS);
 
         $dirImages = Config::PATH_BLOG;
 
@@ -37,10 +37,10 @@ class BaseController extends AbstractController
             'pages/index.html.twig',
             [
                 'imblog' => $dirImages,
-                'postMarketing' => $postsM,
                 'postCarousel'  => $postsC,
-                'postPortfolio' => $postsP,
-                'postFeature'   => $postsF
+                'postServices'  => $postsS,
+                'postClients'   => $postsCl,
+                'postProduits'  => $postsP
             ]
         );
     }

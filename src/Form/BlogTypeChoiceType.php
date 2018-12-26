@@ -21,11 +21,6 @@ class BlogTypeChoiceType extends AbstractType
                 'choices' => BlogTypeChoice::CHOICES,
                 'attr' => [ 'onchange' => 'submit()' ]
             ])
-            /*->add('Envoyer', SubmitType::class, [
-                'attr' => [
-                    'class' => 'btn btn-default btn-block'
-                ]
-            ])*/
         ;
     }
 

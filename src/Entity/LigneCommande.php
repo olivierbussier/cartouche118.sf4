@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -9,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\VenteRepository")
  */
-class LigneFacture
+class LigneCommande
 {
     /**
      * @ORM\Id()
@@ -39,28 +40,28 @@ class LigneFacture
     private $remise;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Produit", inversedBy="ligneFactures")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Produit", inversedBy="ligneCommandes")
      * @ORM\JoinColumn(nullable=false)
      */
     private $produit;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Facture", inversedBy="ligneFactures")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Commande", inversedBy="ligneCommandes")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $facture;
+    private $commande;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getCreatedAt(): ?DateTimeInterface
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    public function setCreatedAt(DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
 
@@ -95,7 +96,6 @@ class LigneFacture
         return $this;
     }
 
-
     /**
      * @return mixed
      */
@@ -124,14 +124,14 @@ class LigneFacture
         return $this;
     }
 
-    public function getFacture(): ?Facture
+    public function getCommande(): ?Commande
     {
-        return $this->facture;
+        return $this->commande;
     }
 
-    public function setFacture(?Facture $facture): self
+    public function setCommande(?Commande $commande): self
     {
-        $this->facture = $facture;
+        $this->commande = $commande;
 
         return $this;
     }

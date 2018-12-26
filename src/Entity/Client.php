@@ -44,9 +44,9 @@ class Client
     private $notes;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Facture", mappedBy="client")
+     * @ORM\OneToMany(targetEntity="App\Entity\Commande", mappedBy="client")
      */
-    private $factures;
+    private $commandes;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Adresse", mappedBy="client")
@@ -66,7 +66,7 @@ class Client
     public function __construct()
     {
         $this->notes = new ArrayCollection();
-        $this->factures = new ArrayCollection();
+        $this->commandes = new ArrayCollection();
         $this->adresses = new ArrayCollection();
         $this->telephones = new ArrayCollection();
         $this->emails = new ArrayCollection();
@@ -142,30 +142,30 @@ class Client
     }
 
     /**
-     * @return Collection|Facture[]
+     * @return Collection|Commande[]
      */
-    public function getFactures(): Collection
+    public function getCommandes(): Collection
     {
-        return $this->factures;
+        return $this->commandes;
     }
 
-    public function addFacture(Facture $facture): self
+    public function addCommande(Commande $commande): self
     {
-        if (!$this->factures->contains($facture)) {
-            $this->factures[] = $facture;
-            $facture->setClient($this);
+        if (!$this->commandes->contains($commande)) {
+            $this->commandes[] = $commande;
+            $commande->setClient($this);
         }
 
         return $this;
     }
 
-    public function removeFacture(Facture $facture): self
+    public function removeCommande(Commande $commande): self
     {
-        if ($this->factures->contains($facture)) {
-            $this->factures->removeElement($facture);
+        if ($this->commandes->contains($commande)) {
+            $this->commandes->removeElement($commande);
             // set the owning side to null (unless already changed)
-            if ($facture->getClient() === $this) {
-                $facture->setClient(null);
+            if ($commande->getClient() === $this) {
+                $commande->setClient(null);
             }
         }
 

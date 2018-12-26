@@ -2,49 +2,20 @@
 
 namespace App\Repository;
 
-use App\Entity\LigneFacture;
+use App\Entity\LigneCommande;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
- * @method LigneFacture|null find($id, $lockMode = null, $lockVersion = null)
- * @method LigneFacture|null findOneBy(array $criteria, array $orderBy = null)
- * @method LigneFacture[]    findAll()
- * @method LigneFacture[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method LigneCommande|null find($id, $lockMode = null, $lockVersion = null)
+ * @method LigneCommande|null findOneBy(array $criteria, array $orderBy = null)
+ * @method LigneCommande[]    findAll()
+ * @method LigneCommande[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class VenteRepository extends ServiceEntityRepository
 {
     public function __construct(RegistryInterface $registry)
     {
-        parent::__construct($registry, LigneFacture::class);
+        parent::__construct($registry, LigneCommande::class);
     }
-
-//    /**
-//     * @return LigneFacture[] Returns an array of LigneFacture objects
-//     */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('v')
-            ->andWhere('v.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('v.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?LigneFacture
-    {
-        return $this->createQueryBuilder('v')
-            ->andWhere('v.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

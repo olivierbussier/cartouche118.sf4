@@ -14,7 +14,7 @@
 
         <div class="row">
 
-            {% for post in postMarketing %}
+            {% for post in postServices %}
 
                 <div class="col-lg-4 mb-4">
                     <div class="card h-100">
@@ -39,7 +39,7 @@
 
             {# Section portfolio #}
 
-            {% for post in postPortfolio %}
+            {% for post in postClients %}
 
                 <div class="col-lg-4 col-sm-6 portfolio-item">
                     <div class="card h-100">
@@ -60,7 +60,7 @@
 
         {# Section produits #}
 
-        {% for  post in postFeature %}
+        {% for  post in postProduits %}
             <div class="row">
                 <div class="col-lg-6">
                     <h2>{{ post.title | raw }}</h2>

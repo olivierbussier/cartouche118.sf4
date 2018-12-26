@@ -6,14 +6,21 @@ use App\Entity\Adresse;
 use App\Entity\CategorieProduit;
 use App\Entity\Client;
 use App\Entity\Email;
-use App\Entity\Facture;
+use App\Entity\Commande;
 use App\Entity\Fournisseur;
+use App\Entity\LigneCommande;
+use App\Entity\Marque;
 use App\Entity\Note;
 use App\Entity\Produit;
 use App\Entity\Taxe;
-use App\Entity\LigneFacture;
 use App\Entity\Telephone;
+use App\Repository\ClientRepository;
+use App\Repository\ProduitRepository;
+use DateTime;
+use Doctrine\ORM\EntityManagerInterface;
+use Faker\Factory;
 use JeroenDesloovere\VCard\VCardParser;
+use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -44,34 +51,44 @@ class TestController extends AbstractController
         ['Papier'     , [2]    ]  //  5
     ];
 
-    const product = [                   //               C+       PS        papyr
-        [ 'Imprimante Laser Canon'      , 230.00, [0 => [0], 1 => [1], 2 => [2]]],
-        [ 'Imprimante Inkjet Canon'     , 130.00, [0 => [0], 1 => [1], 2 => [2]]],
-        [ 'Imprimante Laser HP'         , 200.00, [0 => [0], 1 => [ ], 2 => [ ]]],
-        [ 'Imprimante Inkjet HP'        , 100.00, [0 => [0], 1 => [ ], 2 => [ ]]],
-        [ 'Imprimante Laser Epson'      , 180.00, [0 => [ ], 1 => [1], 2 => [ ]]],
-        [ 'Imprimante Inkjet Epson'     ,  90.00, [0 => [ ], 1 => [1], 2 => [ ]]],
-        [ 'Encre Canon laser neuf'      ,  82.00, [0 => [ ], 1 => [4], 2 => [ ]]],
-        [ 'Encre Canon laser reman'     ,  22.00, [0 => [3], 1 => [ ], 2 => [ ]]],
-        [ 'Encre Canon laser recharge'  ,  12.00, [0 => [3], 1 => [ ], 2 => [ ]]],
-        [ 'Encre Canon inkjet neuf'     ,  60.00, [0 => [ ], 1 => [4], 2 => [ ]]],
-        [ 'Encre Canon inkjet reman'    ,  30.00, [0 => [3], 1 => [ ], 2 => [ ]]],
-        [ 'Encre Canon inkjet recharge' ,  28.00, [0 => [3], 1 => [ ], 2 => [ ]]],
-        [ 'Encre HP laser neuf'         ,  82.00, [0 => [ ], 1 => [4], 2 => [ ]]],
-        [ 'Encre HP laser reman'        ,  22.00, [0 => [3], 1 => [ ], 2 => [ ]]],
-        [ 'Encre HP laser recharge'     ,  12.00, [0 => [3], 1 => [ ], 2 => [ ]]],
-        [ 'Encre HP inkjet neuf'        ,  60.00, [0 => [ ], 1 => [4], 2 => [ ]]],
-        [ 'Encre HP inkjet reman'       ,  30.00, [0 => [3], 1 => [ ], 2 => [ ]]],
-        [ 'Encre HP inkjet recharge'    ,  28.00, [0 => [3], 1 => [ ], 2 => [ ]]],
-        [ 'Encre Epson laser neuf'      ,  82.00, [0 => [ ], 1 => [4], 2 => [ ]]],
-        [ 'Encre Epson laser reman'     ,  22.00, [0 => [3], 1 => [ ], 2 => [ ]]],
-        [ 'Encre Epson laser recharge'  ,  12.00, [0 => [3], 1 => [ ], 2 => [ ]]],
-        [ 'Encre Epson inkjet neuf'     ,  60.00, [0 => [ ], 1 => [4], 2 => [ ]]],
-        [ 'Encre Epson inkjet reman'    ,  30.00, [0 => [3], 1 => [ ], 2 => [ ]]],
-        [ 'Encre Epson inkjet recharge' ,  28.00, [0 => [3], 1 => [ ], 2 => [ ]]],
-        [ 'Papier'                      ,   3.28, [0 => [ ], 1 => [4], 2 => [5]]]
+    const marques = [
+        'Canon' => 1,
+        'HP'    => 2,
+        'Epson' => 3,
+        'Papelard' => 4
     ];
 
+    const product = [                   //               C+       PS        papyr
+        [ 'Imprimante Laser Canon'      , 230.00, 1, [0 => [0], 1 => [1], 2 => [2]]],
+        [ 'Imprimante Inkjet Canon'     , 130.00, 1, [0 => [0], 1 => [1], 2 => [2]]],
+        [ 'Imprimante Laser HP'         , 200.00, 2, [0 => [0], 1 => [ ], 2 => [ ]]],
+        [ 'Imprimante Inkjet HP'        , 100.00, 2, [0 => [0], 1 => [ ], 2 => [ ]]],
+        [ 'Imprimante Laser Epson'      , 180.00, 3, [0 => [ ], 1 => [1], 2 => [ ]]],
+        [ 'Imprimante Inkjet Epson'     ,  90.00, 3, [0 => [ ], 1 => [1], 2 => [ ]]],
+        [ 'Encre Canon laser neuf'      ,  82.00, 1, [0 => [ ], 1 => [4], 2 => [ ]]],
+        [ 'Encre Canon laser reman'     ,  22.00, 1, [0 => [3], 1 => [ ], 2 => [ ]]],
+        [ 'Encre Canon laser recharge'  ,  12.00, 1, [0 => [3], 1 => [ ], 2 => [ ]]],
+        [ 'Encre Canon inkjet neuf'     ,  60.00, 1, [0 => [ ], 1 => [4], 2 => [ ]]],
+        [ 'Encre Canon inkjet reman'    ,  30.00, 1, [0 => [3], 1 => [ ], 2 => [ ]]],
+        [ 'Encre Canon inkjet recharge' ,  28.00, 1, [0 => [3], 1 => [ ], 2 => [ ]]],
+        [ 'Encre HP laser neuf'         ,  82.00, 2, [0 => [ ], 1 => [4], 2 => [ ]]],
+        [ 'Encre HP laser reman'        ,  22.00, 2, [0 => [3], 1 => [ ], 2 => [ ]]],
+        [ 'Encre HP laser recharge'     ,  12.00, 2, [0 => [3], 1 => [ ], 2 => [ ]]],
+        [ 'Encre HP inkjet neuf'        ,  60.00, 2, [0 => [ ], 1 => [4], 2 => [ ]]],
+        [ 'Encre HP inkjet reman'       ,  30.00, 2, [0 => [3], 1 => [ ], 2 => [ ]]],
+        [ 'Encre HP inkjet recharge'    ,  28.00, 2, [0 => [3], 1 => [ ], 2 => [ ]]],
+        [ 'Encre Epson laser neuf'      ,  82.00, 3, [0 => [ ], 1 => [4], 2 => [ ]]],
+        [ 'Encre Epson laser reman'     ,  22.00, 3, [0 => [3], 1 => [ ], 2 => [ ]]],
+        [ 'Encre Epson laser recharge'  ,  12.00, 3, [0 => [3], 1 => [ ], 2 => [ ]]],
+        [ 'Encre Epson inkjet neuf'     ,  60.00, 3, [0 => [ ], 1 => [4], 2 => [ ]]],
+        [ 'Encre Epson inkjet reman'    ,  30.00, 3, [0 => [3], 1 => [ ], 2 => [ ]]],
+        [ 'Encre Epson inkjet recharge' ,  28.00, 3, [0 => [3], 1 => [ ], 2 => [ ]]],
+        [ 'Papier'                      ,   3.28, 4, [0 => [ ], 1 => [4], 2 => [5]]]
+    ];
+
+    /**
+     * @param $dd
+     */
     private function delData($dd)
     {
         $doctrine = $this->getDoctrine();
@@ -86,28 +103,30 @@ class TestController extends AbstractController
         $em->flush();
     }
 
+    /**
+     * @param array $arr
+     * @return mixed
+     */
     private function getRand(array $arr)
     {
-        $cnt = count($arr);
-        $rnd = rand(0, $cnt-1);
-        return $arr[$rnd];
+        return $arr[rand(0, count($arr)-1)];
     }
 
     /**
-     * @Route("/cretab/{nbClients}/{nbFact}", name="crebase")
+     * @Route("/cretab/{nbClients}/{nbCommandes}", name="crebase")
      * @param int $nbClients
-     * @param int $nbFact
+     * @param int $nbCommandes
      * @return \Symfony\Component\HttpFoundation\Response
      * @throws \Exception
      */
-    public function createTables($nbClients = 100, $nbFact = 10)
+    public function createTables($nbClients = 100, $nbCommandes = 100)
     {
 
         $doctrine = $this->getDoctrine();
         $em = $doctrine->getManager();
 
-        $this->delData(LigneFacture::class);
-        $this->delData(Facture::class);
+        $this->delData(LigneCommande::class);
+        $this->delData(Commande::class);
         $this->delData(Produit::class);
         $this->delData(Note::class);
         $this->delData(Telephone::class);
@@ -122,7 +141,7 @@ class TestController extends AbstractController
 
         $clients = [];
 
-        $fak = \Faker\Factory::create('fr_FR');
+        $fak = Factory::create('fr_FR');
 
         $adrType = ['Maison', 'pro', 'Home'];
 
@@ -165,13 +184,24 @@ class TestController extends AbstractController
             for ($j=0; $j<$nNotes; $j++) {
                 $nt = new Note();
                 $nt->setClient($cl);
-                $nt->setCreatedAt(new \DateTime($fak->date()));
+                $nt->setCreatedAt(new DateTime($fak->date()));
                 $nt->setText($fak->text(800));
                 $em->persist($nt);
             }
             $em->persist($cl);
             $clients[] = $cl;
         }
+
+        // Création des marques
+
+        $marques = [];
+        foreach (self::marques as $n => $m) {
+            $mq = new Marque();
+            $mq->setNom($n);
+            $em->persist($mq);
+            $marques[] = $mq;
+        }
+
         // Création des fournisseurs
 
         $fou = [];
@@ -222,25 +252,27 @@ class TestController extends AbstractController
         foreach (self::product as $c) {
             $libelle= $c[0];
             $prix = $c[1];
-            $fourn = $c[2];
+            $marq = $c[2];
+            $fourn = $c[3];
             foreach ($fourn as $k => $v) {
                 foreach ($v as $target) {
                     $pr = new Produit();
                     $pr->setCategorieProduit($cat[$target]);
                     $pr->setNom($libelle);
                     $pr->setPrixHT($prix);
+                    $pr->setMarque($marques[$marq-1]);
                     $em->persist($pr);
                     $prd[] = $pr;
                 }
             }
         }
 
-        // Creation des factures
+        // Creation des commandes
 
-        $factures = [];
+        $commandes = [];
 
-        for ($i=0; $i<$nbFact; $i++) {
-            $fac = new Facture();
+        for ($i=0; $i<$nbCommandes; $i++) {
+            $fac = new Commande();
             $fac->setClient($this->getRand($clients));
             $dat = $fak->dateTimeBetween('-5 years', 'now');
             $fac->setCreatedAt($dat);
@@ -251,7 +283,7 @@ class TestController extends AbstractController
             // Creation des ventes
             $rnd = rand(1, 12);
             for ($j=0; $j<$rnd; $j++) {
-                $lf = new LigneFacture();
+                $lf = new LigneCommande();
                 $lf->setCreatedAt($dat);
                 /** @var Produit $pr */
                 $pr = $this->getRand($prd);
@@ -272,11 +304,11 @@ class TestController extends AbstractController
                     $fac->setEcoTTC($fac->getEcoTTC() + $quan * $tax->getMontant() * 1.2);
                 }
 
-                $fac->addLigneFacture($lf);
+                $fac->addLigneCommande($lf);
                 $em->persist($lf);
             }
             $em->persist($fac);
-            $factures[] = $fac;
+            $commandes[] = $fac;
         }
         $em->flush();
 
@@ -295,18 +327,18 @@ class TestController extends AbstractController
     }
 
     /**
-     * @Route("/importvcf", name="importvcf")
+     * @Route("/commandevcf/{nbCommandes}", name="commandevcf")
+     * @param RegistryInterface $doctrine
+     * @param EntityManagerInterface $em
+     * @param int $nbCommandes
      * @return \Symfony\Component\HttpFoundation\Response
      * @throws \Exception
      */
-    public function createCli()
+    public function createCommandes(RegistryInterface $doctrine, EntityManagerInterface $em, $nbCommandes = 1500)
     {
 
-        $doctrine = $this->getDoctrine();
-        $em = $doctrine->getManager();
-
-        $this->delData(LigneFacture::class);
-        $this->delData(Facture::class);
+        $this->delData(LigneCommande::class);
+        $this->delData(Commande::class);
         $this->delData(Produit::class);
         $this->delData(Note::class);
         $this->delData(Telephone::class);
@@ -316,6 +348,7 @@ class TestController extends AbstractController
         $this->delData(Taxe::class);
         $this->delData(CategorieProduit::class);
         $this->delData(Fournisseur::class);
+        $this->delData(Marque::class);
 
         // Création des clients et des notes
 
@@ -366,7 +399,7 @@ class TestController extends AbstractController
             if (isset($v->note)) {
                 $note = new Note();
                 $note->setClient($client);
-                $note->setCreatedAt(new \DateTime());
+                $note->setCreatedAt(new DateTime());
                 $note->setText($this->convertString($v->note));
                 $em->persist($note);
             }
@@ -392,29 +425,142 @@ class TestController extends AbstractController
         }
         $em->flush();
 
+        // Création des clients et des notes
+
+        $fak = Factory::create('fr_FR');
+
+        // Création des fournisseurs
+
+        $fou = [];
+        foreach (self::fournisseur as $c) {
+            $ct = new Fournisseur();
+            $ct->setNom($c[0]);
+            $ct->setAdresse($fak->address);
+            $ct->setMail($fak->email);
+            $ct->setTelephone($fak->phoneNumber);
+            $em->persist($ct);
+            $fou[] = $ct;
+        }
+
+        // Création des catégories produit
+
+        $cat = [];
+        foreach (self::category as $c) {
+            $fr = $c[1];
+            foreach ($fr as $f) {
+                $ct = new CategorieProduit();
+                $ct->setNom($c[0]);
+                $ct->setTva(20.0);
+                $ct->setFournisseur($fou[$f]);
+                $em->persist($ct);
+                $cat[] = $ct;
+            }
+        }
+
+        // Creation des taxes
+
+        $tax = [];
+        foreach (self::taxe as $c) {
+            $t = new Taxe();
+            $t->setNom($c[0]);
+            $t->setType($c[1]);
+            $t->setMontant($c[2]);
+            /** @var CategorieProduit $cpr */
+            $cpr = $cat[$c[3]];
+            $t->setCategorieProduit($cpr);
+            $cpr->addTax($t);
+            $em->persist($t);
+            $tax[] = $t;
+        }
+
+        // Création des marques
+
+        $marques = [];
+        foreach (self::marques as $n => $m) {
+            $mq = new Marque();
+            $mq->setNom($n);
+            $em->persist($mq);
+            $marques[] = $mq;
+        }
+
+        // Création des produits
+
+        $prd = [];
+        foreach (self::product as $c) {
+            $libelle= $c[0];
+            $prix = $c[1];
+            $marq = $c[2];
+            $fourn = $c[3];
+            foreach ($fourn as $k => $v) {
+                foreach ($v as $target) {
+                    $pr = new Produit();
+                    $pr->setCategorieProduit($cat[$target]);
+                    $pr->setNom($libelle);
+                    $pr->setPrixHT($prix);
+                    $pr->setMarque($marques[$marq-1]);
+                    $em->persist($pr);
+                    $prd[] = $pr;
+                }
+            }
+        }
+
+        // Creation des commandes
+
+        $repoCl = $doctrine->getRepository(Client::class);
+
+        /** @var ClientRepository $repoCl */
+
+        $nbClients = $repoCl->count([]);
+
+        $commandes = [];
+
+        $x = 0;
+
+        for ($i=0; $i<$nbCommandes; $i++) {
+            $fac = new Commande();
+            $client = $repoCl->find(rand(1,$nbClients-1));
+            $fac->setClient($client);
+            $dat = $fak->dateTimeBetween('-5 years', 'now');
+            $fac->setCreatedAt($dat);
+            $fac->setReference($dat->format('Ymd') . '-' . $fac->getClient());
+            $fac->setPrixHT(0);
+            $fac->setEcoHT(0);
+            $fac->setEcoTTC(0);
+            // Creation des ventes
+            $rnd = rand(1, 12);
+            for ($j=0; $j<$rnd; $j++) {
+                $lf = new LigneCommande();
+                $lf->setCreatedAt($dat);
+                /** @var Produit $pr */
+                $pr = $this->getRand($prd);
+                $lf->setRemiseType('percent');
+                $lf->setRemise(0);
+
+                $quan = rand(1, 10);
+                $lf->setQuantite($quan);
+
+                $fac->setPrixHT($fac->getPrixHT() + $pr->getPrixHT() * $quan);
+                $tva = $pr->getCategorieProduit()->getTva();
+                $fac->setPrixTTC($fac->getPrixTTC() + $pr->getPrixHT() * $quan * (1+$tva/100.0));
+                $lf->setProduit($pr);
+                // Ecotaxes
+                foreach ($pr->getCategorieProduit()->getTaxes() as $tax) {
+                    /** @var Taxe $tax */
+                    $fac->setEcoHT($fac->getEcoHT() + $quan * $tax->getMontant());
+                    $fac->setEcoTTC($fac->getEcoTTC() + $quan * $tax->getMontant() * 1.2);
+                }
+
+                $fac->addLigneCommande($lf);
+                $em->persist($lf);
+            }
+            $em->persist($fac);
+            $commandes[] = $fac;
+            if ($x++ % 500 == 0) {
+                $em->flush();
+            }
+        }
+        $em->flush();
+
         return $this->render('intranet/test.html.twig');
-    }
-
-    /**
-     * @Route("/facture", name="test2")
-     * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function facture(Request $request)
-    {
-        $fRepo = $this->getDoctrine()->getRepository(Facture::class);
-        $prod = $fRepo->findAll();
-
-        //$form = $this->createForm(FactureType::class, $prod[0]);
-        //$form->handleRequest($request);
-
-        //if ($form->isSubmitted() && $form->isValid()) {
-
-        //}
-
-
-        return $this->render('pages/test.html.twig', [
-            'data' => $prod
-        ]);
     }
 }

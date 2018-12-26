@@ -2,14 +2,15 @@
 
 namespace App\Entity;
 
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\FactureRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\CommandeRepository")
  */
-class Facture
+class Commande
 {
     /**
      * @ORM\Id()
@@ -49,19 +50,19 @@ class Facture
     private $ecoTTC;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Client", inversedBy="factures")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Client", inversedBy="commandes")
      * @ORM\JoinColumn(nullable=false)
      */
     private $client;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\LigneFacture", mappedBy="facture")
+     * @ORM\OneToMany(targetEntity="App\Entity\LigneCommande", mappedBy="commande")
      */
-    private $ligneFactures;
+    private $ligneCommandes;
 
     public function __construct()
     {
-        $this->ligneFactures = new ArrayCollection();
+        $this->ligneCommandes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -69,12 +70,12 @@ class Facture
         return $this->id;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getCreatedAt(): ?DateTimeInterface
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    public function setCreatedAt(DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
 
@@ -106,30 +107,30 @@ class Facture
     }
 
     /**
-     * @return Collection|LigneFacture[]
+     * @return Collection|LigneCommande[]
      */
-    public function getLigneFactures(): Collection
+    public function getLigneCommandes(): Collection
     {
-        return $this->ligneFactures;
+        return $this->ligneCommandes;
     }
 
-    public function addLigneFacture(LigneFacture $ligneFacture): self
+    public function addLigneCommande(LigneCommande $ligneCommande): self
     {
-        if (!$this->ligneFactures->contains($ligneFacture)) {
-            $this->ligneFactures[] = $ligneFacture;
-            $ligneFacture->setFacture($this);
+        if (!$this->ligneCommandes->contains($ligneCommande)) {
+            $this->ligneCommandes[] = $ligneCommande;
+            $ligneCommande->setCommande($this);
         }
 
         return $this;
     }
 
-    public function removeLigneFacture(LigneFacture $ligneFacture): self
+    public function removeLigneCommande(LigneCommande $ligneCommande): self
     {
-        if ($this->ligneFactures->contains($ligneFacture)) {
-            $this->ligneFactures->removeElement($ligneFacture);
+        if ($this->ligneCommandes->contains($ligneCommande)) {
+            $this->ligneCommandes->removeElement($ligneCommande);
             // set the owning side to null (unless already changed)
-            if ($ligneFacture->getFacture() === $this) {
-                $ligneFacture->setFacture(null);
+            if ($ligneCommande->getCommande() === $this) {
+                $ligneCommande->setCommande(null);
             }
         }
 

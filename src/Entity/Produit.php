@@ -35,13 +35,19 @@ class Produit
     private $categorieProduit;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\LigneFacture", mappedBy="produit")
+     * @ORM\OneToMany(targetEntity="App\Entity\LigneCommande", mappedBy="produit")
      */
-    private $ligneFactures;
+    private $ligneCommandes;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Marque", inversedBy="produits")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $marque;
 
     public function __construct()
     {
-        $this->ligneFactures = new ArrayCollection();
+        $this->ligneCommandes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -86,32 +92,44 @@ class Produit
     }
 
     /**
-     * @return Collection|LigneFacture[]
+     * @return Collection|LigneCommande[]
      */
-    public function getLigneFactures(): Collection
+    public function getLigneCommandes(): Collection
     {
-        return $this->ligneFactures;
+        return $this->ligneCommandes;
     }
 
-    public function addLigneFacture(LigneFacture $ligneFacture): self
+    public function addLigneCommande(LigneCommande $ligneCommande): self
     {
-        if (!$this->ligneFactures->contains($ligneFacture)) {
-            $this->ligneFactures[] = $ligneFacture;
-            $ligneFacture->setProduit($this);
+        if (!$this->ligneCommandes->contains($ligneCommande)) {
+            $this->ligneCommandes[] = $ligneCommande;
+            $ligneCommande->setProduit($this);
         }
 
         return $this;
     }
 
-    public function removeLigneFacture(LigneFacture $ligneFacture): self
+    public function removeLigneCommande(LigneCommande $ligneCommande): self
     {
-        if ($this->ligneFactures->contains($ligneFacture)) {
-            $this->ligneFactures->removeElement($ligneFacture);
+        if ($this->ligneCommandes->contains($ligneCommande)) {
+            $this->ligneCommandes->removeElement($ligneCommande);
             // set the owning side to null (unless already changed)
-            if ($ligneFacture->getProduit() === $this) {
-                $ligneFacture->setProduit(null);
+            if ($ligneCommande->getProduit() === $this) {
+                $ligneCommande->setProduit(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getMarque(): ?Marque
+    {
+        return $this->marque;
+    }
+
+    public function setMarque(?Marque $marque): self
+    {
+        $this->marque = $marque;
 
         return $this;
     }

@@ -33,24 +33,24 @@
                 {% set totalHT    = 0 %}
                 {% set totalTaxes = 0 %}
 
-                {% for ligneFacture in facture.ligneFactures %}
+                {% for ligneCommande in facture.ligneCommandes %}
                     <tr>
-                        {% set prixht  = ligneFacture.produit.prixHT %}
+                        {% set prixht  = ligneCommande.produit.prixHT %}
                         {% set totalHT = totalHT + prixht %}
-                        {% set tva    = ligneFacture.Produit.CategorieProduit.tva %}
-                        {#<div class="col">{{ ligneFacture.createdAt | toString}}</div> #}
-                        <td>{{ ligneFacture.produit.nom }}</td>
-                        <td>{{ ligneFacture.produit.categorieProduit.fournisseur.nom }}</td>
-                        <td>{{ ligneFacture.produit.categorieProduit.nom }}</td>
-                        <td>{{ ligneFacture.quantite }}</td>
+                        {% set tva    = ligneCommande.Produit.CategorieProduit.tva %}
+                        {#<div class="col">{{ ligneCommande.createdAt | toString}}</div> #}
+                        <td>{{ ligneCommande.produit.nom }}</td>
+                        <td>{{ ligneCommande.produit.categorieProduit.fournisseur.nom }}</td>
+                        <td>{{ ligneCommande.produit.categorieProduit.nom }}</td>
+                        <td>{{ ligneCommande.quantite }}</td>
                         <td>{{ prixht }}€</td>
                         <td>{{ tva }}%</td>
-                        <td>{{ ligneFacture.remise }}%</td>
+                        <td>{{ ligneCommande.remise }}%</td>
                         <td>{{ prixht * (tva/100) }}€</td>
                         <td>{{ prixht + (prixht * (tva/100)) }}€</td>
                     </tr>
 
-                    {% for taxe in ligneFacture.produit.categorieProduit.taxes %}
+                    {% for taxe in ligneCommande.produit.categorieProduit.taxes %}
                         <tr>
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>

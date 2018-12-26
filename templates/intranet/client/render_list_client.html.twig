@@ -36,9 +36,9 @@
 
 
         <div class="client_fact">
-            {% for facture in client.factures %}
+            {% for facture in client.commandes %}
                 <div class="col">
-                    <a href="{{ path('view_factures',{ref: facture.id}) }}">{{ facture.reference }}</a>
+                    <a href="{{ path('view_commandes',{ref: facture.id}) }}">{{ facture.reference }}</a>
                     {{ facture.getPrixHT }} {{ facture.getPrixTTC }}
                 </div>
             {% endfor %}

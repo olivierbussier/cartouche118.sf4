@@ -6,16 +6,16 @@ class BlogTypeChoice
 {
 
     public const CAROUSEL  = 'carousel';
-    public const MARKETING = 'marketing';
-    public const PORTFOLIO = 'portfolio';
-    public const FEATURE   = 'feature';
+    public const SERVICES  = 'services';
+    public const CLIENTS   = 'clients';
+    public const PRODUITS  = 'produits';
     public const FAQ       = 'FAQ';
 
     public const CHOICES   = [
         'Carrousel' => self::CAROUSEL,
-        'Marketing' => self::MARKETING,
-        'Portfolio' => self::PORTFOLIO,
-        'Feature'   => self::FEATURE,
+        'Services'  => self::SERVICES,
+        'Clients'   => self::CLIENTS,
+        'Produits'  => self::PRODUITS,
         'FAQ'       => self::FAQ
     ];
 

@@ -41,7 +41,7 @@ class BlogRepository extends ServiceEntityRepository
     }
 
     /**
-     * @param $position
+     * @param Blog $blog
      * @return mixed
      * @throws \Doctrine\ORM\NoResultException
      * @throws \Doctrine\ORM\NonUniqueResultException
@@ -104,7 +104,7 @@ class BlogRepository extends ServiceEntityRepository
      * @return Blog[] Returns an array of Blog objects
      */
 
-    public function getAllPosts($type = 'marketing')
+    public function getAllPosts($type = 'services')
     {
         return $this->createQueryBuilder('b')
             ->where("b.type = '$type'")
@@ -131,33 +131,4 @@ class BlogRepository extends ServiceEntityRepository
             ->getResult()
             ;
     }
-
-//    /**
-//     * @return BlogText[] Returns an array of BlogText objects
-//     */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('b')
-            ->andWhere('b.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('b.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?BlogText
-    {
-        return $this->createQueryBuilder('b')
-            ->andWhere('b.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

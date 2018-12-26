@@ -25,7 +25,7 @@ class BlogController extends AbstractController
      * @param string $type
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function index(RegistryInterface $doctrine, Request $request, $type = BlogTypeChoice::PORTFOLIO)
+    public function index(RegistryInterface $doctrine, Request $request, $type = BlogTypeChoice::CLIENTS)
     {
         /**
          * @var $blogsRepo BlogRepository
@@ -231,9 +231,9 @@ class BlogController extends AbstractController
                     case BlogTypeChoice::CAROUSEL:
                         $largeur = 1900;
                         break;
-                    case BlogTypeChoice::FEATURE:
-                    case BlogTypeChoice::PORTFOLIO:
-                    case BlogTypeChoice::MARKETING:
+                    case BlogTypeChoice::PRODUITS:
+                    case BlogTypeChoice::CLIENTS:
+                    case BlogTypeChoice::SERVICES:
                         $largeur = 400;
                         break;
                     default:

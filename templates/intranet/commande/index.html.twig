@@ -11,17 +11,17 @@
 
         <table class="table table-striped table-hover table-sm">
             <tr>
-                <th>Date facture :</th><td>{{ facture.createdAt | date('d/m/Y') }}</td>
-                <th>Référence :</th><td>{{ facture.reference }}</td>
-                <th>Client :</th><td>{{ facture.client.prenom }} {{ facture.client.nom }}<br>
-                                     {{ facture.client.fullname }}
+                <th>Date commande :</th><td>{{ commande.createdAt | date('d/m/Y') }}</td>
+                <th>Référence :</th><td>{{ commande.reference }}</td>
+                <th>Client :</th><td>{{ commande.client.prenom }} {{ commande.client.nom }}<br>
+                                     {{ commande.client.fullname }}
                 </td>
             </tr>
         </table>
 
         <table class="table table-striped table-hover table-sm">
             <tr>
-                {% for adresse in facture.client.adresses %}
+                {% for adresse in commande.client.adresses %}
                     <td>
                         <table class="table">
                             <tr><th>Catégorie</th><td>{{ adresse.nom }}</td></tr>
@@ -45,7 +45,7 @@
             {% set TotalTax = 0 %}
             {% set TotalEcoHT = 0 %}
             {% set TotalEcoTTC = 0 %}
-            {% for ligne in facture.ligneFactures %}
+            {% for ligne in commande.ligneCommandes %}
                 <tr>
                     <td>{{ ligne.produit.categorieProduit }}</td>
                     <td>{{ ligne.produit.nom }}</td>
@@ -106,7 +106,6 @@
                 <th class="text-right">{{ TotalEcoTTC | number_format(2,'.',',')}}€</th>
             </tr>
         </table>
-{{ dump(facture) }}
     </div>
 
 {% endblock %}
