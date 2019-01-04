@@ -38,7 +38,9 @@
 
         <table class="table table-striped table-hover table-sm">
             <tr>
-                <th>Catégorie</th><th>Désignation</th><th>Fournisseur</th><th>prix H.T</th><th>Remise</th><th>Taxe</th><th>quantité</th><th>Total H.T</th><th>Total Taxes</th><th>Total TTC</th>
+                <th>Catégorie</th><th>Désignation</th><th>Fournisseur</th>
+                <th>quantité</th><th>prix H.T</th><th>Remise</th><th>Total H.T</th>
+                <th>Taxe</th><th>Total Taxes</th><th>Total TTC</th>
             </tr>
             {% set TotalHT  = 0 %}
             {% set TotalTTC = 0 %}
@@ -48,33 +50,40 @@
             {% for ligne in commande.ligneCommandes %}
                 <tr>
                     <td>{{ ligne.produit.categorieProduit }}</td>
-                    <td>{{ ligne.produit.nom }}</td>
+                    <td>{{ ligne.produit.nom }}<br>{{ ligne.produit.caract1 }} - {{ ligne.produit.caract2 }}</td>
                     <td>{{ ligne.produit.categorieProduit.fournisseur.nom }}</td>
-                    <td>{{ ligne.produit.prixHT }}€</td>
-                    <td>{{ ligne.remiseType }}: {{ ligne.remise }}%</td>
-                    <td>{{ ligne.produit.categorieProduit.tva }}%</td>
                     <td>{{ ligne.quantite }}</td>
-                    {% set ligneHT  = ligne.quantite * ligne.produit.prixHT %}
-                    {% set ligneTax = ligneHT *     (ligne.produit.categorieProduit.tva / 100) %}
-                    {% set ligneTTC = ligneHT * (1 + ligne.produit.categorieProduit.tva / 100) %}
+                    {% set prixHT = ligne.produit.prixHT * ligne.produit.marge %}
+                    <td class="text-right">{{ prixHT | number_format(2,'.',',') }}€</td>
+                    {% if ligne.remise == 0 %}
+                        <td>-</td>
+                    {% else %}
+                        <td class="text-right">{{ ligne.remise | number_format(2,'.',',') }}%</td>
+                    {% endif %}
+                    {% set ligneHT  = ligne.quantite * prixHT %}
                     <td class="text-right">{{ ligneHT | number_format(2,'.',',') }}€</td>
+                    <td>{{ ligne.produit.categorieProduit.tva * 100 }}%</td>
+                    {% set ligneTax = ligneHT *     (ligne.produit.categorieProduit.tva ) %}
+                    {% set ligneTTC = ligneHT * (1 + ligne.produit.categorieProduit.tva ) %}
                     <td class="text-right">{{ ligneTax | number_format(2,'.',',') }}€</td>
                     <td class="text-right">{{ ligneTTC | number_format(2,'.',',') }}€</td>
                     {% set TotalHT  = TotalHT  + ligneHT %}
                     {% set TotalTax = TotalTax + ligneTax %}
                     {% set TotalTTC = TotalTTC + ligneTTC %}
                 </tr>
+
                 {% if ligne.produit.categorieProduit.taxes is not empty %}
                     <tr>
 
                     {% for taxe in ligne.produit.categorieProduit.taxes %}
                         {#<td>{{ taxe.categorieProduit }}</td>#}
                         <td></td>
-                        <td>{{ taxe.nom }}</td>
+                        <td>Ecotaxe {{ taxe.nom }}</td>
                         <td></td>
-                        <td>{{ taxe.type }}: {{ taxe.montant }}€</td>
-                        <td></td><td></td>
                         <td>{{ ligne.quantite }}</td>
+                        <td class="text-right">{{ taxe.montant | number_format(2,'.',',') }}€</td>
+                        <td></td> {# remise#}
+
                         {% set taxeHT  = ligne.quantite * taxe.montant %}
                         {% set taxeTax = taxeHT * 0.2 %}
                         {% set taxeTTC = taxeHT * 1.2 %}
@@ -87,6 +96,7 @@
                         {% set TotalEcoTTC = TotalEcoTTC + taxeTTC %}
 
                         <td class="text-right">{{ taxeHT | number_format(2,'.',',') }}€</td>
+                        <td>20%</td>
                         <td class="text-right">{{ taxeTax | number_format(2,'.',',') }}€</td>
                         <td class="text-right">{{ taxeTTC | number_format(2,'.',',') }}€</td>
                     {% endfor %}
