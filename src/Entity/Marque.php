@@ -38,6 +38,11 @@ class Marque
         $this->produits = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return $this->getNom();
+    }
+
     public function getId(): ?int
     {
         return $this->id;

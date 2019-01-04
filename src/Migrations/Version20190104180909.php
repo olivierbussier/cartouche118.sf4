@@ -8,7 +8,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20181226064312 extends AbstractMigration
+final class Version20190104180909 extends AbstractMigration
 {
     public function up(Schema $schema) : void
     {
@@ -25,7 +25,7 @@ final class Version20181226064312 extends AbstractMigration
         $this->addSql('CREATE TABLE ligne_commande (id INT AUTO_INCREMENT NOT NULL, produit_id INT NOT NULL, commande_id INT NOT NULL, created_at DATETIME NOT NULL, quantite NUMERIC(10, 2) NOT NULL, remise_type VARCHAR(255) NOT NULL, remise NUMERIC(10, 2) NOT NULL, INDEX IDX_3170B74BF347EFB (produit_id), INDEX IDX_3170B74B82EA2E54 (commande_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
         $this->addSql('CREATE TABLE marque (id INT AUTO_INCREMENT NOT NULL, nom VARCHAR(255) NOT NULL, description LONGTEXT DEFAULT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
         $this->addSql('CREATE TABLE note (id INT AUTO_INCREMENT NOT NULL, client_id INT NOT NULL, created_at DATETIME NOT NULL, text LONGTEXT DEFAULT NULL, INDEX IDX_CFBDFA1419EB6921 (client_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE produit (id INT AUTO_INCREMENT NOT NULL, categorie_produit_id INT NOT NULL, marque_id INT NOT NULL, nom VARCHAR(255) NOT NULL, prix_ht NUMERIC(10, 2) NOT NULL, INDEX IDX_29A5EC2791FDB457 (categorie_produit_id), INDEX IDX_29A5EC274827B9B2 (marque_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE produit (id INT AUTO_INCREMENT NOT NULL, categorie_produit_id INT NOT NULL, marque_id INT NOT NULL, fournisseur_id INT DEFAULT NULL, nom VARCHAR(255) NOT NULL, prix_ht NUMERIC(10, 2) NOT NULL, marge NUMERIC(10, 2) NOT NULL, code VARCHAR(255) NOT NULL, caract1 VARCHAR(255) DEFAULT NULL, caract2 VARCHAR(255) DEFAULT NULL, caract3 VARCHAR(255) DEFAULT NULL, INDEX IDX_29A5EC2791FDB457 (categorie_produit_id), INDEX IDX_29A5EC274827B9B2 (marque_id), INDEX IDX_29A5EC27670C757F (fournisseur_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
         $this->addSql('CREATE TABLE roles (id INT AUTO_INCREMENT NOT NULL, adherent_id INT DEFAULT NULL, role VARCHAR(255) NOT NULL, INDEX IDX_B63E2EC725F06C53 (adherent_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
         $this->addSql('CREATE TABLE taxe (id INT AUTO_INCREMENT NOT NULL, categorie_produit_id INT NOT NULL, nom VARCHAR(255) NOT NULL, type VARCHAR(255) NOT NULL, montant NUMERIC(10, 2) NOT NULL, INDEX IDX_56322FE991FDB457 (categorie_produit_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
         $this->addSql('CREATE TABLE telephone (id INT AUTO_INCREMENT NOT NULL, client_id INT NOT NULL, nom VARCHAR(255) NOT NULL, telephone VARCHAR(255) NOT NULL, INDEX IDX_450FF01019EB6921 (client_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
@@ -39,6 +39,7 @@ final class Version20181226064312 extends AbstractMigration
         $this->addSql('ALTER TABLE note ADD CONSTRAINT FK_CFBDFA1419EB6921 FOREIGN KEY (client_id) REFERENCES client (id)');
         $this->addSql('ALTER TABLE produit ADD CONSTRAINT FK_29A5EC2791FDB457 FOREIGN KEY (categorie_produit_id) REFERENCES categorie_produit (id)');
         $this->addSql('ALTER TABLE produit ADD CONSTRAINT FK_29A5EC274827B9B2 FOREIGN KEY (marque_id) REFERENCES marque (id)');
+        $this->addSql('ALTER TABLE produit ADD CONSTRAINT FK_29A5EC27670C757F FOREIGN KEY (fournisseur_id) REFERENCES fournisseur (id)');
         $this->addSql('ALTER TABLE roles ADD CONSTRAINT FK_B63E2EC725F06C53 FOREIGN KEY (adherent_id) REFERENCES user (id)');
         $this->addSql('ALTER TABLE taxe ADD CONSTRAINT FK_56322FE991FDB457 FOREIGN KEY (categorie_produit_id) REFERENCES categorie_produit (id)');
         $this->addSql('ALTER TABLE telephone ADD CONSTRAINT FK_450FF01019EB6921 FOREIGN KEY (client_id) REFERENCES client (id)');
@@ -58,6 +59,7 @@ final class Version20181226064312 extends AbstractMigration
         $this->addSql('ALTER TABLE telephone DROP FOREIGN KEY FK_450FF01019EB6921');
         $this->addSql('ALTER TABLE ligne_commande DROP FOREIGN KEY FK_3170B74B82EA2E54');
         $this->addSql('ALTER TABLE categorie_produit DROP FOREIGN KEY FK_76264285670C757F');
+        $this->addSql('ALTER TABLE produit DROP FOREIGN KEY FK_29A5EC27670C757F');
         $this->addSql('ALTER TABLE produit DROP FOREIGN KEY FK_29A5EC274827B9B2');
         $this->addSql('ALTER TABLE ligne_commande DROP FOREIGN KEY FK_3170B74BF347EFB');
         $this->addSql('ALTER TABLE roles DROP FOREIGN KEY FK_B63E2EC725F06C53');

@@ -48,10 +48,21 @@ class Fournisseur
      */
     private $categorieProduits;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Produit", mappedBy="fournisseur")
+     */
+    private $produits;
+
+    public function __toString()
+    {
+        return $this->getNom();
+    }
+
     public function __construct()
     {
         $this->taxes = new ArrayCollection();
         $this->categorieProduits = new ArrayCollection();
+        $this->produits = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -163,6 +174,37 @@ class Fournisseur
             // set the owning side to null (unless already changed)
             if ($categorieProduit->getFournisseur() === $this) {
                 $categorieProduit->setFournisseur(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Produit[]
+     */
+    public function getProduits(): Collection
+    {
+        return $this->produits;
+    }
+
+    public function addProduit(Produit $produit): self
+    {
+        if (!$this->produits->contains($produit)) {
+            $this->produits[] = $produit;
+            $produit->setFournisseur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProduit(Produit $produit): self
+    {
+        if ($this->produits->contains($produit)) {
+            $this->produits->removeElement($produit);
+            // set the owning side to null (unless already changed)
+            if ($produit->getFournisseur() === $this) {
+                $produit->setFournisseur(null);
             }
         }
 

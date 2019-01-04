@@ -1,0 +1,419 @@
+﻿code;nom;categorie;fournisseur;marque;caract1;caract2; prixht ; tva ;ecotaxe; marge 
+00731K;APPLE Color Printer;Cartouche jet d'encre;Farbax;Apple;Bleu;500; 1,49   ; 0,20   ; 0,02   ; 3,00   
+00730K;APPLE Color Printer;Cartouche jet d'encre;Farbax;Apple;Noir;500; 1,38   ; 0,20   ; 0,02   ; 3,00   
+00732K;APPLE Color Printer;Cartouche jet d'encre;Farbax;Apple;Rouge;500; 1,48   ; 0,20   ; 0,02   ; 3,00   
+00733K;APPLE Color Printer;Cartouche jet d'encre;Farbax;Apple;Jaune;500; 1,49   ; 0,20   ; 0,02   ; 3,00   
+00703K;APPLE Color Stylewriter 2200;Cartouche jet d'encre;Farbax;Apple;X 3 Noir;N.C; 1,25   ; 0,20   ; 0,02   ; 3,00   
+00797AK;APPLE Color Stylewriter 2400;Cartouche jet d'encre;Farbax;Apple;Noir;100; 0,50   ; 0,20   ; 0,02   ; 3,00   
+00797AK;APPLE Color Stylewriter 2500;Cartouche jet d'encre;Farbax;Apple;Noir;100; 0,50   ; 0,20   ; 0,02   ; 3,00   
+00802K;BROTHER MFC 740 C;Cartouche jet d'encre;Farbax;Brother;Noir;N.C; 1,95   ; 0,20   ; 0,02   ; 3,00   
+00802CK;BROTHER MFC 740 C;Cartouche jet d'encre;Farbax;Brother;Cyan;N.C; 1,36   ; 0,20   ; 0,02   ; 3,00   
+00802MK;BROTHER MFC 740 C;Cartouche jet d'encre;Farbax;Brother;Magenta;N.C; 1,36   ; 0,20   ; 0,02   ; 3,00   
+00802YK;BROTHER MFC 740 C;Cartouche jet d'encre;Farbax;Brother;Yellow;N.C; 1,36   ; 0,20   ; 0,02   ; 3,00   
+00804BK;BROTHER MFC 7300C;Cartouche jet d'encre;Farbax;Brother;Noir;N.C; 1,69   ; 0,20   ; 0,02   ; 3,00   
+00804CK;BROTHER MFC 7300C;Cartouche jet d'encre;Farbax;Brother;Cyan;N.C; 1,38   ; 0,20   ; 0,02   ; 3,00   
+00804MK;BROTHER MFC 7300C;Cartouche jet d'encre;Farbax;Brother;Magenta;N.C; 1,38   ; 0,20   ; 0,02   ; 3,00   
+00804YK;BROTHER MFC 7300C;Cartouche jet d'encre;Farbax;Brother;Yellow;N.C; 1,38   ; 0,20   ; 0,02   ; 3,00   
+00804MK;BROTHER MFC 7400C;Cartouche jet d'encre;Farbax;Brother;Magenta;N.C; 1,38   ; 0,20   ; 0,02   ; 3,00   
+00804YK;BROTHER MFC 7400C;Cartouche jet d'encre;Farbax;Brother;Yellow;N.C; 1,38   ; 0,20   ; 0,02   ; 3,00   
+00804CK;BROTHER MFC 7400C;Cartouche jet d'encre;Farbax;Brother;Cyan;N.C; 1,38   ; 0,20   ; 0,02   ; 3,00   
+00804BK;BROTHER MFC 7400C;Cartouche jet d'encre;Farbax;Brother;Noir;N.C; 1,69   ; 0,20   ; 0,02   ; 3,00   
+00804BK;BROTHER MFC 9200C;Cartouche jet d'encre;Farbax;Brother;Noir;N.C; 1,69   ; 0,20   ; 0,02   ; 3,00   
+00804CK;BROTHER MFC 9200C;Cartouche jet d'encre;Farbax;Brother;Cyan;N.C; 1,38   ; 0,20   ; 0,02   ; 3,00   
+00804MK;BROTHER MFC 9200C;Cartouche jet d'encre;Farbax;Brother;Magenta;N.C; 1,38   ; 0,20   ; 0,02   ; 3,00   
+00804YK;BROTHER MFC 9200C;Cartouche jet d'encre;Farbax;Brother;Yellow;N.C; 1,38   ; 0,20   ; 0,02   ; 3,00   
+00802K;BROTHER MFC 760;Cartouche jet d'encre;Farbax;Brother;Noir;N.C; 1,95   ; 0,20   ; 0,02   ; 3,00   
+00802CK;BROTHER MFC 760;Cartouche jet d'encre;Farbax;Brother;Cyan;N.C; 1,36   ; 0,20   ; 0,02   ; 3,00   
+00802MK;BROTHER MFC 760;Cartouche jet d'encre;Farbax;Brother;Magenta;N.C; 1,36   ; 0,20   ; 0,02   ; 3,00   
+00802YK;BROTHER MFC 760;Cartouche jet d'encre;Farbax;Brother;Yellow;N.C; 1,36   ; 0,20   ; 0,02   ; 3,00   
+00440K;BROTHER MFC 3100C;Cartouche jet d'encre;Farbax;Brother;Noir;N.C; 2,00   ; 0,20   ; 0,02   ; 3,00   
+00440K;BROTHER MFC 3200C;Cartouche jet d'encre;Farbax;Brother;Noir;N.C; 2,00   ; 0,20   ; 0,02   ; 3,00   
+00440K;BROTHER MFC 5100C;Cartouche jet d'encre;Farbax;Brother;Noir;N.C; 2,00   ; 0,20   ; 0,02   ; 3,00   
+00440K;BROTHER MFC 5200C;Cartouche jet d'encre;Farbax;Brother;Noir;N.C; 2,00   ; 0,20   ; 0,02   ; 3,00   
+00440K;BROTHER IntelliFax 1800C;Cartouche jet d'encre;Farbax;Brother;Noir;N.C; 2,00   ; 0,20   ; 0,02   ; 3,00   
+00441K;BROTHER MFC 3100C;Cartouche jet d'encre;Farbax;Brother;Cyan;N.C; 1,75   ; 0,20   ; 0,02   ; 3,00   
+00441K;BROTHER MFC 3200C;Cartouche jet d'encre;Farbax;Brother;Cyan;N.C; 1,75   ; 0,20   ; 0,02   ; 3,00   
+00441K;BROTHER MFC 5100C;Cartouche jet d'encre;Farbax;Brother;Cyan;N.C; 1,75   ; 0,20   ; 0,02   ; 3,00   
+00441K;BROTHER MFC 5200C;Cartouche jet d'encre;Farbax;Brother;Cyan;N.C; 1,75   ; 0,20   ; 0,02   ; 3,00   
+00441K;BROTHER IntelliFax 1800C;Cartouche jet d'encre;Farbax;Brother;Cyan;N.C; 1,75   ; 0,20   ; 0,02   ; 3,00   
+00442K;BROTHER MFC 3100C;Cartouche jet d'encre;Farbax;Brother;Magenta;N.C; 1,75   ; 0,20   ; 0,02   ; 3,00   
+00442K;BROTHER MFC 3200C;Cartouche jet d'encre;Farbax;Brother;Magenta;N.C; 1,75   ; 0,20   ; 0,02   ; 3,00   
+00442K;BROTHER MFC 5100C;Cartouche jet d'encre;Farbax;Brother;Magenta;N.C; 1,75   ; 0,20   ; 0,02   ; 3,00   
+00442K;BROTHER MFC 5200C;Cartouche jet d'encre;Farbax;Brother;Magenta;N.C; 1,75   ; 0,20   ; 0,02   ; 3,00   
+00442K;BROTHER IntelliFax 1800C;Cartouche jet d'encre;Farbax;Brother;Magenta;N.C; 1,75   ; 0,20   ; 0,02   ; 3,00   
+00443K;BROTHER MFC 3100C;Cartouche jet d'encre;Farbax;Brother;Yellow;N.C; 1,75   ; 0,20   ; 0,02   ; 3,00   
+00443K;BROTHER MFC 3200C;Cartouche jet d'encre;Farbax;Brother;Yellow;N.C; 1,75   ; 0,20   ; 0,02   ; 3,00   
+00443K;BROTHER MFC 5100C;Cartouche jet d'encre;Farbax;Brother;Yellow;N.C; 1,75   ; 0,20   ; 0,02   ; 3,00   
+00443K;BROTHER MFC 5200C;Cartouche jet d'encre;Farbax;Brother;Yellow;N.C; 1,75   ; 0,20   ; 0,02   ; 3,00   
+00443K;BROTHER IntelliFax 1800C;Cartouche jet d'encre;Farbax;Brother;Yellow;N.C; 1,75   ; 0,20   ; 0,02   ; 3,00   
+00703K;CANON BJC 50;Cartouche jet d'encre;Farbax;Canon;X 3 Noir;N.C; 1,25   ; 0,20   ; 0,02   ; 3,00   
+00703K;CANON BJC 70;Cartouche jet d'encre;Farbax;Canon;X 3 Noir;N.C; 1,25   ; 0,20   ; 0,02   ; 3,00   
+00703K;CANON BJC 80;Cartouche jet d'encre;Farbax;Canon;X 3 Noir;N.C; 1,25   ; 0,20   ; 0,02   ; 3,00   
+00703K;CANON BJC 35 V;Cartouche jet d'encre;Farbax;Canon;X 3 Noir;N.C; 1,25   ; 0,20   ; 0,02   ; 3,00   
+00730K;CANON BJC 800;Cartouche jet d'encre;Farbax;Canon;Noir;500; 1,38   ; 0,20   ; 0,02   ; 3,00   
+00730K;CANON BJC 820;Cartouche jet d'encre;Farbax;Canon;Noir;500; 1,38   ; 0,20   ; 0,02   ; 3,00   
+00730K;CANON BJC 880;Cartouche jet d'encre;Farbax;Canon;Noir;500; 1,38   ; 0,20   ; 0,02   ; 3,00   
+00730K;CANON BJC 880 J;Cartouche jet d'encre;Farbax;Canon;Noir;500; 1,38   ; 0,20   ; 0,02   ; 3,00   
+00730K;CANON BJP C80;Cartouche jet d'encre;Farbax;Canon;Noir;500; 1,38   ; 0,20   ; 0,02   ; 3,00   
+00730K;CANON BJP C81;Cartouche jet d'encre;Farbax;Canon;Noir;500; 1,38   ; 0,20   ; 0,02   ; 3,00   
+00730K;CANON CJP C80;Cartouche jet d'encre;Farbax;Canon;Noir;500; 1,38   ; 0,20   ; 0,02   ; 3,00   
+00731K;CANON BJC 800;Cartouche jet d'encre;Farbax;Canon;Bleu;500; 1,49   ; 0,20   ; 0,02   ; 3,00   
+00732K;CANON BJC 800;Cartouche jet d'encre;Farbax;Canon;Rouge;500; 1,48   ; 0,20   ; 0,02   ; 3,00   
+00733K;CANON BJC 800;Cartouche jet d'encre;Farbax;Canon;Jaune;500; 1,49   ; 0,20   ; 0,02   ; 3,00   
+00731K;CANON BJC 820;Cartouche jet d'encre;Farbax;Canon;Bleu;500; 1,49   ; 0,20   ; 0,02   ; 3,00   
+00732K;CANON BJC 820;Cartouche jet d'encre;Farbax;Canon;Rouge;500; 1,48   ; 0,20   ; 0,02   ; 3,00   
+00733K;CANON BJC 820;Cartouche jet d'encre;Farbax;Canon;Jaune;500; 1,49   ; 0,20   ; 0,02   ; 3,00   
+00731K;CANON BJC 880;Cartouche jet d'encre;Farbax;Canon;Bleu;500; 1,49   ; 0,20   ; 0,02   ; 3,00   
+00732K;CANON BJC 880;Cartouche jet d'encre;Farbax;Canon;Rouge;500; 1,48   ; 0,20   ; 0,02   ; 3,00   
+00733K;CANON BJC 880;Cartouche jet d'encre;Farbax;Canon;Jaune;500; 1,49   ; 0,20   ; 0,02   ; 3,00   
+00731K;CANON BJC 880 J;Cartouche jet d'encre;Farbax;Canon;Bleu;500; 1,49   ; 0,20   ; 0,02   ; 3,00   
+00732K;CANON BJC 880 J;Cartouche jet d'encre;Farbax;Canon;Rouge;500; 1,48   ; 0,20   ; 0,02   ; 3,00   
+00733K;CANON BJC 880 J;Cartouche jet d'encre;Farbax;Canon;Jaune;500; 1,49   ; 0,20   ; 0,02   ; 3,00   
+00731K;CANON BJP C80;Cartouche jet d'encre;Farbax;Canon;Bleu;500; 1,49   ; 0,20   ; 0,02   ; 3,00   
+00732K;CANON BJP C80;Cartouche jet d'encre;Farbax;Canon;Rouge;500; 1,48   ; 0,20   ; 0,02   ; 3,00   
+00733K;CANON BJP C80;Cartouche jet d'encre;Farbax;Canon;Jaune;500; 1,49   ; 0,20   ; 0,02   ; 3,00   
+00731K;CANON BJP C81;Cartouche jet d'encre;Farbax;Canon;Bleu;500; 1,49   ; 0,20   ; 0,02   ; 3,00   
+00732K;CANON BJP C81;Cartouche jet d'encre;Farbax;Canon;Rouge;500; 1,48   ; 0,20   ; 0,02   ; 3,00   
+00733K;CANON BJP C81;Cartouche jet d'encre;Farbax;Canon;Jaune;500; 1,49   ; 0,20   ; 0,02   ; 3,00   
+00731K;CANON CJP C80;Cartouche jet d'encre;Farbax;Canon;Bleu;500; 1,49   ; 0,20   ; 0,02   ; 3,00   
+00732K;CANON CJP C80;Cartouche jet d'encre;Farbax;Canon;Rouge;500; 1,48   ; 0,20   ; 0,02   ; 3,00   
+00733K;CANON CJP C80;Cartouche jet d'encre;Farbax;Canon;Jaune;500; 1,49   ; 0,20   ; 0,02   ; 3,00   
+00797AK;CANON BJC 2000;Cartouche jet d'encre;Farbax;Canon;Noir;100; 0,50   ; 0,20   ; 0,02   ; 3,00   
+00797AK;CANON BJC 4000;Cartouche jet d'encre;Farbax;Canon;Noir;100; 0,50   ; 0,20   ; 0,02   ; 3,00   
+00797AK;CANON BJC 4100;Cartouche jet d'encre;Farbax;Canon;Noir;100; 0,50   ; 0,20   ; 0,02   ; 3,00   
+00797AK;CANON BJC 4200;Cartouche jet d'encre;Farbax;Canon;Noir;100; 0,50   ; 0,20   ; 0,02   ; 3,00   
+00797AK;CANON BJC 4300;Cartouche jet d'encre;Farbax;Canon;Noir;100; 0,50   ; 0,20   ; 0,02   ; 3,00   
+00797AK;CANON BJC 4550;Cartouche jet d'encre;Farbax;Canon;Noir;100; 0,50   ; 0,20   ; 0,02   ; 3,00   
+00797AK;CANON BJC 5000;Cartouche jet d'encre;Farbax;Canon;Noir;100; 0,50   ; 0,20   ; 0,02   ; 3,00   
+00797AK;CANON S 100;Cartouche jet d'encre;Farbax;Canon;Noir;100; 0,50   ; 0,20   ; 0,02   ; 3,00   
+00845R;CANON BJ 200;Cartouche jet d'encre;Farbax;Canon;Couleur;250; 12,80   ; 0,20   ; 0,02   ; 3,00   
+00845R;CANON BJC 210;Cartouche jet d'encre;Farbax;Canon;Couleur;250; 12,80   ; 0,20   ; 0,02   ; 3,00   
+00845R;CANON BJC 240;Cartouche jet d'encre;Farbax;Canon;Couleur;250; 12,80   ; 0,20   ; 0,02   ; 3,00   
+00845R;CANON BJC 250;Cartouche jet d'encre;Farbax;Canon;Couleur;250; 12,80   ; 0,20   ; 0,02   ; 3,00   
+00845R;CANON BJC 1000;Cartouche jet d'encre;Farbax;Canon;Couleur;250; 12,80   ; 0,20   ; 0,02   ; 3,00   
+00794CY;CANON BJC 3000;Cartouche jet d'encre;Farbax;Canon;Yellow;300; 0,75   ; 0,20   ; 0,02   ; 3,00   
+00794CY;CANON BJC 6000;Cartouche jet d'encre;Farbax;Canon;Yellow;300; 0,75   ; 0,20   ; 0,02   ; 3,00   
+00794CY;CANON S 400;Cartouche jet d'encre;Farbax;Canon;Yellow;300; 0,75   ; 0,20   ; 0,02   ; 3,00   
+00794CY;CANON S 450;Cartouche jet d'encre;Farbax;Canon;Yellow;300; 0,75   ; 0,20   ; 0,02   ; 3,00   
+00794CY;CANON S 500;Cartouche jet d'encre;Farbax;Canon;Yellow;300; 0,75   ; 0,20   ; 0,02   ; 3,00   
+00794CY;CANON S 630;Cartouche jet d'encre;Farbax;Canon;Yellow;300; 0,75   ; 0,20   ; 0,02   ; 3,00   
+00794CY;CANON S 750;Cartouche jet d'encre;Farbax;Canon;Yellow;300; 0,75   ; 0,20   ; 0,02   ; 3,00   
+00794CY;CANON S 6300;Cartouche jet d'encre;Farbax;Canon;Yellow;300; 0,75   ; 0,20   ; 0,02   ; 3,00   
+00741K;CANON S 800;Cartouche jet d'encre;Farbax;Canon;Photo cyan;280; 0,98   ; 0,20   ; 0,02   ; 3,00   
+00741K;CANON S 820;Cartouche jet d'encre;Farbax;Canon;Photo cyan;280; 0,98   ; 0,20   ; 0,02   ; 3,00   
+00741K;CANON S 900;Cartouche jet d'encre;Farbax;Canon;Photo cyan;280; 0,98   ; 0,20   ; 0,02   ; 3,00   
+00741K;CANON S 9000;Cartouche jet d'encre;Farbax;Canon;Photo cyan;280; 0,98   ; 0,20   ; 0,02   ; 3,00   
+00742K;CANON S 800;Cartouche jet d'encre;Farbax;Canon;Photo magenta;280; 0,98   ; 0,20   ; 0,02   ; 3,00   
+00742K;CANON S 820;Cartouche jet d'encre;Farbax;Canon;Photo magenta;280; 0,98   ; 0,20   ; 0,02   ; 3,00   
+00742K;CANON S 900;Cartouche jet d'encre;Farbax;Canon;Photo magenta;280; 0,98   ; 0,20   ; 0,02   ; 3,00   
+00742K;CANON S 9000;Cartouche jet d'encre;Farbax;Canon;Photo magenta;280; 0,98   ; 0,20   ; 0,02   ; 3,00   
+00800YK;CANON BJC 8500;Cartouche jet d'encre;Farbax;Canon;Yellow;280; 2,34   ; 0,20   ; 0,02   ; 3,00   
+00800PM;CANON BJC 8500;Cartouche jet d'encre;Farbax;Canon;Magenta;280; 2,39   ; 0,20   ; 0,02   ; 3,00   
+00800WFK;CANON BJC 8500;Cartouche jet d'encre;Farbax;Canon;Fluide;N.C; 6,88   ; 0,20   ; 0,02   ; 3,00   
+00800PY;CANON BJC-8500;Cartouche jet d'encre;Farbax;Canon;YELLOW;N.C; 2,39   ; 0,20   ; 0,02   ; 3,00   
+00800PY;CANON BJF-8500;Cartouche jet d'encre;Farbax;Canon;YELLOW;N.C; 2,39   ; 0,20   ; 0,02   ; 3,00   
+00797AR;CANON 3757 JETSET;Cartouche jet d'encre;Farbax;Canon;NOIR;N.C; 11,12   ; 0,20   ; 0,02   ; 3,00   
+00797AR;CANON COLOR STYLEWRITER 2400;Cartouche jet d'encre;Farbax;Canon;NOIR;N.C; 11,12   ; 0,20   ; 0,02   ; 3,00   
+00797AR;CANON COLOR STYLEWRITER 2500;Cartouche jet d'encre;Farbax;Canon;NOIR;N.C; 11,12   ; 0,20   ; 0,02   ; 3,00   
+00797AR;CANON BJC-2000;Cartouche jet d'encre;Farbax;Canon;NOIR;N.C; 11,12   ; 0,20   ; 0,02   ; 3,00   
+00797AR;CANON BJC-2100;Cartouche jet d'encre;Farbax;Canon;NOIR;N.C; 11,12   ; 0,20   ; 0,02   ; 3,00   
+00797AR;CANON BJC-2110;Cartouche jet d'encre;Farbax;Canon;NOIR;N.C; 11,12   ; 0,20   ; 0,02   ; 3,00   
+00797AR;CANON BJC-2200;Cartouche jet d'encre;Farbax;Canon;NOIR;N.C; 11,12   ; 0,20   ; 0,02   ; 3,00   
+00797AR;CANON BJC-400J;Cartouche jet d'encre;Farbax;Canon;NOIR;N.C; 11,12   ; 0,20   ; 0,02   ; 3,00   
+00797AR;CANON BJC-4000;Cartouche jet d'encre;Farbax;Canon;NOIR;N.C; 11,12   ; 0,20   ; 0,02   ; 3,00   
+00797AR;CANON BJC-4100;Cartouche jet d'encre;Farbax;Canon;NOIR;N.C; 11,12   ; 0,20   ; 0,02   ; 3,00   
+00713B;CANON BJC 3000;Cartouche jet d'encre;Farbax;Canon;Noir;300; 0,98   ; 0,20   ; 0,02   ; 3,00   
+00713B;CANON BJC 6000;Cartouche jet d'encre;Farbax;Canon;Noir;300; 0,98   ; 0,20   ; 0,02   ; 3,00   
+00713B;CANON BJC 6100;Cartouche jet d'encre;Farbax;Canon;Noir;300; 0,98   ; 0,20   ; 0,02   ; 3,00   
+00713B;CANON BJC 6200;Cartouche jet d'encre;Farbax;Canon;Noir;300; 0,98   ; 0,20   ; 0,02   ; 3,00   
+00713B;CANON BJC 6200 S;Cartouche jet d'encre;Farbax;Canon;Noir;300; 0,98   ; 0,20   ; 0,02   ; 3,00   
+00713B;CANON BJC 6500;Cartouche jet d'encre;Farbax;Canon;Noir;300; 0,98   ; 0,20   ; 0,02   ; 3,00   
+00713B;CANON BJI-6500;Cartouche jet d'encre;Farbax;Canon;Noir;300; 0,98   ; 0,20   ; 0,02   ; 3,00   
+00713B;CANON I 6500;Cartouche jet d'encre;Farbax;Canon;Noir;300; 0,98   ; 0,20   ; 0,02   ; 3,00   
+00713B;CANON I 550;Cartouche jet d'encre;Farbax;Canon;Noir;300; 0,98   ; 0,20   ; 0,02   ; 3,00   
+00713B;CANON I 560;Cartouche jet d'encre;Farbax;Canon;Noir;300; 0,98   ; 0,20   ; 0,02   ; 3,00   
+00713B;CANON I 850;Cartouche jet d'encre;Farbax;Canon;Noir;300; 0,98   ; 0,20   ; 0,02   ; 3,00   
+00713B;CANON MP-F 50;Cartouche jet d'encre;Farbax;Canon;Noir;300; 0,98   ; 0,20   ; 0,02   ; 3,00   
+00713B;CANON MP-F 60;Cartouche jet d'encre;Farbax;Canon;Noir;300; 0,98   ; 0,20   ; 0,02   ; 3,00   
+00713B;CANON MP-F 80;Cartouche jet d'encre;Farbax;Canon;Noir;300; 0,98   ; 0,20   ; 0,02   ; 3,00   
+00713B;CANON MULTIPASS C 100;Cartouche jet d'encre;Farbax;Canon;Noir;300; 0,98   ; 0,20   ; 0,02   ; 3,00   
+00713B;CANON MULTIPASS C 150;Cartouche jet d'encre;Farbax;Canon;Noir;300; 0,98   ; 0,20   ; 0,02   ; 3,00   
+00713B;CANON MULTIPASS C 600;Cartouche jet d'encre;Farbax;Canon;Noir;300; 0,98   ; 0,20   ; 0,02   ; 3,00   
+00713B;CANON MULTIPASS C 600 F;Cartouche jet d'encre;Farbax;Canon;Noir;300; 0,98   ; 0,20   ; 0,02   ; 3,00   
+00713B;CANON PIXMA IP 3000;Cartouche jet d'encre;Farbax;Canon;Noir;300; 0,98   ; 0,20   ; 0,02   ; 3,00   
+00713B;CANON PIXMA IP 5000;Cartouche jet d'encre;Farbax;Canon;Noir;300; 0,98   ; 0,20   ; 0,02   ; 3,00   
+00713B;CANON S 400;Cartouche jet d'encre;Farbax;Canon;Noir;300; 0,98   ; 0,20   ; 0,02   ; 3,00   
+00713B;CANON S 400 X;Cartouche jet d'encre;Farbax;Canon;Noir;300; 0,98   ; 0,20   ; 0,02   ; 3,00   
+00713B;CANON S 450;Cartouche jet d'encre;Farbax;Canon;Noir;300; 0,98   ; 0,20   ; 0,02   ; 3,00   
+00713B;CANON S 4500;Cartouche jet d'encre;Farbax;Canon;Noir;300; 0,98   ; 0,20   ; 0,02   ; 3,00   
+00713B;CANON S 500;Cartouche jet d'encre;Farbax;Canon;Noir;300; 0,98   ; 0,20   ; 0,02   ; 3,00   
+00713B;CANON S 520;Cartouche jet d'encre;Farbax;Canon;Noir;300; 0,98   ; 0,20   ; 0,02   ; 3,00   
+00713B;CANON S 530 D;Cartouche jet d'encre;Farbax;Canon;Noir;300; 0,98   ; 0,20   ; 0,02   ; 3,00   
+00713B;CANON S 600;Cartouche jet d'encre;Farbax;Canon;Noir;300; 0,98   ; 0,20   ; 0,02   ; 3,00   
+00713B;CANON S 630;Cartouche jet d'encre;Farbax;Canon;Noir;300; 0,98   ; 0,20   ; 0,02   ; 3,00   
+00713B;CANON S 6300;Cartouche jet d'encre;Farbax;Canon;Noir;300; 0,98   ; 0,20   ; 0,02   ; 3,00   
+00713B;CANON S 750;Cartouche jet d'encre;Farbax;Canon;Noir;300; 0,98   ; 0,20   ; 0,02   ; 3,00   
+00713B;CANON SMARTBASE MP 700;Cartouche jet d'encre;Farbax;Canon;Noir;300; 0,98   ; 0,20   ; 0,02   ; 3,00   
+00713B;CANON SMARTBASE MP 700 PHOTO;Cartouche jet d'encre;Farbax;Canon;Noir;300; 0,98   ; 0,20   ; 0,02   ; 3,00   
+00713B;CANON SMARTBASE MP 730;Cartouche jet d'encre;Farbax;Canon;Noir;300; 0,98   ; 0,20   ; 0,02   ; 3,00   
+00713B;CANON SMARTBASE MP 730 PHOTO;Cartouche jet d'encre;Farbax;Canon;Noir;300; 0,98   ; 0,20   ; 0,02   ; 3,00   
+00713B;CANON SMARTBASE MP 750;Cartouche jet d'encre;Farbax;Canon;Noir;300; 0,98   ; 0,20   ; 0,02   ; 3,00   
+00713B;CANON SMARTBASE MP 780;Cartouche jet d'encre;Farbax;Canon;Noir;300; 0,98   ; 0,20   ; 0,02   ; 3,00   
+00713B;CANON SMARTBASE MPC 400;Cartouche jet d'encre;Farbax;Canon;Noir;300; 0,98   ; 0,20   ; 0,02   ; 3,00   
+00713B;CANON SMARTBASE MPC 600;Cartouche jet d'encre;Farbax;Canon;Noir;300; 0,98   ; 0,20   ; 0,02   ; 3,00   
+00713B;CANON SMARTBASE MPC 600 F;Cartouche jet d'encre;Farbax;Canon;Noir;300; 0,98   ; 0,20   ; 0,02   ; 3,00   
+00761K;COMPAQ IJ 650;Cartouche jet d'encre;Farbax;Compaq;Noir;410; 14,26   ; 0,20   ; 0,02   ; 3,00   
+00736K;EPSON Stylus Color;Cartouche jet d'encre;Farbax;Epson;Couleur;300; 0,98   ; 0,20   ; 0,02   ; 3,00   
+00736K;EPSON Stylus Color Pro;Cartouche jet d'encre;Farbax;Epson;Couleur;300; 0,98   ; 0,20   ; 0,02   ; 3,00   
+00736K;EPSON Stylus Color Pro XL;Cartouche jet d'encre;Farbax;Epson;Couleur;300; 0,98   ; 0,20   ; 0,02   ; 3,00   
+00736K;EPSON Stylus Color Pro XL +;Cartouche jet d'encre;Farbax;Epson;Couleur;300; 0,98   ; 0,20   ; 0,02   ; 3,00   
+00735K;EPSON Stylus Color;Cartouche jet d'encre;Farbax;Epson;Couleur;420; 1,63   ; 0,20   ; 0,02   ; 3,00   
+00735K;EPSON Stylus Color Pro;Cartouche jet d'encre;Farbax;Epson;Couleur;420; 1,63   ; 0,20   ; 0,02   ; 3,00   
+00735K;EPSON Stylus Color Pro XL;Cartouche jet d'encre;Farbax;Epson;Couleur;420; 1,63   ; 0,20   ; 0,02   ; 3,00   
+00705K;EPSON Stylus 200;Cartouche jet d'encre;Farbax;Epson;Noir;220; 0,75   ; 0,20   ; 0,02   ; 3,00   
+00705K;EPSON Stylus 820;Cartouche jet d'encre;Farbax;Epson;Noir;220; 0,75   ; 0,20   ; 0,02   ; 3,00   
+00705K;EPSON Stylus Color II;Cartouche jet d'encre;Farbax;Epson;Noir;220; 0,75   ; 0,20   ; 0,02   ; 3,00   
+00705K;EPSON Stylus Color II S;Cartouche jet d'encre;Farbax;Epson;Noir;220; 0,75   ; 0,20   ; 0,02   ; 3,00   
+00705K;EPSON Stylus Color 200;Cartouche jet d'encre;Farbax;Epson;Noir;220; 0,75   ; 0,20   ; 0,02   ; 3,00   
+00706K;EPSON Stylus II;Cartouche jet d'encre;Farbax;Epson;Couleur;320; 1,38   ; 0,20   ; 0,02   ; 3,00   
+00706K;EPSON Stylus II S;Cartouche jet d'encre;Farbax;Epson;Couleur;320; 1,38   ; 0,20   ; 0,02   ; 3,00   
+00706K;EPSON Stylus 820;Cartouche jet d'encre;Farbax;Epson;Couleur;320; 1,38   ; 0,20   ; 0,02   ; 3,00   
+00706K;EPSON Stylus Color II;Cartouche jet d'encre;Farbax;Epson;Couleur;320; 1,38   ; 0,20   ; 0,02   ; 3,00   
+00706K;EPSON Stylus Color II S;Cartouche jet d'encre;Farbax;Epson;Couleur;320; 1,38   ; 0,20   ; 0,02   ; 3,00   
+00053K;EPSON Stylus Color 300;Cartouche jet d'encre;Farbax;Epson;4 Couleurs;380; 1,56   ; 0,20   ; 0,02   ; 3,00   
+00045K;EPSON Stylus 200;Cartouche jet d'encre;Farbax;Epson;Couleur;320; 1,19   ; 0,20   ; 0,02   ; 3,00   
+00045K;EPSON Stylus Color 200;Cartouche jet d'encre;Farbax;Epson;Couleur;320; 1,19   ; 0,20   ; 0,02   ; 3,00   
+00045K;EPSON Stylus Color 500;Cartouche jet d'encre;Farbax;Epson;Couleur;320; 1,19   ; 0,20   ; 0,02   ; 3,00   
+00047K;EPSON Stylus Color 400;Cartouche jet d'encre;Farbax;Epson;Couleur;300; 1,13   ; 0,20   ; 0,02   ; 3,00   
+00047K;EPSON Stylus Color 600;Cartouche jet d'encre;Farbax;Epson;Couleur;300; 1,13   ; 0,20   ; 0,02   ; 3,00   
+00047K;EPSON Stylus Color 800;Cartouche jet d'encre;Farbax;Epson;Couleur;300; 1,13   ; 0,20   ; 0,02   ; 3,00   
+00047K;EPSON Stylus Color 1520;Cartouche jet d'encre;Farbax;Epson;Couleur;300; 1,13   ; 0,20   ; 0,02   ; 3,00   
+00076K;EPSON Stylus Color 440;Cartouche jet d'encre;Farbax;Epson;Noir;380; 0,66   ; 0,20   ; 0,02   ; 3,00   
+00076K;EPSON Stylus Color 460;Cartouche jet d'encre;Farbax;Epson;Noir;380; 0,66   ; 0,20   ; 0,02   ; 3,00   
+00076K;EPSON Stylus Color 640;Cartouche jet d'encre;Farbax;Epson;Noir;380; 0,66   ; 0,20   ; 0,02   ; 3,00   
+00076K;EPSON Stylus Color 660;Cartouche jet d'encre;Farbax;Epson;Noir;380; 0,66   ; 0,20   ; 0,02   ; 3,00   
+00076K;EPSON Stylus Color 670;Cartouche jet d'encre;Farbax;Epson;Noir;380; 0,66   ; 0,20   ; 0,02   ; 3,00   
+00076K;EPSON Stylus Photo 750;Cartouche jet d'encre;Farbax;Epson;Noir;380; 0,66   ; 0,20   ; 0,02   ; 3,00   
+00076K;EPSON Stylus Photo 1200;Cartouche jet d'encre;Farbax;Epson;Noir;380; 0,66   ; 0,20   ; 0,02   ; 3,00   
+00078K;EPSON STYLUS COLOR 440;Cartouche jet d'encre;Farbax;Epson;Couleur;639; 1,40   ; 0,20   ; 0,02   ; 3,00   
+00078K;EPSON STYLUS COLOR 460;Cartouche jet d'encre;Farbax;Epson;Couleur;639; 1,40   ; 0,20   ; 0,02   ; 3,00   
+00078K;EPSON STYLUS COLOR 640;Cartouche jet d'encre;Farbax;Epson;Couleur;639; 1,40   ; 0,20   ; 0,02   ; 3,00   
+00078K;EPSON STYLUS COLOR 660;Cartouche jet d'encre;Farbax;Epson;Couleur;639; 1,40   ; 0,20   ; 0,02   ; 3,00   
+00078K;EPSON STYLUS COLOR 740;Cartouche jet d'encre;Farbax;Epson;Couleur;639; 1,40   ; 0,20   ; 0,02   ; 3,00   
+00078K;EPSON STYLUS COLOR 760;Cartouche jet d'encre;Farbax;Epson;Couleur;639; 1,40   ; 0,20   ; 0,02   ; 3,00   
+00078K;EPSON STYLUS COLOR 860;Cartouche jet d'encre;Farbax;Epson;Couleur;639; 1,40   ; 0,20   ; 0,02   ; 3,00   
+00078K;EPSON STYLUS COLOR 2000;Cartouche jet d'encre;Farbax;Epson;Couleur;639; 1,40   ; 0,20   ; 0,02   ; 3,00   
+00079K;EPSON Stylus Photo 750;Cartouche jet d'encre;Farbax;Epson;Couleur;220; 1,50   ; 0,20   ; 0,02   ; 3,00   
+00048K;EPSON Stylus Photo 700;Cartouche jet d'encre;Farbax;Epson;Couleur;220; 1,50   ; 0,20   ; 0,02   ; 3,00   
+00048K;EPSON Stylus Photo EX;Cartouche jet d'encre;Farbax;Epson;Couleur;220; 1,50   ; 0,20   ; 0,02   ; 3,00   
+00048K;EPSON Stylus Photo;Cartouche jet d'encre;Farbax;Epson;Couleur;220; 1,50   ; 0,20   ; 0,02   ; 3,00   
+00081K;EPSON Stylus Color 900;Cartouche jet d'encre;Farbax;Epson;Couleur;570; 1,50   ; 0,20   ; 0,02   ; 3,00   
+00081K;EPSON Stylus Color 980;Cartouche jet d'encre;Farbax;Epson;Couleur;570; 1,50   ; 0,20   ; 0,02   ; 3,00   
+00824K;EPSON Stylus 400;Cartouche jet d'encre;Farbax;Epson;Noir;540; 1,00   ; 0,20   ; 0,02   ; 3,00   
+00824K;EPSON Stylus 800;Cartouche jet d'encre;Farbax;Epson;Noir;540; 1,00   ; 0,20   ; 0,02   ; 3,00   
+00824K;EPSON Stylus 800 +;Cartouche jet d'encre;Farbax;Epson;Noir;540; 1,00   ; 0,20   ; 0,02   ; 3,00   
+00824K;EPSON Stylus 1000;Cartouche jet d'encre;Farbax;Epson;Noir;540; 1,00   ; 0,20   ; 0,02   ; 3,00   
+00082K;EPSON Stylus Photo 1200;Cartouche jet d'encre;Farbax;Epson;Couleur;330; 1,63   ; 0,20   ; 0,02   ; 3,00   
+00043K;EPSON Stylus 1500;Cartouche jet d'encre;Farbax;Epson;Noir;N.C; 2,13   ; 0,20   ; 0,02   ; 3,00   
+00043K;EPSON SQ 870;Cartouche jet d'encre;Farbax;Epson;Noir;N.C; 2,13   ; 0,20   ; 0,02   ; 3,00   
+00043K;EPSON SQ 1170;Cartouche jet d'encre;Farbax;Epson;Noir;N.C; 2,13   ; 0,20   ; 0,02   ; 3,00   
+00706K;EPSON Stylus 1500;Cartouche jet d'encre;Farbax;Epson;Couleur;320; 1,38   ; 0,20   ; 0,02   ; 3,00   
+00049K;EPSON Stylus Color 3000;Cartouche jet d'encre;Farbax;Epson;Noir;N.C; 2,25   ; 0,20   ; 0,02   ; 3,00   
+00049K;EPSON Stylus Color 5000;Cartouche jet d'encre;Farbax;Epson;Noir;N.C; 2,25   ; 0,20   ; 0,02   ; 3,00   
+00052K;EPSON Stylus Color 3000;Cartouche jet d'encre;Farbax;Epson;Cyan;N.C; 2,25   ; 0,20   ; 0,02   ; 3,00   
+00052K;EPSON Stylus Color 5000;Cartouche jet d'encre;Farbax;Epson;Cyan;N.C; 2,25   ; 0,20   ; 0,02   ; 3,00   
+00039K;EPSON Stylus Color 9000;Cartouche jet d'encre;Farbax;Epson;Noir;N.C; 5,44   ; 0,20   ; 0,02   ; 3,00   
+00042K;EPSON Stylus Color 9000;Cartouche jet d'encre;Farbax;Epson;Yellow;N.C; 6,50   ; 0,20   ; 0,02   ; 3,00   
+00041K;EPSON Stylus Color 9000;Cartouche jet d'encre;Farbax;Epson;Magenta;N.C; 6,50   ; 0,20   ; 0,02   ; 3,00   
+00040K;EPSON Stylus Color 9000;Cartouche jet d'encre;Farbax;Epson;Cyan;N.C; 6,50   ; 0,20   ; 0,02   ; 3,00   
+00032K;EPSON Stylus Photo 790;Cartouche jet d'encre;Farbax;Epson;Noir;150; 2,25   ; 0,20   ; 0,02   ; 3,00   
+00032K;EPSON Stylus Photo 870;Cartouche jet d'encre;Farbax;Epson;Noir;150; 2,25   ; 0,20   ; 0,02   ; 3,00   
+00032K;EPSON Stylus Photo 890;Cartouche jet d'encre;Farbax;Epson;Noir;150; 2,25   ; 0,20   ; 0,02   ; 3,00   
+00032K;EPSON Stylus Photo 1270;Cartouche jet d'encre;Farbax;Epson;Noir;150; 2,25   ; 0,20   ; 0,02   ; 3,00   
+00032K;EPSON Stylus Photo 1290;Cartouche jet d'encre;Farbax;Epson;Noir;150; 2,25   ; 0,20   ; 0,02   ; 3,00   
+00033K;EPSON Stylus Photo 790;Cartouche jet d'encre;Farbax;Epson;Couleur;450; 2,50   ; 0,20   ; 0,02   ; 3,00   
+00033K;EPSON Stylus Photo 870;Cartouche jet d'encre;Farbax;Epson;Couleur;450; 2,50   ; 0,20   ; 0,02   ; 3,00   
+00033K;EPSON Stylus Photo 890;Cartouche jet d'encre;Farbax;Epson;Couleur;450; 2,50   ; 0,20   ; 0,02   ; 3,00   
+00091K;EPSON Stylus C60;Cartouche jet d'encre;Farbax;Epson;Noir;300; 2,25   ; 0,20   ; 0,02   ; 3,00   
+00092K;EPSON Stylus C60;Cartouche jet d'encre;Farbax;Epson;Couleur;300; 2,50   ; 0,20   ; 0,02   ; 3,00   
+00092K;EPSON Stylus C50;Cartouche jet d'encre;Farbax;Epson;Couleur;300; 2,50   ; 0,20   ; 0,02   ; 3,00   
+00093K;EPSON Stylus C50;Cartouche jet d'encre;Farbax;Epson;Noir;378; 1,13   ; 0,20   ; 0,02   ; 3,00   
+00093K;EPSON Stylus Photo 810;Cartouche jet d'encre;Farbax;Epson;Noir;378; 1,13   ; 0,20   ; 0,02   ; 3,00   
+00093K;EPSON Stylus Photo 820;Cartouche jet d'encre;Farbax;Epson;Noir;378; 1,13   ; 0,20   ; 0,02   ; 3,00   
+00094K;EPSON Stylus Photo 810;Cartouche jet d'encre;Farbax;Epson;Couleur;220; 2,00   ; 0,20   ; 0,02   ; 3,00   
+00094K;EPSON Stylus Photo 820;Cartouche jet d'encre;Farbax;Epson;Couleur;220; 2,00   ; 0,20   ; 0,02   ; 3,00   
+00097K;EPSON Stylus C42;Cartouche jet d'encre;Farbax;Epson;Noir;N.C; 1,25   ; 0,20   ; 0,02   ; 3,00   
+00098K;EPSON Stylus C42;Cartouche jet d'encre;Farbax;Epson;Couleur;220; 2,13   ; 0,20   ; 0,02   ; 3,00   
+00075K;EPSON Stylus C62;Cartouche jet d'encre;Farbax;Epson;Couleur;300; 2,00   ; 0,20   ; 0,02   ; 3,00   
+00060K;EPSON Stylus Photo 950;Cartouche jet d'encre;Farbax;Epson;Noir;N.C; 2,00   ; 0,20   ; 0,02   ; 3,00   
+00061K;EPSON Stylus Photo 950;Cartouche jet d'encre;Farbax;Epson;Cyan;N.C; 2,00   ; 0,20   ; 0,02   ; 3,00   
+00062K;EPSON Stylus Photo 950;Cartouche jet d'encre;Farbax;Epson;Magenta;N.C; 2,00   ; 0,20   ; 0,02   ; 3,00   
+00063K;EPSON Stylus Photo 950;Cartouche jet d'encre;Farbax;Epson;Yellow;N.C; 2,00   ; 0,20   ; 0,02   ; 3,00   
+00064K;EPSON Stylus Photo 950;Cartouche jet d'encre;Farbax;Epson;Couleur;N.C; 2,00   ; 0,20   ; 0,02   ; 3,00   
+00065K;EPSON Stylus Photo 950;Cartouche jet d'encre;Farbax;Epson;Couleur;N.C; 2,00   ; 0,20   ; 0,02   ; 3,00   
+00787K;EPSON STYLUS PHOTO 2000 P;Cartouche jet d'encre;Farbax;Epson;Noir;N.C; 1,63   ; 0,20   ; 0,02   ; 3,00   
+00787CK;EPSON STYLUS PHOTO 2000 P;Cartouche jet d'encre;Farbax;Epson;Couleur;N.C; 1,88   ; 0,20   ; 0,02   ; 3,00   
+00015K;EPSON Stylus CX 6400;Cartouche jet d'encre;Farbax;Epson;Cyan;N.C; 1,50   ; 0,20   ; 0,02   ; 3,00   
+00015K;EPSON Stylus CX 3600;Cartouche jet d'encre;Farbax;Epson;Cyan;N.C; 1,50   ; 0,20   ; 0,02   ; 3,00   
+00015K;EPSON Stylus CX 3650;Cartouche jet d'encre;Farbax;Epson;Cyan;N.C; 1,50   ; 0,20   ; 0,02   ; 3,00   
+00065K;EPSON Stylus Photo 960;Cartouche jet d'encre;Farbax;Epson;Couleur;N.C; 2,00   ; 0,20   ; 0,02   ; 3,00   
+00063K;EPSON Stylus Photo 960;Cartouche jet d'encre;Farbax;Epson;Yellow;N.C; 2,00   ; 0,20   ; 0,02   ; 3,00   
+00062K;EPSON Stylus Photo 960;Cartouche jet d'encre;Farbax;Epson;Magenta;N.C; 2,00   ; 0,20   ; 0,02   ; 3,00   
+00060K;EPSON Stylus Photo 960;Cartouche jet d'encre;Farbax;Epson;Noir;N.C; 2,00   ; 0,20   ; 0,02   ; 3,00   
+00061K;EPSON Stylus Photo 960;Cartouche jet d'encre;Farbax;Epson;Cyan;N.C; 2,00   ; 0,20   ; 0,02   ; 3,00   
+00064K;EPSON Stylus Photo 960;Cartouche jet d'encre;Farbax;Epson;Couleur;N.C; 2,00   ; 0,20   ; 0,02   ; 3,00   
+00036K;EPSON Stylus Color 9000;Cartouche jet d'encre;Farbax;Epson;N.C;N.C; 6,25   ; 0,20   ; 0,02   ; 3,00   
+00035K;EPSON Stylus Color 9000;Cartouche jet d'encre;Farbax;Epson;N.C;N.C; 8,21   ; 0,20   ; 0,02   ; 3,00   
+00015K;EPSON Sylus C84 HC;Cartouche jet d'encre;Farbax;Epson;Cyan;N.C; 1,50   ; 0,20   ; 0,02   ; 3,00   
+00015K;EPSON Sylus C64 HC;Cartouche jet d'encre;Farbax;Epson;Cyan;N.C; 1,50   ; 0,20   ; 0,02   ; 3,00   
+00075K;EPSON Stylus CX3200;Cartouche jet d'encre;Farbax;Epson;Couleur;300; 2,00   ; 0,20   ; 0,02   ; 3,00   
+00093K;EPSON Stylus Photo 830;Cartouche jet d'encre;Farbax;Epson;Noir;378; 1,13   ; 0,20   ; 0,02   ; 3,00   
+00093K;EPSON Stylus Photo 925;Cartouche jet d'encre;Farbax;Epson;Noir;378; 1,13   ; 0,20   ; 0,02   ; 3,00   
+00032K;EPSON Stylus Photo 875;Cartouche jet d'encre;Farbax;Epson;Noir;150; 2,25   ; 0,20   ; 0,02   ; 3,00   
+00033K;EPSON Stylus Photo 875;Cartouche jet d'encre;Farbax;Epson;Couleur;450; 2,50   ; 0,20   ; 0,02   ; 3,00   
+00032K;EPSON Stylus Photo 895;Cartouche jet d'encre;Farbax;Epson;Noir;150; 2,25   ; 0,20   ; 0,02   ; 3,00   
+00033K;EPSON Stylus Photo 895;Cartouche jet d'encre;Farbax;Epson;Couleur;450; 2,50   ; 0,20   ; 0,02   ; 3,00   
+00033K;EPSON Stylus Photo 915;Cartouche jet d'encre;Farbax;Epson;Couleur;450; 2,50   ; 0,20   ; 0,02   ; 3,00   
+00103K;EPSON Stylus Photo R200;Cartouche jet d'encre;Farbax;Epson;Cyan;N.C; 1,88   ; 0,20   ; 0,02   ; 3,00   
+00104K;EPSON Stylus Photo R200;Cartouche jet d'encre;Farbax;Epson;Magenta;N.C; 1,88   ; 0,20   ; 0,02   ; 3,00   
+00103K;EPSON Stylus Photo R300/M;Cartouche jet d'encre;Farbax;Epson;Cyan;N.C; 1,88   ; 0,20   ; 0,02   ; 3,00   
+00104K;EPSON Stylus Photo R300/M;Cartouche jet d'encre;Farbax;Epson;Magenta;N.C; 1,88   ; 0,20   ; 0,02   ; 3,00   
+00103K;EPSON Stylus Photo RX500;Cartouche jet d'encre;Farbax;Epson;Cyan;N.C; 1,88   ; 0,20   ; 0,02   ; 3,00   
+00104K;EPSON Stylus Photo RX500;Cartouche jet d'encre;Farbax;Epson;Magenta;N.C; 1,88   ; 0,20   ; 0,02   ; 3,00   
+00015K;EPSON Sylus C66 HC;Cartouche jet d'encre;Farbax;Epson;Cyan;N.C; 1,50   ; 0,20   ; 0,02   ; 3,00   
+00015K;EPSON Sylus C86 HC;Cartouche jet d'encre;Farbax;Epson;Cyan;N.C; 1,50   ; 0,20   ; 0,02   ; 3,00   
+00102K;EPSON STYLUS PHOTO R 200;Cartouche jet d'encre;Farbax;Epson;NOIR;N.C; 1,88   ; 0,20   ; 0,02   ; 3,00   
+00102K;EPSON STYLUS PHOTO R 300;Cartouche jet d'encre;Farbax;Epson;NOIR;N.C; 1,88   ; 0,20   ; 0,02   ; 3,00   
+00102K;EPSON STYLUS PHOTO RX 500;Cartouche jet d'encre;Farbax;Epson;NOIR;N.C; 1,88   ; 0,20   ; 0,02   ; 3,00   
+00102K;EPSON STYLUS PHOTO RX 600;Cartouche jet d'encre;Farbax;Epson;NOIR;N.C; 1,88   ; 0,20   ; 0,02   ; 3,00   
+00015K;EPSON Stylus CX 6600;Cartouche jet d'encre;Farbax;Epson;Cyan;N.C; 1,50   ; 0,20   ; 0,02   ; 3,00   
+00750R;HEWLETT PACKARD Deskjet C 1645 A;Cartouche jet d'encre;Farbax;HP;Noir;450; 12,25   ; 0,20   ; 0,02   ; 3,00   
+00750R;HEWLETT PACKARD Deskjet C 1656 A;Cartouche jet d'encre;Farbax;HP;Noir;450; 12,25   ; 0,20   ; 0,02   ; 3,00   
+00750R;HEWLETT PACKARD PaintJet XL 300;Cartouche jet d'encre;Farbax;HP;Noir;450; 12,25   ; 0,20   ; 0,02   ; 3,00   
+00751R;HEWLETT PACKARD Deskjet C 1645 A;Cartouche jet d'encre;Farbax;HP;Cyan;450; 12,25   ; 0,20   ; 0,02   ; 3,00   
+00751R;HEWLETT PACKARD Deskjet C 1656 A;Cartouche jet d'encre;Farbax;HP;Cyan;450; 12,25   ; 0,20   ; 0,02   ; 3,00   
+00751R;HEWLETT PACKARD PaintJet XL 300;Cartouche jet d'encre;Farbax;HP;Cyan;450; 12,25   ; 0,20   ; 0,02   ; 3,00   
+00752R;HEWLETT PACKARD Deskjet C 1645 A;Cartouche jet d'encre;Farbax;HP;Magenta;450; 12,25   ; 0,20   ; 0,02   ; 3,00   
+00752R;HEWLETT PACKARD Deskjet C 1656 A;Cartouche jet d'encre;Farbax;HP;Magenta;450; 12,25   ; 0,20   ; 0,02   ; 3,00   
+00752R;HEWLETT PACKARD PaintJet XL 300;Cartouche jet d'encre;Farbax;HP;Magenta;450; 12,25   ; 0,20   ; 0,02   ; 3,00   
+00753R;HEWLETT PACKARD Deskjet C 1645 A;Cartouche jet d'encre;Farbax;HP;Yellow;450; 12,25   ; 0,20   ; 0,02   ; 3,00   
+00753R;HEWLETT PACKARD Deskjet C 1656 A;Cartouche jet d'encre;Farbax;HP;Yellow;450; 12,25   ; 0,20   ; 0,02   ; 3,00   
+00753R;HEWLETT PACKARD PaintJet XL 300;Cartouche jet d'encre;Farbax;HP;Yellow;450; 12,25   ; 0,20   ; 0,02   ; 3,00   
+00740R;HEWLETT PACKARD Deskjet 1200 C;Cartouche jet d'encre;Farbax;HP;Noir;1600; 9,38   ; 0,20   ; 0,02   ; 3,00   
+00741R;HEWLETT PACKARD DESKJET 1200 C;Cartouche jet d'encre;Farbax;HP;Cyan;1600; 9,38   ; 0,20   ; 0,02   ; 3,00   
+00742R;HEWLETT PACKARD Deskjet 1200 C;Cartouche jet d'encre;Farbax;HP;Magenta;1600; 9,38   ; 0,20   ; 0,02   ; 3,00   
+00743R;HEWLETT PACKARD Deskjet 1200 C;Cartouche jet d'encre;Farbax;HP;Yellow;1600; 9,38   ; 0,20   ; 0,02   ; 3,00   
+00740R;HEWLETT PACKARD Deskjet 1200 PS;Cartouche jet d'encre;Farbax;HP;Noir;1600; 9,38   ; 0,20   ; 0,02   ; 3,00   
+00741R;HEWLETT PACKARD DESKJET1200 PS;Cartouche jet d'encre;Farbax;HP;Cyan;1600; 9,38   ; 0,20   ; 0,02   ; 3,00   
+00742R;HEWLETT PACKARD Deskjet 1200 PS;Cartouche jet d'encre;Farbax;HP;Magenta;1600; 9,38   ; 0,20   ; 0,02   ; 3,00   
+00743R;HEWLETT PACKARD Deskjet 1200 PS;Cartouche jet d'encre;Farbax;HP;Yellow;1600; 9,38   ; 0,20   ; 0,02   ; 3,00   
+00740R;HEWLETT PACKARD Deskjet 1600 C;Cartouche jet d'encre;Farbax;HP;Noir;1600; 9,38   ; 0,20   ; 0,02   ; 3,00   
+00775CK;HEWLETT PACKARD Designjet 450 C;Cartouche jet d'encre;Farbax;HP;Cyan;N.C; 11,63   ; 0,20   ; 0,02   ; 3,00   
+00775YK;HEWLETT PACKARD Designjet 450 C;Cartouche jet d'encre;Farbax;HP;Yellow;N.C; 11,63   ; 0,20   ; 0,02   ; 3,00   
+00775CK;HEWLETT PACKARD Designjet 455 CA;Cartouche jet d'encre;Farbax;HP;Cyan;N.C; 11,63   ; 0,20   ; 0,02   ; 3,00   
+00775YK;HEWLETT PACKARD Designjet 455 CA;Cartouche jet d'encre;Farbax;HP;Yellow;N.C; 11,63   ; 0,20   ; 0,02   ; 3,00   
+00775CK;HEWLETT PACKARD Designjet 350 C;Cartouche jet d'encre;Farbax;HP;Cyan;N.C; 11,63   ; 0,20   ; 0,02   ; 3,00   
+00775YK;HEWLETT PACKARD Designjet 350 C;Cartouche jet d'encre;Farbax;HP;Yellow;N.C; 11,63   ; 0,20   ; 0,02   ; 3,00   
+00755R;HEWLETT PACKARD Deskjet 600 C;Cartouche jet d'encre;Farbax;HP;Couleur;350; 12,50   ; 0,20   ; 0,02   ; 3,00   
+00755R;HEWLETT PACKARD Deskjet 640 C;Cartouche jet d'encre;Farbax;HP;Couleur;350; 12,50   ; 0,20   ; 0,02   ; 3,00   
+00755R;HEWLETT PACKARD Deskjet 690 C;Cartouche jet d'encre;Farbax;HP;Couleur;350; 12,50   ; 0,20   ; 0,02   ; 3,00   
+00755R;HEWLETT PACKARD Deskjet 350 C;Cartouche jet d'encre;Farbax;HP;Couleur;350; 12,50   ; 0,20   ; 0,02   ; 3,00   
+00768R;HEWLETT PACKARD Deskjet 930 C;Cartouche jet d'encre;Farbax;HP;Couleur;970; 12,66   ; 0,20   ; 0,02   ; 3,00   
+00768R;HEWLETT PACKARD Deskjet 950 C;Cartouche jet d'encre;Farbax;HP;Couleur;970; 12,66   ; 0,20   ; 0,02   ; 3,00   
+00768R;HEWLETT PACKARD Deskjet 970 CXi;Cartouche jet d'encre;Farbax;HP;Couleur;970; 12,66   ; 0,20   ; 0,02   ; 3,00   
+00768R;HEWLETT PACKARD Deskjet 990 CXi;Cartouche jet d'encre;Farbax;HP;Couleur;970; 12,66   ; 0,20   ; 0,02   ; 3,00   
+00768R;HEWLETT PACKARD Deskjet 1220 C;Cartouche jet d'encre;Farbax;HP;Couleur;970; 12,66   ; 0,20   ; 0,02   ; 3,00   
+00768R;HEWLETT PACKARD Deskjet 6122;Cartouche jet d'encre;Farbax;HP;Couleur;970; 12,66   ; 0,20   ; 0,02   ; 3,00   
+00768R;HEWLETT PACKARD Deskjet 850 C;Cartouche jet d'encre;Farbax;HP;Couleur;970; 12,66   ; 0,20   ; 0,02   ; 3,00   
+00768R;HEWLETT PACKARD Fax OficeJet G 55;Cartouche jet d'encre;Farbax;HP;Couleur;970; 12,66   ; 0,20   ; 0,02   ; 3,00   
+00768R;HEWLETT PACKARD Fax OficeJet G 85;Cartouche jet d'encre;Farbax;HP;Couleur;970; 12,66   ; 0,20   ; 0,02   ; 3,00   
+00768R;HEWLETT PACKARD Fax OficeJet G 95;Cartouche jet d'encre;Farbax;HP;Couleur;970; 12,66   ; 0,20   ; 0,02   ; 3,00   
+00768R;HEWLETT PACKARD Fax OficeJet K 60;Cartouche jet d'encre;Farbax;HP;Couleur;970; 12,66   ; 0,20   ; 0,02   ; 3,00   
+00768R;HEWLETT PACKARD Fax OficeJet K 80;Cartouche jet d'encre;Farbax;HP;Couleur;970; 12,66   ; 0,20   ; 0,02   ; 3,00   
+00768R;HEWLETT PACKARD Fax OficeJet R 45;Cartouche jet d'encre;Farbax;HP;Couleur;970; 12,66   ; 0,20   ; 0,02   ; 3,00   
+00768R;HEWLETT PACKARD Fax OficeJet R 65;Cartouche jet d'encre;Farbax;HP;Couleur;970; 12,66   ; 0,20   ; 0,02   ; 3,00   
+00768R;HEWLETT PACKARD Fax OficeJet V 40;Cartouche jet d'encre;Farbax;HP;Couleur;970; 12,66   ; 0,20   ; 0,02   ; 3,00   
+00745R;HEWLETT PACKARD Deskjet 816 C;Cartouche jet d'encre;Farbax;HP;Couleur;410; 11,88   ; 0,20   ; 0,02   ; 3,00   
+00745R;HEWLETT PACKARD Deskjet 840 C;Cartouche jet d'encre;Farbax;HP;Couleur;410; 11,88   ; 0,20   ; 0,02   ; 3,00   
+00745R;HEWLETT PACKARD Deskjet 843 C;Cartouche jet d'encre;Farbax;HP;Couleur;410; 11,88   ; 0,20   ; 0,02   ; 3,00   
+00767R;IBM 4076;Cartouche jet d'encre;Farbax;IBM;Noir;600; 13,38   ; 0,20   ; 0,02   ; 3,00   
+00767C;IBM 4076;Cartouche jet d'encre;Farbax;IBM;Couleur;200; 13,80   ; 0,20   ; 0,02   ; 3,00   
+00730K;IBM Color JetPrinter PS 4079;Cartouche jet d'encre;Farbax;IBM;Noir;500; 1,38   ; 0,20   ; 0,02   ; 3,00   
+00731K;IBM Color JetPrinter PS 4079;Cartouche jet d'encre;Farbax;IBM;Bleu;500; 1,49   ; 0,20   ; 0,02   ; 3,00   
+00732K;IBM Color JetPrinter PS 4079;Cartouche jet d'encre;Farbax;IBM;Rouge;500; 1,48   ; 0,20   ; 0,02   ; 3,00   
+00733K;IBM Color JetPrinter PS 4079;Cartouche jet d'encre;Farbax;IBM;Jaune;500; 1,49   ; 0,20   ; 0,02   ; 3,00   
+00730K;IBM JetPrinter 4079 Plus;Cartouche jet d'encre;Farbax;IBM;Noir;500; 1,38   ; 0,20   ; 0,02   ; 3,00   
+00731K;IBM JetPrinter 4079 Plus;Cartouche jet d'encre;Farbax;IBM;Bleu;500; 1,49   ; 0,20   ; 0,02   ; 3,00   
+00732K;IBM JetPrinter 4079 Plus;Cartouche jet d'encre;Farbax;IBM;Rouge;500; 1,48   ; 0,20   ; 0,02   ; 3,00   
+00733K;IBM JetPrinter 4079 Plus;Cartouche jet d'encre;Farbax;IBM;Jaune;500; 1,49   ; 0,20   ; 0,02   ; 3,00   
+00767R;LEXMARK Color JetPrinter 1000;Cartouche jet d'encre;Farbax;Lexmark;Noir;600; 13,38   ; 0,20   ; 0,02   ; 3,00   
+00767R;LEXMARK Color JetPrinter 1020;Cartouche jet d'encre;Farbax;Lexmark;Noir;600; 13,38   ; 0,20   ; 0,02   ; 3,00   
+00767R;LEXMARK Color JetPrinter 1100;Cartouche jet d'encre;Farbax;Lexmark;Noir;600; 13,38   ; 0,20   ; 0,02   ; 3,00   
+00767R;LEXMARK Color JetPrinter 2030;Cartouche jet d'encre;Farbax;Lexmark;Noir;600; 13,38   ; 0,20   ; 0,02   ; 3,00   
+00767R;LEXMARK Color JetPrinter 2050;Cartouche jet d'encre;Farbax;Lexmark;Noir;600; 13,38   ; 0,20   ; 0,02   ; 3,00   
+00767R;LEXMARK Color JetPrinter 3000;Cartouche jet d'encre;Farbax;Lexmark;Noir;600; 13,38   ; 0,20   ; 0,02   ; 3,00   
+00767C;LEXMARK Color JetPrinter 1000;Cartouche jet d'encre;Farbax;Lexmark;Couleur;200; 13,80   ; 0,20   ; 0,02   ; 3,00   
+00767C;LEXMARK Color JetPrinter 1020;Cartouche jet d'encre;Farbax;Lexmark;Couleur;200; 13,80   ; 0,20   ; 0,02   ; 3,00   
+00767C;LEXMARK Color JetPrinter 1100;Cartouche jet d'encre;Farbax;Lexmark;Couleur;200; 13,80   ; 0,20   ; 0,02   ; 3,00   
+00767C;LEXMARK Color JetPrinter 2030;Cartouche jet d'encre;Farbax;Lexmark;Couleur;200; 13,80   ; 0,20   ; 0,02   ; 3,00   
+00767C;LEXMARK Color JetPrinter 2050;Cartouche jet d'encre;Farbax;Lexmark;Couleur;200; 13,80   ; 0,20   ; 0,02   ; 3,00   
+00767C;LEXMARK Color JetPrinter 3000;Cartouche jet d'encre;Farbax;Lexmark;Couleur;200; 13,80   ; 0,20   ; 0,02   ; 3,00   
+00760R;LEXMARK Color JetPrinter Z 12;Cartouche jet d'encre;Farbax;Lexmark;Noir;410; 14,50   ; 0,20   ; 0,02   ; 3,00   
+00760R;LEXMARK Color JetPrinter Z 22;Cartouche jet d'encre;Farbax;Lexmark;Noir;410; 14,50   ; 0,20   ; 0,02   ; 3,00   
+00760R;LEXMARK Color JetPrinter Z 32;Cartouche jet d'encre;Farbax;Lexmark;Noir;410; 14,50   ; 0,20   ; 0,02   ; 3,00   
+00761K;LEXMARK COLOR JETPRINTER Z 35;Cartouche jet d'encre;Farbax;Lexmark;Noir;410; 14,26   ; 0,20   ; 0,02   ; 3,00   
+00761K;LEXMARK X 1140;Cartouche jet d'encre;Farbax;Lexmark;Noir;410; 14,26   ; 0,20   ; 0,02   ; 3,00   
+00761K;LEXMARK COLOR JETPRINTER Z 515;Cartouche jet d'encre;Farbax;Lexmark;Noir;410; 14,26   ; 0,20   ; 0,02   ; 3,00   
+00761K;LEXMARK COLOR JETPRINTER Z 602;Cartouche jet d'encre;Farbax;Lexmark;Noir;410; 14,26   ; 0,20   ; 0,02   ; 3,00   
+00761K;LEXMARK COLOR JETPRINTER Z 603;Cartouche jet d'encre;Farbax;Lexmark;Noir;410; 14,26   ; 0,20   ; 0,02   ; 3,00   
+00761K;LEXMARK COLOR JETPRINTER Z 600;Cartouche jet d'encre;Farbax;Lexmark;Noir;410; 14,26   ; 0,20   ; 0,02   ; 3,00   
+00761K;LEXMARK X 1130;Cartouche jet d'encre;Farbax;Lexmark;Noir;410; 14,26   ; 0,20   ; 0,02   ; 3,00   
+00761K;LEXMARK COLOR JETPRINTER Z 601;Cartouche jet d'encre;Farbax;Lexmark;Noir;410; 14,26   ; 0,20   ; 0,02   ; 3,00   
+00761K;LEXMARK COLOR JETPRINTER Z 604;Cartouche jet d'encre;Farbax;Lexmark;Noir;410; 14,26   ; 0,20   ; 0,02   ; 3,00   
+00761K;LEXMARK COLOR JETPRINTER Z 605;Cartouche jet d'encre;Farbax;Lexmark;Noir;410; 14,26   ; 0,20   ; 0,02   ; 3,00   
+00760C;LEXMARK Lexmark Z42 , Z45 , Z51 , Z52 , Z53 , Z54;Cartouche jet d'encre;Farbax;Lexmark;Couleur;N.C; 17,38   ; 0,20   ; 0,02   ; 3,00   
+00761K;LEXMARK COLOR JETPRINTER Z 13;Cartouche jet d'encre;Farbax;Lexmark;Noir;410; 14,26   ; 0,20   ; 0,02   ; 3,00   
+00761K;LEXMARK COLOR JETPRINTER Z 23;Cartouche jet d'encre;Farbax;Lexmark;Noir;410; 14,26   ; 0,20   ; 0,02   ; 3,00   
+00761K;LEXMARK COLOR JETPRINTER Z 23 E;Cartouche jet d'encre;Farbax;Lexmark;Noir;410; 14,26   ; 0,20   ; 0,02   ; 3,00   
+00761K;LEXMARK COLOR JETPRINTER Z 24;Cartouche jet d'encre;Farbax;Lexmark;Noir;410; 14,26   ; 0,20   ; 0,02   ; 3,00   
+00761K;LEXMARK COLOR JETPRINTER Z 25;Cartouche jet d'encre;Farbax;Lexmark;Noir;410; 14,26   ; 0,20   ; 0,02   ; 3,00   
+00761K;LEXMARK COLOR JETPRINTER Z 25 L;Cartouche jet d'encre;Farbax;Lexmark;Noir;410; 14,26   ; 0,20   ; 0,02   ; 3,00   
+00761K;LEXMARK COLOR JETPRINTER Z 33;Cartouche jet d'encre;Farbax;Lexmark;Noir;410; 14,26   ; 0,20   ; 0,02   ; 3,00   
+00761K;LEXMARK COLOR JETPRINTER Z 34;Cartouche jet d'encre;Farbax;Lexmark;Noir;410; 14,26   ; 0,20   ; 0,02   ; 3,00   
+00761K;LEXMARK COLOR JETPRINTER Z 615;Cartouche jet d'encre;Farbax;Lexmark;Noir;410; 14,26   ; 0,20   ; 0,02   ; 3,00   
+00761K;LEXMARK I 3;Cartouche jet d'encre;Farbax;Lexmark;Noir;410; 14,26   ; 0,20   ; 0,02   ; 3,00   
+00761K;LEXMARK X 1150;Cartouche jet d'encre;Farbax;Lexmark;Noir;410; 14,26   ; 0,20   ; 0,02   ; 3,00   
+00761K;LEXMARK X 1170;Cartouche jet d'encre;Farbax;Lexmark;Noir;410; 14,26   ; 0,20   ; 0,02   ; 3,00   
+00761K;LEXMARK X 1180;Cartouche jet d'encre;Farbax;Lexmark;Noir;410; 14,26   ; 0,20   ; 0,02   ; 3,00   
+00761K;LEXMARK X 1190;Cartouche jet d'encre;Farbax;Lexmark;Noir;410; 14,26   ; 0,20   ; 0,02   ; 3,00   
+00761K;LEXMARK X 2230;Cartouche jet d'encre;Farbax;Lexmark;Noir;410; 14,26   ; 0,20   ; 0,02   ; 3,00   
+00761K;LEXMARK X 2250;Cartouche jet d'encre;Farbax;Lexmark;Noir;410; 14,26   ; 0,20   ; 0,02   ; 3,00   
+00761K;LEXMARK X 72;Cartouche jet d'encre;Farbax;Lexmark;Noir;410; 14,26   ; 0,20   ; 0,02   ; 3,00   
+00761K;LEXMARK X 74;Cartouche jet d'encre;Farbax;Lexmark;Noir;410; 14,26   ; 0,20   ; 0,02   ; 3,00   
+00761K;LEXMARK X 75;Cartouche jet d'encre;Farbax;Lexmark;Noir;410; 14,26   ; 0,20   ; 0,02   ; 3,00   
+00767R;SAMSUNG SF 3000;Cartouche jet d'encre;Farbax;Samsung;Noir;600; 13,38   ; 0,20   ; 0,02   ; 3,00   
+00767R;SAMSUNG SF 3050;Cartouche jet d'encre;Farbax;Samsung;Noir;600; 13,38   ; 0,20   ; 0,02   ; 3,00   
+00767R;SAMSUNG SF 3100;Cartouche jet d'encre;Farbax;Samsung;Noir;600; 13,38   ; 0,20   ; 0,02   ; 3,00   
+00767R;SAMSUNG SF 4000;Cartouche jet d'encre;Farbax;Samsung;Noir;600; 13,38   ; 0,20   ; 0,02   ; 3,00   
+00767R;SAMSUNG SF 4020;Cartouche jet d'encre;Farbax;Samsung;Noir;600; 13,38   ; 0,20   ; 0,02   ; 3,00   
+00767R;SAMSUNG SF 4100;Cartouche jet d'encre;Farbax;Samsung;Noir;600; 13,38   ; 0,20   ; 0,02   ; 3,00   
+00767R;SAMSUNG SF 4200;Cartouche jet d'encre;Farbax;Samsung;Noir;600; 13,38   ; 0,20   ; 0,02   ; 3,00   
+00767R;SAMSUNG SF 4400;Cartouche jet d'encre;Farbax;Samsung;Noir;600; 13,38   ; 0,20   ; 0,02   ; 3,00   
+00700HC;XEROX Docuprint M 750;Cartouche jet d'encre;Farbax;Xerox;Noir;700; 1,75   ; 0,20   ; 0,02   ; 3,00   
+00700C;XEROX Docuprint M 750;Cartouche jet d'encre;Farbax;Xerox;Cyan;350; 1,63   ; 0,20   ; 0,02   ; 3,00   
+00700M;XEROX Docuprint M 750;Cartouche jet d'encre;Farbax;Xerox;Magenta;350; 1,63   ; 0,20   ; 0,02   ; 3,00   
+00700Y;XEROX Docuprint M 750;Cartouche jet d'encre;Farbax;Xerox;Yellow;350; 1,63   ; 0,20   ; 0,02   ; 3,00   
+00450BK;XEROX Workcentre 450 C;Cartouche jet d'encre;Farbax;Xerox;Noir;275; 1,01   ; 0,20   ; 0,02   ; 3,00   
+00450CK;XEROX Workcentre 450 C;Cartouche jet d'encre;Farbax;Xerox;Cyan;275; 1,25   ; 0,20   ; 0,02   ; 3,00   
+00450MK;XEROX Workcentre 450 C;Cartouche jet d'encre;Farbax;Xerox;Magenta;275; 1,25   ; 0,20   ; 0,02   ; 3,00   
+00450YK;XEROX Workcentre 450 C;Cartouche jet d'encre;Farbax;Xerox;Yellow;275; 1,25   ; 0,20   ; 0,02   ; 3,00   
+00450BK;XEROX Docuprint XJ 4 C;Cartouche jet d'encre;Farbax;Xerox;Noir;275; 1,01   ; 0,20   ; 0,02   ; 3,00   
+00450CK;XEROX Docuprint XJ 4 C;Cartouche jet d'encre;Farbax;Xerox;Cyan;275; 1,25   ; 0,20   ; 0,02   ; 3,00   
+00450MK;XEROX Docuprint XJ 4 C;Cartouche jet d'encre;Farbax;Xerox;Magenta;275; 1,25   ; 0,20   ; 0,02   ; 3,00   
+00450YK;XEROX Docuprint XJ 4 C;Cartouche jet d'encre;Farbax;Xerox;Yellow;275; 1,25   ; 0,20   ; 0,02   ; 3,00   
+00450BK;XEROX Docuprint XJ 6 C;Cartouche jet d'encre;Farbax;Xerox;Noir;275; 1,01   ; 0,20   ; 0,02   ; 3,00   
+00450CK;XEROX Docuprint XJ 6 C;Cartouche jet d'encre;Farbax;Xerox;Cyan;275; 1,25   ; 0,20   ; 0,02   ; 3,00   
+00450MK;XEROX Docuprint XJ 6 C;Cartouche jet d'encre;Farbax;Xerox;Magenta;275; 1,25   ; 0,20   ; 0,02   ; 3,00   
+00450YK;XEROX Docuprint XJ 6 C;Cartouche jet d'encre;Farbax;Xerox;Yellow;275; 1,25   ; 0,20   ; 0,02   ; 3,00   
+00451BK;XEROX Docuprint  C6;Cartouche jet d'encre;Farbax;Xerox;Noir;1460; 2,29   ; 0,20   ; 0,02   ; 3,00   
+00451BK;XEROX Docuprint  C8;Cartouche jet d'encre;Farbax;Xerox;Noir;1460; 2,29   ; 0,20   ; 0,02   ; 3,00   

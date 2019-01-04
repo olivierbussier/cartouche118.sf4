@@ -113,6 +113,8 @@ class TestController extends AbstractController
     }
 
     /**
+     * Création d'une base complète
+     *
      * @Route("/cretab/{nbClients}/{nbCommandes}", name="crebase")
      * @param int $nbClients
      * @param int $nbCommandes
@@ -315,6 +317,10 @@ class TestController extends AbstractController
         return $this->render('intranet/test.html.twig');
     }
 
+    /**
+     * @param String $text
+     * @return mixed
+     */
     private function convertString(String $text)
     {
         $text = str_replace("\\'", "'", $text);
@@ -327,28 +333,23 @@ class TestController extends AbstractController
     }
 
     /**
-     * @Route("/commandevcf/{nbCommandes}", name="commandevcf")
+     * Importation de la base "contacts.vcf"
+     *
+     * @Route("/importvcf/{nbCommandes}", name="importvcf")
      * @param RegistryInterface $doctrine
      * @param EntityManagerInterface $em
      * @param int $nbCommandes
      * @return \Symfony\Component\HttpFoundation\Response
      * @throws \Exception
      */
-    public function createCommandes(RegistryInterface $doctrine, EntityManagerInterface $em, $nbCommandes = 1500)
+    public function importVCF(RegistryInterface $doctrine, EntityManagerInterface $em, $nbCommandes = 1500)
     {
 
-        $this->delData(LigneCommande::class);
-        $this->delData(Commande::class);
-        $this->delData(Produit::class);
         $this->delData(Note::class);
         $this->delData(Telephone::class);
         $this->delData(Email::class);
         $this->delData(Adresse::class);
         $this->delData(Client::class);
-        $this->delData(Taxe::class);
-        $this->delData(CategorieProduit::class);
-        $this->delData(Fournisseur::class);
-        $this->delData(Marque::class);
 
         // Création des clients et des notes
 
@@ -425,142 +426,278 @@ class TestController extends AbstractController
         }
         $em->flush();
 
-        // Création des clients et des notes
+        return $this->render('intranet/test.html.twig');
+    }
 
-        $fak = Factory::create('fr_FR');
+    private function val($str)
+    {
+        $px = explode(',', $str);
+        return (float)($px[0] . '.' . $px[1]);
 
-        // Création des fournisseurs
+    }
 
-        $fou = [];
-        foreach (self::fournisseur as $c) {
-            $ct = new Fournisseur();
-            $ct->setNom($c[0]);
-            $ct->setAdresse($fak->address);
-            $ct->setMail($fak->email);
-            $ct->setTelephone($fak->phoneNumber);
-            $em->persist($ct);
-            $fou[] = $ct;
-        }
-
-        // Création des catégories produit
-
-        $cat = [];
-        foreach (self::category as $c) {
-            $fr = $c[1];
-            foreach ($fr as $f) {
-                $ct = new CategorieProduit();
-                $ct->setNom($c[0]);
-                $ct->setTva(20.0);
-                $ct->setFournisseur($fou[$f]);
-                $em->persist($ct);
-                $cat[] = $ct;
+    /**
+     * Recherche d'un objet (comparaison par rapport au nom retourné par __toString)
+     *
+     * @param string $val
+     * @param array $arr
+     * @return mixed
+     */
+    private function searchName(string $val, array $arr)
+    {
+        foreach ($arr as $k) {
+            $test = $k;
+            if ($test == $val) {
+                return $k;
             }
         }
+        return false;
+    }
 
-        // Creation des taxes
-
-        $tax = [];
-        foreach (self::taxe as $c) {
-            $t = new Taxe();
-            $t->setNom($c[0]);
-            $t->setType($c[1]);
-            $t->setMontant($c[2]);
-            /** @var CategorieProduit $cpr */
-            $cpr = $cat[$c[3]];
-            $t->setCategorieProduit($cpr);
-            $cpr->addTax($t);
-            $em->persist($t);
-            $tax[] = $t;
+    /**
+     * Recherche d'un objet catégorie ayant les caractéristiques suivantes :
+     *  - même nom
+     *  - même fournisseur
+     *
+     * @param string $cat
+     * @param string $fournisseur
+     * @param array $categs
+     * @return mixed
+     */
+    private function searchCat(string $cat, string $fournisseur, array $categs)
+    {
+        foreach ($categs as $k) {
+            /** @var $k CategorieProduit */
+            if ($k->getNom() == $cat) {
+                if ($k->getFournisseur() == $fournisseur) {
+                    return $k;
+                }
+            }
         }
+        return false;
+    }
 
-        // Création des marques
+    /**
+     * Import d'un fichier de produits
+     *
+     * @Route("/produitscsv", name="produitscsv")
+     * @param EntityManagerInterface $em
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function importCSV(EntityManagerInterface $em)
+    {
+        $authorizedTitres = [
+            'code',
+            "nom",
+            "categorie",
+            "fournisseur",
+            "marque",
+            "caract1",
+            "caract2",
+            "prixht",
+            "tva",
+            "ecotaxe",
+            "marge"
+        ];
 
+        $this->delData(Produit::class);
+        $this->delData(Taxe::class);
+        $this->delData(CategorieProduit::class);
+        $this->delData(Fournisseur::class);
+        $this->delData(Marque::class);
+
+        $categories = [];
+        $produits = [];
+        $fournisseurs = [];
         $marques = [];
-        foreach (self::marques as $n => $m) {
-            $mq = new Marque();
-            $mq->setNom($n);
-            $em->persist($mq);
-            $marques[] = $mq;
-        }
+        $taxes = [];
 
-        // Création des produits
+        $mm = 0;
 
-        $prd = [];
-        foreach (self::product as $c) {
-            $libelle= $c[0];
-            $prix = $c[1];
-            $marq = $c[2];
-            $fourn = $c[3];
-            foreach ($fourn as $k => $v) {
-                foreach ($v as $target) {
-                    $pr = new Produit();
-                    $pr->setCategorieProduit($cat[$target]);
-                    $pr->setNom($libelle);
-                    $pr->setPrixHT($prix);
-                    $pr->setMarque($marques[$marq-1]);
-                    $em->persist($pr);
-                    $prd[] = $pr;
-                }
-            }
-        }
-
-        // Creation des commandes
-
-        $repoCl = $doctrine->getRepository(Client::class);
-
-        /** @var ClientRepository $repoCl */
-
-        $nbClients = $repoCl->count([]);
-
-        $commandes = [];
-
-        $x = 0;
-
-        for ($i=0; $i<$nbCommandes; $i++) {
-            $fac = new Commande();
-            $client = $repoCl->find(rand(1,$nbClients-1));
-            $fac->setClient($client);
-            $dat = $fak->dateTimeBetween('-5 years', 'now');
-            $fac->setCreatedAt($dat);
-            $fac->setReference($dat->format('Ymd') . '-' . $fac->getClient());
-            $fac->setPrixHT(0);
-            $fac->setEcoHT(0);
-            $fac->setEcoTTC(0);
-            // Creation des ventes
-            $rnd = rand(1, 12);
-            for ($j=0; $j<$rnd; $j++) {
-                $lf = new LigneCommande();
-                $lf->setCreatedAt($dat);
-                /** @var Produit $pr */
-                $pr = $this->getRand($prd);
-                $lf->setRemiseType('percent');
-                $lf->setRemise(0);
-
-                $quan = rand(1, 10);
-                $lf->setQuantite($quan);
-
-                $fac->setPrixHT($fac->getPrixHT() + $pr->getPrixHT() * $quan);
-                $tva = $pr->getCategorieProduit()->getTva();
-                $fac->setPrixTTC($fac->getPrixTTC() + $pr->getPrixHT() * $quan * (1+$tva/100.0));
-                $lf->setProduit($pr);
-                // Ecotaxes
-                foreach ($pr->getCategorieProduit()->getTaxes() as $tax) {
-                    /** @var Taxe $tax */
-                    $fac->setEcoHT($fac->getEcoHT() + $quan * $tax->getMontant());
-                    $fac->setEcoTTC($fac->getEcoTTC() + $quan * $tax->getMontant() * 1.2);
+        if (($handle = fopen("test.csv", "r")) !== FALSE) {
+            if (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
+                // Ligne de titres
+                $titres = [];
+                foreach ($data as $v) {
+                    $test = ord($v[0]);
+                    if ($test == 0xef) {
+                        $v = substr($v, 3);
+                        //$v = $v2;
+                    }
+                    $v = trim($v);
+                    if (!in_array($v,$authorizedTitres)) {
+                        echo "<p>Titre incorrect : '$v', les titres de colonnes doivent etre dans la liste suivante :</p><ul>";
+                        foreach ($authorizedTitres as $tv) {
+                            echo "<li>$tv</li>";
+                        }
+                        echo "</ul>";
+                        exit;
+                    }
+                    $titres[] = $v;
                 }
 
-                $fac->addLigneCommande($lf);
-                $em->persist($lf);
-            }
-            $em->persist($fac);
-            $commandes[] = $fac;
-            if ($x++ % 500 == 0) {
-                $em->flush();
-            }
-        }
-        $em->flush();
+                while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
+                    $i = 0;
+                    foreach ($data as $v) {
+                        $ligne[$titres[$i++]] = $v;
+                    }
 
+                    $prd = new Produit();
+
+                    $prd->setCode($ligne['code']);
+                    $prd->setNom($ligne['nom']);
+
+                    $prd->setPrixHT($this->val($ligne['prixht']));
+                    $prd->setMarge($this->val($ligne['marge']));
+                    $prd->setCaract1($ligne['caract1']);
+                    $prd->setCaract2($ligne['caract2']);
+
+                    // Marque
+
+                    if (($marque = $this->searchName($ligne['marque'],$marques)) == false) {
+                        $marque = new Marque();
+                        $marque->setNom($ligne['marque']);
+                        $marque->setDescription('Aucune');
+
+                        $em->persist($marque);
+                        $marques[] = $marque;
+                    }
+                    $prd->setMarque($marque);
+
+                    // Fournisseur
+
+                    if (($fournisseur = $this->searchName($ligne['fournisseur'],$fournisseurs)) == false) {
+                        $fournisseur = new Fournisseur();
+                        $fournisseur->setNom($ligne['fournisseur']);
+                        $fournisseur->setAdresse('Aucune');
+                        $fournisseur->setMail('Aucune');
+                        $fournisseur->setTelephone('Aucune');
+
+                        $em->persist($fournisseur);
+                        $fournisseurs[] = $fournisseur;
+                    }
+                    $prd->setFournisseur($fournisseur);
+
+                    // Categorie
+
+                    if (($categorie = $this->searchCat($ligne['categorie'], $ligne['fournisseur'], $categories)) == false) {
+                        $categorie = new CategorieProduit();
+                        $categorie->setNom($ligne['categorie']);
+                        $categorie->setFournisseur($fournisseur);
+                        $categorie->setTva($this->val($ligne['tva']));
+
+                        $em->persist($categorie);
+                        $categories[] = $categorie;
+
+                        // EcoTaxe
+
+                        $targetTaxe = new Taxe();
+
+                        $targetTaxe->setCategorieProduit($categorie);
+                        $targetTaxe->setFournisseur($fournisseur);
+                        $targetTaxe->setMontant($this->val($ligne['ecotaxe']));
+                        $targetTaxe->setNom($categorie.'-'.$fournisseur);
+                        $targetTaxe->setType('ECO');
+
+                        $em->persist($targetTaxe);
+                        $taxes[] = $targetTaxe;
+                    }
+                    $prd->setCategorieProduit($categorie);
+
+                    $produits[] = $prd;
+
+                    $em->persist($prd);
+                    if ($mm++ % 100 == 0)
+                        $em->flush();
+                }
+            }
+            $em->flush();
+            fclose($handle);
+        }
+        return $this->render('intranet/test.html.twig');
+    }
+
+    /**
+     * Création de commandes
+     *
+     * @Route("/createcommandes/{nbCommandes}", name="createcommandes")
+     * @param RegistryInterface $doctrine
+     * @param EntityManagerInterface $em
+     * @param int $nbCommandes
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \Exception
+     */
+    public function createCommandes(RegistryInterface $doctrine, EntityManagerInterface $em, $nbCommandes = 2000)
+    {
+
+        if (!is_numeric($nbCommandes)) {
+            if ($nbCommandes == 'raz') {
+                $this->delData(LigneCommande::class);
+                $this->delData(Commande::class);
+            }
+        } else {
+
+
+            $fak = Factory::create('fr_FR');
+
+            // Creation des commandes
+
+            $repoCl = $doctrine->getRepository(Client::class);
+            $repoPr = $doctrine->getRepository(Produit::class);
+
+            /** @var ClientRepository $repoCl */
+            /** @var ClientRepository $repoPr */
+
+            $nbClients = $repoCl->count([]);
+            $nbProducts = $repoPr->count([]);
+
+            $x = 0;
+
+            for ($i = 0; $i < $nbCommandes; $i++) {
+                $commande = new Commande();
+                $client = $repoCl->find(rand(1, $nbClients - 1));
+                $commande->setClient($client);
+                $dat = $fak->dateTimeBetween('-5 years', 'now');
+                $commande->setCreatedAt($dat);
+                $commande->setReference($dat->format('Ymd-hms') . '-' . $commande->getClient());
+                $commande->setPrixHT(0);
+                $commande->setEcoHT(0);
+                $commande->setEcoTTC(0);
+                // Creation des ventes
+                $rnd = rand(1, 12);
+                for ($j = 0; $j < $rnd; $j++) {
+                    $lf = new LigneCommande();
+                    $lf->setCreatedAt($dat);
+                    /** @var Produit $pr */
+                    $pr = $repoPr->find(rand(1, $nbProducts - 1));
+                    $lf->setRemiseType('percent');
+                    $lf->setRemise(0);
+
+                    $quan = rand(1, 10);
+                    $lf->setQuantite($quan);
+
+                    $commande->setPrixHT($commande->getPrixHT() + $pr->getPrixHT() * $quan);
+                    $tva = $pr->getCategorieProduit()->getTva();
+                    $commande->setPrixTTC($commande->getPrixTTC() + $pr->getPrixHT() * $quan * (1 + $tva / 100.0));
+                    $lf->setProduit($pr);
+                    // Ecotaxes
+                    foreach ($pr->getCategorieProduit()->getTaxes() as $tax) {
+                        /** @var Taxe $tax */
+                        $commande->setEcoHT($commande->getEcoHT() + $quan * $tax->getMontant());
+                        $commande->setEcoTTC($commande->getEcoTTC() + $quan * $tax->getMontant() * 1.2);
+                    }
+
+                    $commande->addLigneCommande($lf);
+                    $em->persist($lf);
+                }
+                $em->persist($commande);
+
+                if ($x++ % 500 == 0) {
+                    $em->flush();
+                }
+            }
+            $em->flush();
+        }
         return $this->render('intranet/test.html.twig');
     }
 }

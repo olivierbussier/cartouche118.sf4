@@ -128,8 +128,9 @@
                                             Menu Admin
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
-                                            <a class="dropdown-item" href="{{ path('commandevcf',{nbCommandes: 2000}) }}">Import VCF file/Créer 2000 commandes</a>
-                                            <a class="dropdown-item" href="{{ path('crebase',{nbClients: 500, nbFact:500}) }}">Créer 500 fak Clients/500 Commandes</a>
+                                            <a class="dropdown-item" href="{{ path('importvcf') }}">Import fichier client (VCF file)</a>
+                                            <a class="dropdown-item" href="{{ path('produitscsv') }}">Importer CSV produits (UTF-8)</a>
+                                            <a class="dropdown-item" href="{{ path('createcommandes',{nbCommandes: 2000}) }}">Créer 2000 commandes</a>
                                         </div>
                                     </li>
 
