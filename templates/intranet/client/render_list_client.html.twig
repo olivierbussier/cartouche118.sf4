@@ -12,7 +12,7 @@
 
         <div class="client_props">
 
-           <a href="{{ url('show_client', {id: client.id}) }}">{{ client.id }} / {{ client.additional }} {{ client.nom ~ ', ' ~ client.prenom }}</a>
+           <a href="{{ path('show_client', {id: client.id}) }}"> - {{ client.fullName }} - {{ client.nom ~ ', ' ~ client.prenom }}</a>
 
         </div>
 
