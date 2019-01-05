@@ -63,6 +63,27 @@ class Client
      */
     private $emails;
 
+    /**
+     * peut être:
+     *  - Personne morale
+     *  - Personne physique
+     *
+     * @ORM\Column(type="string", length=255)
+     */
+    private $type;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Client", inversedBy="clients")
+     */
+    private $liensPersonnesMorales;
+
+    /**
+     *  Dans le cas d'une personne morale, pointe vers tous les clients qui y sont rattachés
+     *
+     * @ORM\ManyToMany(targetEntity="App\Entity\Client", mappedBy="liensClients")
+     */
+    private $liensClients;
+
     public function __construct()
     {
         $this->notes = new ArrayCollection();
@@ -70,6 +91,8 @@ class Client
         $this->adresses = new ArrayCollection();
         $this->telephones = new ArrayCollection();
         $this->emails = new ArrayCollection();
+        $this->liensPersonnesMorales = new ArrayCollection();
+        $this->liensClients = new ArrayCollection();
     }
 
     public function __toString()
@@ -295,5 +318,71 @@ class Client
     public function setAdditional($additional): void
     {
         $this->additional = $additional;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(string $type): self
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|self[]
+     */
+    public function getLiensPersonnesMorales(): Collection
+    {
+        return $this->liensPersonnesMorales;
+    }
+
+    public function addLiensClient(self $liensClient): self
+    {
+        if (!$this->liensPersonnesMorales->contains($liensClient)) {
+            $this->liensPersonnesMorales[] = $liensClient;
+        }
+
+        return $this;
+    }
+
+    public function removeLiensClient(self $liensClient): self
+    {
+        if ($this->liensPersonnesMorales->contains($liensClient)) {
+            $this->liensPersonnesMorales->removeElement($liensClient);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|self[]
+     */
+    public function getLiensClients(): Collection
+    {
+        return $this->liensClients;
+    }
+
+    public function addClient(self $client): self
+    {
+        if (!$this->liensClients->contains($client)) {
+            $this->liensClients[] = $client;
+            $client->addLiensClient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeClient(self $client): self
+    {
+        if ($this->liensClients->contains($client)) {
+            $this->liensClients->removeElement($client);
+            $client->removeLiensClient($this);
+        }
+
+        return $this;
     }
 }

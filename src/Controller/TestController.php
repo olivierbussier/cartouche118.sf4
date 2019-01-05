@@ -314,7 +314,9 @@ class TestController extends AbstractController
         }
         $em->flush();
 
-        return $this->render('intranet/test.html.twig');
+        return $this->render('intranet/test.html.twig', [
+            'varTitre' => 'Génération aléatoire'
+        ]);
     }
 
     /**
@@ -335,14 +337,12 @@ class TestController extends AbstractController
     /**
      * Importation de la base "contacts.vcf"
      *
-     * @Route("/importvcf/{nbCommandes}", name="importvcf")
-     * @param RegistryInterface $doctrine
+     * @Route("/importvcf", name="importvcf")
      * @param EntityManagerInterface $em
-     * @param int $nbCommandes
      * @return \Symfony\Component\HttpFoundation\Response
      * @throws \Exception
      */
-    public function importVCF(RegistryInterface $doctrine, EntityManagerInterface $em, $nbCommandes = 1500)
+    public function importVCF(EntityManagerInterface $em)
     {
 
         $this->delData(Note::class);
@@ -375,6 +375,7 @@ class TestController extends AbstractController
             $client->setNom($v->lastname);
             $client->setFullName($v->fullname);
             $client->setAdditional($v->additional);
+            $client->setType('personne_morale');
             if (isset($v->email)) {
                 foreach ($v->email as $kmel => $vmel) {
                     foreach ($vmel as $indmail) {
@@ -426,7 +427,9 @@ class TestController extends AbstractController
         }
         $em->flush();
 
-        return $this->render('intranet/test.html.twig');
+        return $this->render('intranet/test.html.twig', [
+            'varTitre' => 'Importation VCF'
+        ]);
     }
 
     private function val($str)
@@ -614,7 +617,9 @@ class TestController extends AbstractController
             $em->flush();
             fclose($handle);
         }
-        return $this->render('intranet/test.html.twig');
+        return $this->render('intranet/test.html.twig', [
+            'varTitre' => 'Importation fichier CSV Produits'
+        ]);
     }
 
     /**
@@ -698,6 +703,8 @@ class TestController extends AbstractController
             }
             $em->flush();
         }
-        return $this->render('intranet/test.html.twig');
+        return $this->render('intranet/test.html.twig', [
+            'varTitre' => "Création de $nbCommandes commandes"
+        ]);
     }
 }

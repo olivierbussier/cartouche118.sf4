@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Administration clients{% endblock %}
+{% block title %}Visualiser commande{% endblock %}
 
 {% block main_page %}
 
@@ -9,6 +9,9 @@
 
     <div class="container">
 
+        <div class="col">
+            <a href="{{ path('viewfacture', { id: commande.id}) }}">Générer facture</a>
+        </div>
         <table class="table table-striped table-hover table-sm">
             <tr>
                 <th>Date commande :</th><td>{{ commande.createdAt | date('d/m/Y') }}</td>

@@ -1,0 +1,4 @@
+# config/packages/white_october_tcpdf.yaml (Symfony 4)
+white_october_tcpdf:
+  tcpdf:
+    k_path_images: '%kernel.root_dir%/images/'

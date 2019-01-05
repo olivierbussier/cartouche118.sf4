@@ -1,19 +1,8 @@
+{% import "macros/pagination.html.twig" as pages %}
+
 {% if nbPages > 1 %}
     <nav aria-label="NavClients">
-
-        <ul class="pagination pagination-sm d-flex flex-wrap justify-content">
-            <li class="page-item"><a class="page-link" href="{{ url('view_clients', {startPage: max(0,currentPage - 1), recherche: term}) }}">Previous</a></li>
-            {% for i in 1..nbPages %}
-                {% if i == currentPage + 1 %}
-                    {% set active = ' active' %}
-                {% else %}
-                    {% set active = '' %}
-                {% endif %}
-                <li class="page-item{{ active }}"><a class="page-link" href="{{ url('view_clients', {startPage: i - 1, recherche: term}) }}">{{ i }}</a></li>
-            {% endfor %}
-            <li class="page-item"><a class="page-link" href="{{ url('view_clients', {startPage: min(nbPages - 1,currentPage + 1), recherche: term}) }}">Next</a></li>
-        </ul>
-
+        {{ pages.pages(nbPages, currentPage, term) }}
     </nav>
 {% endif %}
 
