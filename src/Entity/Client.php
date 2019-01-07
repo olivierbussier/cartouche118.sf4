@@ -73,16 +73,21 @@ class Client
     private $type;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Client", inversedBy="clients")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Client", inversedBy="liensClients")
      */
     private $liensPersonnesMorales;
 
     /**
      *  Dans le cas d'une personne morale, pointe vers tous les clients qui y sont rattachés
      *
-     * @ORM\ManyToMany(targetEntity="App\Entity\Client", mappedBy="liensClients")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Client", mappedBy="liensPersonnesMorales")
      */
     private $liensClients;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\RemisesClient", mappedBy="client", orphanRemoval=true)
+     */
+    private $remisesClients;
 
     public function __construct()
     {
@@ -93,6 +98,7 @@ class Client
         $this->emails = new ArrayCollection();
         $this->liensPersonnesMorales = new ArrayCollection();
         $this->liensClients = new ArrayCollection();
+        $this->remisesClients = new ArrayCollection();
     }
 
     public function __toString()
@@ -381,6 +387,37 @@ class Client
         if ($this->liensClients->contains($client)) {
             $this->liensClients->removeElement($client);
             $client->removeLiensClient($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|RemisesClient[]
+     */
+    public function getRemisesClients(): Collection
+    {
+        return $this->remisesClients;
+    }
+
+    public function addRemisesClient(RemisesClient $remisesClient): self
+    {
+        if (!$this->remisesClients->contains($remisesClient)) {
+            $this->remisesClients[] = $remisesClient;
+            $remisesClient->setClient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRemisesClient(RemisesClient $remisesClient): self
+    {
+        if ($this->remisesClients->contains($remisesClient)) {
+            $this->remisesClients->removeElement($remisesClient);
+            // set the owning side to null (unless already changed)
+            if ($remisesClient->getClient() === $this) {
+                $remisesClient->setClient(null);
+            }
         }
 
         return $this;

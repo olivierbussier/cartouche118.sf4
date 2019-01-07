@@ -75,9 +75,15 @@ class Produit
      */
     private $caract3;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\RemisesClient", mappedBy="produit", orphanRemoval=true)
+     */
+    private $remisesClients;
+
     public function __construct()
     {
         $this->ligneCommandes = new ArrayCollection();
+        $this->remisesClients = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -236,6 +242,37 @@ class Produit
     public function setCaract3(?string $caract3): self
     {
         $this->caract3 = $caract3;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|RemisesClient[]
+     */
+    public function getRemisesClients(): Collection
+    {
+        return $this->remisesClients;
+    }
+
+    public function addRemisesClient(RemisesClient $remisesClient): self
+    {
+        if (!$this->remisesClients->contains($remisesClient)) {
+            $this->remisesClients[] = $remisesClient;
+            $remisesClient->setProduit($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRemisesClient(RemisesClient $remisesClient): self
+    {
+        if ($this->remisesClients->contains($remisesClient)) {
+            $this->remisesClients->removeElement($remisesClient);
+            // set the owning side to null (unless already changed)
+            if ($remisesClient->getProduit() === $this) {
+                $remisesClient->setProduit(null);
+            }
+        }
 
         return $this;
     }

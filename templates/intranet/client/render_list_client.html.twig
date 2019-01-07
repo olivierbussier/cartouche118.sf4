@@ -12,7 +12,7 @@
 
         <div class="client_props">
 
-           <a href="{{ path('show_client', {id: client.id}) }}"> - {{ client.fullName }} - {{ client.nom ~ ', ' ~ client.prenom }}</a>
+           <a href="{{ path('show_client', {id: client.id}) }}" target="_blank"> - {{ client.fullName }} - {{ client.nom ~ ', ' ~ client.prenom }}</a>
 
         </div>
 
@@ -27,7 +27,7 @@
         <div class="client_fact">
             {% for facture in client.commandes %}
                 <div class="col">
-                    <a href="{{ path('view_commandes',{ref: facture.id}) }}">{{ facture.reference }}</a>
+                    <a href="{{ path('view_commandes',{ref: facture.id}) }}" target="_blank">{{ facture.reference }}</a>
                     {{ facture.getPrixHT }} {{ facture.getPrixTTC }}
                 </div>
             {% endfor %}
