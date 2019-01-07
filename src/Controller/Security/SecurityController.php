@@ -10,14 +10,16 @@ use App\Entity\User;
 use App\Form\RegistrationType;
 use DateTime;
 use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Cache\Adapter\AbstractAdapter;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Routing\Annotation\Route;
 
-class SecurityController extends Controller
+class SecurityController extends AbstractController
 {
     /**
      * @Route("/registration", name="registration")

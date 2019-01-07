@@ -4,10 +4,11 @@ namespace App\Controller\Intranet;
 
 use App\Entity\User;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class IntranetController extends Controller
+
+class IntranetController extends AbstractController
 {
     /**
      * @Route("/intranet/index", name="index_intranet")
