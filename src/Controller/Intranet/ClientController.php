@@ -52,7 +52,14 @@ class ClientController extends AbstractController
         if ($id == 0) {
             return $this->redirectToRoute('view_clients');
         }
-        return new Response("ok : id = $id");
+        $cr = $em->getRepository(Client::class);
+
+        $client = $cr->find($id);
+
+        return $this->render('intranet/client/show_client.html.twig', [
+            //'clients' => $clients,
+            'client' => $client
+        ]);
     }
 
     /**
