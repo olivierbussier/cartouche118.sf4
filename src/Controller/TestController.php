@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Classes\VCF\VCard;
 use App\Entity\Adresse;
 use App\Entity\CategorieProduit;
 use App\Entity\Client;
@@ -345,6 +346,9 @@ class TestController extends AbstractController
     public function importVCF(EntityManagerInterface $em)
     {
 
+
+        $cards = new VCard('contacts.vcf');
+
         $this->delData(Note::class);
         $this->delData(Telephone::class);
         $this->delData(Email::class);
@@ -353,8 +357,9 @@ class TestController extends AbstractController
 
         // Création des clients et des notes
 
-        $parser = VCardParser::parseFromFile('contacts.vcf');
-        $cards = $parser->getCards();
+        //$parser = VCardParser::parseFromFile('contacts.vcf');
+        //$parser = VCardParser::parseFromFile('test.vcf');
+        //$cards = $parser->getCards();
 
         $types = [
             'FAX'  => 'Fax',
@@ -371,54 +376,48 @@ class TestController extends AbstractController
 
         foreach ($cards as $k => $v) {
             $client = new Client();
-            $client->setPrenom($v->firstname);
-            $client->setNom($v->lastname);
-            $client->setFullName($v->fullname);
-            $client->setAdditional($v->additional);
-            $client->setType('personne_morale');
-            if (isset($v->email)) {
-                foreach ($v->email as $kmel => $vmel) {
-                    foreach ($vmel as $indmail) {
-                        $mel = new Email();
-                        $mel->setClient($client);
-                        $mel->setNom($types[$kmel]);
-                        $mel->setEmail($indmail);
-                        $em->persist($mel);
-                    }
+            $client->setPrenom($v->n[0]['FirstName']);
+            $client->setNom($v->n[0]['LastName']);
+            $client->setFullName($v->fn[0]['Value']);
+            $client->setAdditional($v->n[0]['AdditionalNames']);
+            $client->setType('personne_physique');
+            foreach ($v->email as $vmel) {
+                $mel = new Email();
+                $mel->setClient($client);
+                $mel->setNom($vmel['Type'][0]);
+                if (isset($vmel['label'])) {
+                    $mel->setLabel($vmel['label']);
                 }
+                $mel->setEmail($vmel['Value']);
+                $em->persist($mel);
             }
-            if (isset($v->phone)) {
-                foreach ($v->phone as $kpho => $vpho) {
-                    foreach ($vpho as $indpho) {
-                        $pho = new Telephone();
-                        $pho->setClient($client);
-                        $pho->setNom($types[$kmel]);
-                        $pho->setTelephone($indpho);
-                        $em->persist($pho);
-                    }
+            foreach ($v->tel as $kpho => $vpho) {
+                $pho = new Telephone();
+                $pho->setClient($client);
+                $pho->setNom($vpho['Type'][0]);
+                if (isset($vpho['label'])) {
+                    $pho->setLabel($vpho['label']);
                 }
+                $pho->setTelephone($vpho['Value']);
+                $em->persist($pho);
             }
-            if (isset($v->note)) {
+            foreach ($v->note as $n) {
                 $note = new Note();
                 $note->setClient($client);
                 $note->setCreatedAt(new DateTime());
-                $note->setText($this->convertString($v->note));
+                $note->setText($this->convertString($n['Value']));
                 $em->persist($note);
             }
-            if (isset($v->address)) {
-                foreach ($v->address as $kadr => $vadr) {
-                    foreach ($vadr as $indadr) {
-                        $adr = new Adresse();
-                        $adr->setClient($client);
-                        $adr->setNom($types[$kadr]);
-                        $adr->setAdresse1($this->convertString($indadr->street));
-                        $adr->setAdresse2($this->convertString($indadr->extended));
-                        $adr->setVille($this->convertString($indadr->city));
-                        $adr->setCodePostal($indadr->zip);
-                        $adr->setPays($indadr->country);
-                        $em->persist($adr);
-                    }
-                }
+            foreach ($v->adr as $vadr) {
+                $adr = new Adresse();
+                $adr->setClient($client);
+                $adr->setNom($vadr['Type'][0]);
+                $adr->setAdresse1($this->convertString($vadr['StreetAddress']));
+                $adr->setAdresse2($this->convertString($vadr['ExtendedAddress']));
+                $adr->setVille($this->convertString($vadr['Locality']));
+                $adr->setCodePostal($vadr['PostalCode']);
+                $adr->setPays($vadr['Country']);
+                $em->persist($adr);
             }
             $em->persist($client);
             if ($i++ % 500 == 0) {

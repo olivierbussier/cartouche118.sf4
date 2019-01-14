@@ -22,6 +22,11 @@ class Email
     private $nom;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $label;
+
+    /**
      * @ORM\Column(type="string", length=255)
      */
     private $email;
@@ -75,5 +80,21 @@ class Email
     public function setNom($nom): void
     {
         $this->nom = $nom;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLabel()
+    {
+        return $this->label;
+    }
+
+    /**
+     * @param mixed $label
+     */
+    public function setLabel($label): void
+    {
+        $this->label = $label;
     }
 }

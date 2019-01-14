@@ -6,6 +6,15 @@
     <div class="container">
         <div class="col-xs-12">
             <h1>OK</h1>
+            {% if dumpValue is defined %}
+                {% set index = 0 %}
+                {% for val in dumpValue %}
+                    {% if index < 100 %}
+                        {{ dump(val) }}
+                        {% set index = index + 1 %}
+                    {%  endif %}
+                {% endfor %}
+            {% endif %}
         </div>
     </div>
 {% endblock %}
