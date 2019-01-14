@@ -36,7 +36,7 @@
                 <div class="col">
                     {% for telephone in client.telephones %}
                         <div class="client_note">
-                            <p>{{ telephone.nom }} {{ telephone.label }}: {{ telephone.telephone }}</p>
+                            <p>{{ telephone.nom }} {{ telephone.label }} : <a href="tel:{{ telephone.telephone }}">{{ telephone.telephone }}</a></p>
                         </div>
                     {% endfor %}
                 </div>
@@ -44,7 +44,7 @@
                 <div class="col">
                     {% for email in client.emails %}
                         <div class="client_note">
-                            <p>{{ email.nom }} {{ email.label }}: {{ email.email }}</p>
+                            <p>{{ email.nom }} {{ email.label }}: <a href="mailto:{{ email.email }}">{{ email.email }}</a></p>
                         </div>
                     {% endfor %}
                 </div>
