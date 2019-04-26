@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tests : {{ varTitre }}{% endblock %}
+
+{% block main_page %}
+
+    <style>
+        .blk-edit {
+            width: 100%;
+            height: 500px;
+            border: 1px solid grey;
+        }
+    </style>
+
+    <div class="container">
+        <div class="col-xs-12">
+            <form method="post" action="">
+                <div class="blk-edit" id="id1" onclick="mswitch('id1')">dqdjqsdqkdsqdjsqkl</div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function mswitch(id) {
+            let mid = '#' + id;
+            let content = $(mid).html();
+            let attr = 'class="blk-edit" id="id1" onclick="mswitch('+id1+')';
+            if ($(mid).is('div')) {
+                // Remplacer par un textarea
+                $(mid).replaceWith('<textarea '+attr+'>');
+            } else {
+                $(mid).replaceWith('<div '+attr+'>');
+            }
+            $(mid).html(content);
+        }
+    </script>
+
+{% endblock %}
