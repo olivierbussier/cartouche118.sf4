@@ -43,7 +43,7 @@ security:
     - { path: ^/connexion,              roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https  }
     - { path: ^/intranet/admin_blog,    roles: [ROLE_ADMIN, ROLE_PUB], requires_channel: https  }
     - { path: ^/intranet,               roles: ROLE_USER, requires_channel: https  }
-    - { path: ^/,                       roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: http  }
+    - { path: ^/,                       roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https  }
     # - { path: ^/admin, roles: ROLE_ADMIN }
     # - { path: ^/profile, roles: ROLE_USER }
 
