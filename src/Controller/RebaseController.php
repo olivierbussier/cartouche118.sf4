@@ -18,9 +18,11 @@ use App\Entity\Telephone;
 use App\Repository\ClientRepository;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 use Faker\Factory;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class RebaseController extends AbstractController
@@ -115,8 +117,8 @@ class RebaseController extends AbstractController
      * @Route("/cretab/{nbClients}/{nbCommandes}", name="crebase")
      * @param int $nbClients
      * @param int $nbCommandes
-     * @return \Symfony\Component\HttpFoundation\Response
-     * @throws \Exception
+     * @return Response
+     * @throws Exception
      */
     public function createTables($nbClients = 100, $nbCommandes = 100)
     {
@@ -336,8 +338,8 @@ class RebaseController extends AbstractController
      *
      * @Route("/importvcf", name="importvcf")
      * @param EntityManagerInterface $em
-     * @return \Symfony\Component\HttpFoundation\Response
-     * @throws \Exception
+     * @return Response
+     * @throws Exception
      */
     public function importVCF(EntityManagerInterface $em)
     {
@@ -349,7 +351,10 @@ class RebaseController extends AbstractController
         $this->delData(Telephone::class);
         $this->delData(Email::class);
         $this->delData(Adresse::class);
+        $this->delData(Commande::class);
+        $this->delData(LigneCommande::class);
         $this->delData(Client::class);
+        $this->delData(Produit::class);
 
         // Création des clients et des notes
 
@@ -416,7 +421,7 @@ class RebaseController extends AbstractController
                 $em->persist($adr);
             }
             $em->persist($client);
-            if ($i++ % 500 == 0) {
+            if ($i++ % 200 == 0) {
                 $em->flush();
             }
         }
@@ -431,7 +436,6 @@ class RebaseController extends AbstractController
     {
         $px = explode(',', $str);
         return (float)($px[0] . '.' . $px[1]);
-
     }
 
     /**
@@ -480,7 +484,7 @@ class RebaseController extends AbstractController
      *
      * @Route("/produitscsv", name="produitscsv")
      * @param EntityManagerInterface $em
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function importCSV(EntityManagerInterface $em)
     {
@@ -512,8 +516,8 @@ class RebaseController extends AbstractController
 
         $mm = 0;
 
-        if (($handle = fopen("test.csv", "r")) !== FALSE) {
-            if (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
+        if (($handle = fopen("test.csv", "r")) !== false) {
+            if (($data = fgetcsv($handle, 1000, ";")) !== false) {
                 // Ligne de titres
                 $titres = [];
                 foreach ($data as $v) {
@@ -523,7 +527,7 @@ class RebaseController extends AbstractController
                         //$v = $v2;
                     }
                     $v = trim($v);
-                    if (!in_array($v,$authorizedTitres)) {
+                    if (!in_array($v, $authorizedTitres)) {
                         echo "<p>Titre incorrect : '$v', les titres de colonnes doivent etre dans la liste suivante :</p><ul>";
                         foreach ($authorizedTitres as $tv) {
                             echo "<li>$tv</li>";
@@ -534,7 +538,7 @@ class RebaseController extends AbstractController
                     $titres[] = $v;
                 }
 
-                while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
+                while (($data = fgetcsv($handle, 1000, ";")) !== false) {
                     $i = 0;
                     foreach ($data as $v) {
                         $ligne[$titres[$i++]] = $v;
@@ -552,7 +556,7 @@ class RebaseController extends AbstractController
 
                     // Marque
 
-                    if (($marque = $this->searchName($ligne['marque'],$marques)) == false) {
+                    if (($marque = $this->searchName($ligne['marque'], $marques)) == false) {
                         $marque = new Marque();
                         $marque->setNom($ligne['marque']);
                         $marque->setDescription('Aucune');
@@ -564,7 +568,7 @@ class RebaseController extends AbstractController
 
                     // Fournisseur
 
-                    if (($fournisseur = $this->searchName($ligne['fournisseur'],$fournisseurs)) == false) {
+                    if (($fournisseur = $this->searchName($ligne['fournisseur'], $fournisseurs)) == false) {
                         $fournisseur = new Fournisseur();
                         $fournisseur->setNom($ligne['fournisseur']);
                         $fournisseur->setAdresse('Aucune');
@@ -605,8 +609,9 @@ class RebaseController extends AbstractController
                     $produits[] = $prd;
 
                     $em->persist($prd);
-                    if ($mm++ % 100 == 0)
+                    if ($mm++ % 100 == 0) {
                         $em->flush();
+                    }
                 }
             }
             $em->flush();
@@ -624,8 +629,8 @@ class RebaseController extends AbstractController
      * @param RegistryInterface $doctrine
      * @param EntityManagerInterface $em
      * @param int $nbCommandes
-     * @return \Symfony\Component\HttpFoundation\Response
-     * @throws \Exception
+     * @return Response
+     * @throws Exception
      */
     public function createCommandes(RegistryInterface $doctrine, EntityManagerInterface $em, $nbCommandes = 2000)
     {
@@ -636,8 +641,6 @@ class RebaseController extends AbstractController
                 $this->delData(Commande::class);
             }
         } else {
-
-
             $fak = Factory::create('fr_FR');
 
             // Creation des commandes
@@ -678,7 +681,7 @@ class RebaseController extends AbstractController
 
                     $commande->setPrixHT($commande->getPrixHT() + $pr->getPrixHT() * $quan);
                     $tva = $pr->getCategorieProduit()->getTva();
-                    $commande->setPrixTTC($commande->getPrixTTC() + $pr->getPrixHT() * $quan * (1 + $tva / 100.0));
+                    $commande->setPrixTTC($commande->getPrixTTC() + $pr->getPrixHT() * $quan * (1 + $tva));
                     $lf->setProduit($pr);
                     // Ecotaxes
                     foreach ($pr->getCategorieProduit()->getTaxes() as $tax) {
