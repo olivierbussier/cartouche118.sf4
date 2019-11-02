@@ -11,9 +11,7 @@
 
     <div class="container">
 
-        <div class="client_container">
-
-            <div class="client_props">
+            <div class="alert alert-info" role="alert">
 
                <h1>{{ client.fullName }} - {{ client.nom ~ ', ' ~ client.prenom }}</h1>
 
@@ -23,38 +21,48 @@
 
                 <div class="col">
                     {% for adresse in client.adresses %}
-                        <div class="client_note">
-                            <p>{{ adresse.nom }}</p>
-                            <p>{{ adresse.adresse1 }}</p>
-                            <p>{{ adresse.adresse2 }}</p>
-                            <p>{{ adresse.codePostal }} {{ adresse.ville }}</p>
-                            <p>{{ adresse.pays }}</p>
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ adresse.nom }}</h5>
+                                <p class="card-text">{{ adresse.adresse1 }}</p>
+                                <p class="card-text">{{ adresse.adresse2 }}</p>
+                                <p class="card-text">{{ adresse.codePostal }} {{ adresse.ville }}</p>
+                                <p class="card-text">{{ adresse.pays }}</p>
+                            </div>
                         </div>
                     {% endfor %}
                 </div>
 
                 <div class="col">
                     {% for telephone in client.telephones %}
-                        <div class="client_note">
-                            <p>{{ telephone.nom }} {{ telephone.label }} : <a href="tel:{{ telephone.telephone }}">{{ telephone.telephone }}</a></p>
+                        <div class="card">
+                            <div class="card-body">
+                                <p class="card-text">{{ telephone.nom }} / {{ telephone.label }}</p>
+                                <p class="card-text"><a href="tel:{{ telephone.telephone }}">{{ telephone.telephone }}</a></p>
+                            </div>
                         </div>
                     {% endfor %}
                 </div>
 
                 <div class="col">
                     {% for email in client.emails %}
-                        <div class="client_note">
-                            <p>{{ email.nom }} {{ email.label }}: <a href="mailto:{{ email.email }}">{{ email.email }}</a></p>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="card-text">{{ email.nom }} / {{ email.label }}</p>
+                            <p class="card-text"><a href="mailto:{{ email.email }}">{{ email.email }}</a></p>
                         </div>
+                    </div>
                     {% endfor %}
                 </div>
 
             </div>
 
             {% for note in client.notes %}
-                <div class="client_note">
-                    <p>{{ note.createdAt | date('d/m/Y') }}</p>
-                    <p><pre>{{ note.text }}</pre></p>
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ note.createdAt | date('d/m/Y') }}</h5>
+                        <p class="card-text">{{ note.text | nl2br }}</p>
+                    </div>
                 </div>
             {% endfor %}
 
@@ -62,13 +70,13 @@
             <div class="client_fact">
                 {% for facture in client.commandes %}
                     <div class="col">
-                        <a href="{{ path('view_commandes',{ref: facture.id}) }}" target="_blank">{{ facture.reference }}</a>
-                        {{ facture.getPrixHT }} {{ facture.getPrixTTC }}
+                        <div class="card">
+                            <h5 class="card-title"><a href="{{ path('view_commandes',{ref: facture.id}) }}" target="_blank">{{ facture.reference }}</a></h5>
+                            <p class="card-text">{{ facture.getPrixHT }} HT / {{ facture.getPrixTTC }} TTC</p>
+                        </div>
                     </div>
                 {% endfor %}
             </div>
-
-        </div>
     </div>
 
 {% endblock %}

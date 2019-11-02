@@ -26,13 +26,13 @@
         "symfony/validator": "*",
         "symfony/web-link": "*",
         "symfony/yaml": "*",
-        "whiteoctober/tcpdf-bundle": "^1.1"
+        "whiteoctober/tcpdf-bundle": "^1.1",
+        "symfony/dotenv": "*",
+        "fzaninotto/faker": "^1.8"
     },
     "require-dev": {
-        "fzaninotto/faker": "^1.8",
         "squizlabs/php_codesniffer": "3.*",
         "symfony/debug-pack": "*",
-        "symfony/dotenv": "*",
         "symfony/maker-bundle": "^1.0",
         "symfony/phpunit-bridge": "4.2.*",
         "symfony/profiler-pack": "*",

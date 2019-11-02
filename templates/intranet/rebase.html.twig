@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ varTitre }}Page de test{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('test/jquery-ui.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block main_page %}
+
+    {% import 'macros/bouton.html.twig' as control %}
+
+    <div class="container">
+
+    </div>
+
+{% endblock %}
+
+{% block javascripts_end %}
+    {{ parent() }}
+{% endblock %}
+
