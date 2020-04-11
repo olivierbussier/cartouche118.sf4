@@ -5,14 +5,15 @@ namespace App\Service;
 use App\Entity\Blog;
 use App\Entity\BlogTypeChoice;
 use App\Repository\BlogRepository;
-use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\Common\Persistence;
+use Doctrine\Persistence\ManagerRegistry;
 
 class CarouselService
 {
 
     private $blogs;
 
-    public function __construct(RegistryInterface $doctrine)
+    public function __construct(ManagerRegistry $doctrine)
     {
 
         /**

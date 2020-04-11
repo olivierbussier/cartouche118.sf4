@@ -18,9 +18,10 @@ use App\Entity\Telephone;
 use App\Repository\ClientRepository;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ManagerRegistry;
 use Exception;
 use Faker\Factory;
-use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\Common\Persistence;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -626,13 +627,13 @@ class RebaseController extends AbstractController
      * Création de commandes
      *
      * @Route("/createcommandes/{nbCommandes}", name="createcommandes")
-     * @param RegistryInterface $doctrine
+     * @param ManagerRegistry $doctrine
      * @param EntityManagerInterface $em
      * @param int $nbCommandes
      * @return Response
      * @throws Exception
      */
-    public function createCommandes(RegistryInterface $doctrine, EntityManagerInterface $em, $nbCommandes = 2000)
+    public function createCommandes(ManagerRegistry $doctrine, EntityManagerInterface $em, $nbCommandes = 2000)
     {
 
         if (!is_numeric($nbCommandes)) {

@@ -7,9 +7,10 @@ use App\Entity\Blog;
 use App\Entity\BlogTypeChoice;
 use App\Form\EcrireType;
 use App\Repository\BlogRepository;
+use Doctrine\Persistence\ManagerRegistry;
 use Swift_Mailer;
 use Swift_Message;
-use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\Common\Persistence;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -19,10 +20,10 @@ class BaseController extends AbstractController
 
     /**
      * @Route("/", name="root")
-     * @param RegistryInterface $doctrine
+     * @param ManagerRegistry $doctrine
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function index(RegistryInterface $doctrine)
+    public function index(ManagerRegistry $doctrine)
     {
         $repo = $doctrine->getRepository(Blog::class);
         /** @var BlogRepository $repo */
@@ -47,11 +48,11 @@ class BaseController extends AbstractController
 
     /**
      * @Route("/view_article/mkt/{blogId}", name="view_blog_mkt")
-     * @param RegistryInterface $doctrine
+     * @param ManagerRegistry $doctrine
      * @param $blogId
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function viewPost(RegistryInterface $doctrine, $blogId)
+    public function viewPost(ManagerRegistry $doctrine, $blogId)
     {
         $repo = $doctrine->getRepository(Blog::class);
         /** @var BlogRepository $repo */
@@ -68,10 +69,10 @@ class BaseController extends AbstractController
 
     /**
      * @Route("/faq", name="index_faq")
-     * @param RegistryInterface $doctrine
+     * @param ManagerRegistry $doctrine
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function indexFAQ(RegistryInterface $doctrine)
+    public function indexFAQ(ManagerRegistry $doctrine)
     {
         $repo = $doctrine->getRepository(Blog::class);
         /** @var BlogRepository $repo */
@@ -90,11 +91,11 @@ class BaseController extends AbstractController
 
     /**
      * @Route("/preview/{blogId}", name="root_preview")
-     * @param RegistryInterface $doctrine
+     * @param ManagerRegistry $doctrine
      * @param string $blogId
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function indexPreviewBlog(RegistryInterface $doctrine, $blogId = '')
+    public function indexPreviewBlog(ManagerRegistry $doctrine, $blogId = '')
     {
         if ($blogId == '') {
             $this->redirectToRoute('root');

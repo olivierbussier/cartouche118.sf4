@@ -10,7 +10,7 @@ use App\Form\BlogEditType;
 use App\Form\BlogTypeChoiceType;
 use App\Repository\BlogRepository;
 use DateTime;
-use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,12 +20,12 @@ class BlogController extends AbstractController
 {
     /**
      * @Route("/intranet/admin_blog/index/{type}", name="blog_admin_index")
-     * @param RegistryInterface $doctrine
+     * @param ManagerRegistry $doctrine
      * @param Request $request
      * @param string $type
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function index(RegistryInterface $doctrine, Request $request, $type = BlogTypeChoice::CLIENTS)
+    public function index(ManagerRegistry $doctrine, Request $request, $type = BlogTypeChoice::CLIENTS)
     {
         /**
          * @var $blogsRepo BlogRepository
@@ -60,11 +60,11 @@ class BlogController extends AbstractController
 
     /**
      * @Route("/intranet/admin_blog/delete/{blogId}", name="blog_admin_delete")
-     * @param RegistryInterface $doctrine
+     * @param ManagerRegistry $doctrine
      * @param string $blogId
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function delete(RegistryInterface $doctrine, $blogId = '')
+    public function delete(ManagerRegistry $doctrine, $blogId = '')
     {
         /**
          * @var $blogsRepo BlogRepository
@@ -87,13 +87,13 @@ class BlogController extends AbstractController
 
     /**
      * @Route("/intranet/admin_blog/up/{blogId}", name="blog_admin_up")
-     * @param RegistryInterface $doctrine
+     * @param ManagerRegistry $doctrine
      * @param int $blogId
      * @return \Symfony\Component\HttpFoundation\Response
      * @throws \Doctrine\ORM\NoResultException
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function up(RegistryInterface $doctrine, $blogId = 0)
+    public function up(ManagerRegistry $doctrine, $blogId = 0)
     {
         if ($blogId == 0) {
             return $this->redirectToRoute("blog_admin_index");
@@ -125,13 +125,13 @@ class BlogController extends AbstractController
 
     /**
      * @Route("/intranet/admin_blog/down/{blogId}", name="blog_admin_down")
-     * @param RegistryInterface $doctrine
+     * @param ManagerRegistry $doctrine
      * @param int $blogId
      * @return \Symfony\Component\HttpFoundation\Response
      * @throws \Doctrine\ORM\NoResultException
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function down(RegistryInterface $doctrine, $blogId = 0)
+    public function down(ManagerRegistry $doctrine, $blogId = 0)
     {
         if ($blogId == 0) {
             return $this->redirectToRoute("blog_admin_index");
@@ -163,7 +163,7 @@ class BlogController extends AbstractController
     /**
      * @Route("/intranet/admin_blog/new/{type}", name="blog_admin_create")
      * @Route("/intranet/admin_blog/edit/{blogId}", name="blog_admin_edit")
-     * @param RegistryInterface $doctrine
+     * @param ManagerRegistry $doctrine
      * @param Request $request
      * @param int $type
      * @param int $blogId
@@ -171,7 +171,7 @@ class BlogController extends AbstractController
      * @throws \Doctrine\ORM\NoResultException
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function create(RegistryInterface $doctrine, Request $request, $type = null, $blogId = 0)
+    public function create(ManagerRegistry $doctrine, Request $request, $type = null, $blogId = 0)
     {
         /**
          * @var $blogsRepo BlogRepository
@@ -269,11 +269,11 @@ class BlogController extends AbstractController
 
     /**
      * @Route("intranet/admin_blog/delete_image/{blogId}", name="blog_admin_delete_image")
-     * @param RegistryInterface $doctrine
+     * @param ManagerRegistry $doctrine
      * @param int $blogId
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function deleteImage(RegistryInterface $doctrine, $blogId = 0)
+    public function deleteImage(ManagerRegistry $doctrine, $blogId = 0)
     {
         if ($blogId == 0) {
             $this->redirectToRoute('root');

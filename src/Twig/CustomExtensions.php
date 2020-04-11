@@ -2,11 +2,10 @@
 
 namespace App\Twig;
 
-use App\Entity\Adherent;
 use App\Entity\User;
 use Symfony\Bridge\Twig\AppVariable;
 use Twig\Extension\AbstractExtension;
-use Twig_Function;
+use Twig\TwigFunction;
 
 class CustomExtensions extends AbstractExtension
 {
@@ -15,11 +14,11 @@ class CustomExtensions extends AbstractExtension
     public function getFunctions()
     {
         return array(
-            new Twig_Function('readfile', array($this, 'readFile')),
-            new Twig_Function('fileExists', array($this, 'fileExists')),
-            new Twig_Function('rationalizeFilename', array($this, 'rationalizeFilename')),
-            new Twig_Function('testDroit', array($this, 'testDroit')),
-            new Twig_Function('genID', array($this, 'genID')),
+            new TwigFunction('readfile', array($this, 'readFile')),
+            new TwigFunction('fileExists', array($this, 'fileExists')),
+            new TwigFunction('rationalizeFilename', array($this, 'rationalizeFilename')),
+            new TwigFunction('testDroit', array($this, 'testDroit')),
+            new TwigFunction('genID', array($this, 'genID')),
         );
     }
 

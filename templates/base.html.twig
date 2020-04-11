@@ -17,50 +17,21 @@
 
         {% block stylesheets %}
             <!-- Bootstrap core CSS -->
-            <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet" />
+            {{ encore_entry_link_tags('app') }}
+            <!--link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet" />-->
             <!-- Custom styles for this template -->
-            <link href="{{ asset('css/modern-business.css') }}" rel="stylesheet" />
-            <link href="{{ asset('css/jquery-ui.css') }}" rel="stylesheet" />
+            <!--<link href="{{ asset('css/modern-business.css') }}" rel="stylesheet" />
+            <link href="{{ asset('css/jquery-ui.css') }}" rel="stylesheet" />-->
             <!-- C118 Specific styles -->
-            <link href="{{ asset('css/c118_frame.css') }}" rel="stylesheet" />
+            <!--<link href="{{ asset('css/c118_frame.css') }}" rel="stylesheet" />-->
         {% endblock %}
 
         {% block javascripts_head %}
 
-            <script>
-                window.dataLayer = window.dataLayer || [];
+            {{ encore_entry_script_tags('app') }}
 
-                function gtag() {
-                    dataLayer.push(arguments)
-                }
-                gtag('js', new Date());
-                gtag('config', 'UA-50183564-2');
-            </script>
-
-            <style>
-                .cookiebanner {
-                    z-index: 1100!important;
-                }
-            </style>
-
-            <script type="text/javascript" id="cookiebanner"
-                src="{{ asset("js/cookiebanner.min.js") }}"
-                data-position="top"
-                data-fg="#ffffff"
-                data-bg="#3b5269"
-                data-link="#dddddd"
-                data-moreinfo="http://www.cnil.fr/vos-obligations/sites-web-cookies-et-autres-traceurs/que-dit-la-loi/"
-                data-message="Les cookies assurent le bon fonctionnement de notre site Internet.
-                                  En utilisant ce dernier, vous acceptez leur utilisation."
-                data-linkmsg="En savoir plus"
-                data-effect="fade"
-                data-expires="{{ "now"|date_modify('+30days')|date('r') }}"
-                data-zindex="1000"
-                data-height="64px"
-                data-font-size="22px">
-            </script>
-            <script src="{{ asset('js/jquery.min.js') }}"></script>
-            <script src="{{ asset('js/jquery-ui.js') }}"></script>
+            <!--<script src="{{ asset('js/jquery.min.js') }}"></script>
+            <script src="{{ asset('js/jquery-ui.js') }}"></script>-->
         {% endblock %}
 
         <title>{% block title %}Welcome!{% endblock %}</title>
@@ -69,13 +40,16 @@
     <body>
         {% block body %}
 
+            <div class="container">
             {% import 'macros/menuItem.html.twig' as Menu %}
 
             {% block navigation %}
                 <!-- Navigation -->
-                <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-success fixed-top wmax">
+                <nav class="navbar navbar-expand-sm navbar-dark bg-success">
                     <div class="container">
-                        <a class="navbar-brand" href="{{ path('root') }}">Page d'accueil</a>
+                        <a class="navbar-brand" href="{{ path('root') }}">
+                            <img src="{{ asset('images/c118.jpg') }}" width="50" height="50" alt="">
+                        </a>
                         <button class="navbar-toggler navbar-toggler-right"
                                 type="button" data-toggle="collapse"
                                 data-target="#navbarResponsive"
@@ -210,7 +184,7 @@
                     <!-- /.container -->
                 </footer>
             {% endblock %}
-
+            </div>>
         {% endblock %}
 
         <!-- Bootstrap core JavaScript -->
