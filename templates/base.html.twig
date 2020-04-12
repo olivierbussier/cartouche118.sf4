@@ -18,20 +18,13 @@
         {% block stylesheets %}
             <!-- Bootstrap core CSS -->
             {{ encore_entry_link_tags('app') }}
-            <!--link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet" />-->
-            <!-- Custom styles for this template -->
-            <!--<link href="{{ asset('css/modern-business.css') }}" rel="stylesheet" />
-            <link href="{{ asset('css/jquery-ui.css') }}" rel="stylesheet" />-->
-            <!-- C118 Specific styles -->
-            <!--<link href="{{ asset('css/c118_frame.css') }}" rel="stylesheet" />-->
+
         {% endblock %}
 
         {% block javascripts_head %}
 
             {{ encore_entry_script_tags('app') }}
 
-            <!--<script src="{{ asset('js/jquery.min.js') }}"></script>
-            <script src="{{ asset('js/jquery-ui.js') }}"></script>-->
         {% endblock %}
 
         <title>{% block title %}Welcome!{% endblock %}</title>
@@ -41,155 +34,155 @@
         {% block body %}
 
             <div class="container">
-            {% import 'macros/menuItem.html.twig' as Menu %}
+                {% import 'macros/menuItem.html.twig' as Menu %}
 
-            {% block navigation %}
-                <!-- Navigation -->
-                <nav class="navbar navbar-expand-sm navbar-dark bg-success">
-                    <div class="container">
-                        <a class="navbar-brand" href="{{ path('root') }}">
-                            <img src="{{ asset('images/c118.jpg') }}" width="50" height="50" alt="">
-                        </a>
-                        <button class="navbar-toggler navbar-toggler-right"
-                                type="button" data-toggle="collapse"
-                                data-target="#navbarResponsive"
-                                aria-controls="navbarResponsive"
-                                aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
+                {% block header %}
 
-                        <div class="collapse navbar-collapse" id="navbarResponsive">
-                            <ul class="navbar-nav ml-auto">
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ path('root') }}">Accueil</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ path('index_contact') }}">Contact</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ path('index_faq') }}">Questions fréquentes</a>
-                                </li>
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio"
-                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">/
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
-                                        <a class="dropdown-item" href="{{ path('index_intranet') }}">Accès à l'intranet</a>
-                                        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                                            <a class="dropdown-item" href="{{ path('deconnexion') }}">Logout</a>
+                    <header>
+                        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                            <ol class="carousel-indicators">
+
+                                {% set index = 0 %}
+                                {% for blog in carousel.blogs %}
+                                    <li data-target="#carouselExampleIndicators" data-slide-to="{{ index }}"
+                                    {% if index == 0 %}
+                                        class="active"
+                                        {% set index = index +1 %}
+                                    {% endif %}></li>
+                                {% endfor %}
+                            </ol>
+                            <div class="carousel-inner">
+                                {% set active = ' active' %}
+                                {% for blog in carousel.blogs %}
+                                    <div class="carousel-item{{ active }}">
+                                        {% set active = '' %}
+                                        <img class="d-block wmax" src="{{ asset('imblog/' ~ blog.image) }}" alt="carousel">
+                                        <div class="carousel-caption d-none d-md-block">
+                                            <h5>{{ blog.title | raw }}</h5>
+                                            <p>{{ blog.content | raw }}</p>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </div>
+                    </header>
+
+                    {% block navigation %}
+                        <!-- Navigation -->
+                        <nav class="navbar navbar-expand-sm navbar-dark bg-success sticky-top">
+                            <div class="container">
+                                <a class="navbar-brand" href="{{ path('root') }}">
+                                    <img src="{{ asset('images/c118.jpg') }}" width="50" height="50" alt="">
+                                </a>
+                                <button class="navbar-toggler navbar-toggler-right"
+                                        type="button" data-toggle="collapse"
+                                        data-target="#navbarResponsive"
+                                        aria-controls="navbarResponsive"
+                                        aria-expanded="false" aria-label="Toggle navigation">
+                                    <span class="navbar-toggler-icon"></span>
+                                </button>
+
+                                <div class="collapse navbar-collapse" id="navbarResponsive">
+                                    <ul class="navbar-nav ml-auto">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{ path('root') }}">Accueil</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{ path('index_contact') }}">Contact</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{ path('index_faq') }}">Questions fréquentes</a>
+                                        </li>
+                                        <li class="nav-item dropdown">
+                                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio"
+                                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">/
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
+                                                <a class="dropdown-item" href="{{ path('index_intranet') }}">Accès à l'intranet</a>
+                                                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                                                    <a class="dropdown-item" href="{{ path('deconnexion') }}">Logout</a>
+                                                {% endif %}
+                                            </div>
+                                        </li>
+
+                                        {% if testDroit(app, 'ROLE_VENDEUR') %}
+
+                                            <li class="nav-item dropdown">
+                                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    Menu Vendeur
+                                                </a>
+                                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
+                                                    <a class="dropdown-item" href="{{ path('view_clients') }}">Clients</a>
+                                                    <a class="dropdown-item" href="{{ path('view_commandes') }}">Commandes</a>
+                                                </div>
+                                            </li>
+
                                         {% endif %}
-                                    </div>
-                                </li>
 
-                                {% if testDroit(app, 'ROLE_VENDEUR') %}
+                                        {% if testDroit(app, 'ROLE_PUB') %}
 
-                                    <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            Menu Vendeur
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
-                                            <a class="dropdown-item" href="{{ path('view_clients') }}">Clients</a>
-                                            <a class="dropdown-item" href="{{ path('view_commandes') }}">Commandes</a>
-                                        </div>
-                                    </li>
+                                            <li class="nav-item dropdown">
+                                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    Menu Publications
+                                                </a>
+                                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
+                                                    <a class="dropdown-item" href="{{ path('blog_admin_index') }}">Admin de la page d'accueil</a>
+                                                </div>
+                                            </li>
 
-                                {% endif %}
+                                        {% endif %}
 
-                                {% if testDroit(app, 'ROLE_PUB') %}
+                                        {% if testDroit(app, 'ROLE_ADMIN') %}
 
-                                    <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            Menu Publications
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
-                                            <a class="dropdown-item" href="{{ path('blog_admin_index') }}">Admin de la page d'accueil</a>
-                                        </div>
-                                    </li>
+                                            <li class="nav-item dropdown">
+                                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    Menu Admin
+                                                </a>
+                                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
+                                                    <a class="dropdown-item" href="{{ path('importvcf') }}">Import fichier client (VCF file)</a>
+                                                    <a class="dropdown-item" href="{{ path('produitscsv') }}">Importer CSV produits (UTF-8)</a>
+                                                    <a class="dropdown-item" href="{{ path('createcommandes',{nbCommandes: 2000}) }}">Créer 2000 commandes</a>
+                                                </div>
+                                            </li>
 
-                                {% endif %}
+                                        {% endif %}
 
-                                {% if testDroit(app, 'ROLE_ADMIN') %}
-
-                                    <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            Menu Admin
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
-                                            <a class="dropdown-item" href="{{ path('importvcf') }}">Import fichier client (VCF file)</a>
-                                            <a class="dropdown-item" href="{{ path('produitscsv') }}">Importer CSV produits (UTF-8)</a>
-                                            <a class="dropdown-item" href="{{ path('createcommandes',{nbCommandes: 2000}) }}">Créer 2000 commandes</a>
-                                        </div>
-                                    </li>
-
-                                {% endif %}
-
-                            </ul>
-                        </div>
-                    </div>
-                </nav>
-            {% endblock %}
-
-            {% block header %}
-
-                <header>
-                    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                        <ol class="carousel-indicators">
-
-                            {% set index = 0 %}
-                            {% for blog in carousel.blogs %}
-                                <li data-target="#carouselExampleIndicators" data-slide-to="{{ index }}"
-                                {% if index == 0 %}
-                                    class="active"
-                                    {% set index = index +1 %}
-                                {% endif %}></li>
-                            {% endfor %}
-                        </ol>
-                        <div class="carousel-inner">
-                            {% set active = ' active' %}
-                            {% for blog in carousel.blogs %}
-                                <div class="carousel-item{{ active }}">
-                                    {% set active = '' %}
-                                    <img class="d-block wmax" src="{{ asset('imblog/' ~ blog.image) }}" alt="carousel">
-                                    <div class="carousel-caption d-none d-md-block">
-                                        <h5>{{ blog.title | raw }}</h5>
-                                        <p>{{ blog.content | raw }}</p>
-                                    </div>
+                                    </ul>
                                 </div>
-                            {% endfor %}
+                            </div>
+                        </nav>
+                    {% endblock %}
+
+                {% endblock %}
+
+                {% block main_page %}
+                    <!-- Page Content -->
+                {% endblock %}
+
+                {% block footer %}
+                    <!-- Footer -->
+                    <footer class="py-5 bg-success">
+                        <div class="container">
+                            {% set tag = readfile(asset('.revision')) %}
+                            <p class="m-0 text-center text-white">Copyright &copy; 2007-2018 Cartouche 118 - {{ tag }}</p>
                         </div>
-                        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Next</span>
-                        </a>
-                    </div>
-                </header>
+                        <!-- /.container -->
+                    </footer>
+                {% endblock %}
 
-            {% endblock %}
-
-            {% block main_page %}
-                <!-- Page Content -->
-            {% endblock %}
-
-            {% block footer %}
-                <!-- Footer -->
-                <footer class="py-5 bg-success">
-                    <div class="container">
-                        {% set tag = readfile(asset('.revision')) %}
-                        <p class="m-0 text-center text-white">Copyright &copy; 2007-2018 Cartouche 118 - {{ tag }}</p>
-                    </div>
-                    <!-- /.container -->
-                </footer>
-            {% endblock %}
             </div>>
         {% endblock %}
 
         <!-- Bootstrap core JavaScript -->
         {% block javascripts_end %}
-            <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
 
         {% endblock %}
         {% block body_end %}{% endblock %}

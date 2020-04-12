@@ -40,16 +40,20 @@
                 {% endfor %}
 
                 <div class="client_fact">
-                    {% for facture in client.commandes %}
-                        <div class="badge badge-success text-left">
-                            Date : {{ facture.createdAt | date('d/m/Y') }}<br>
-                            Ref : <a href="{{ path('view_commandes',{ref: facture.id}) }}"
-                               target="_blank"
-                               class="lw">{{ facture.reference }}</a><br>
-
-                            <p class="card-text">Montant : {{ facture.getPrixHT }} HT, {{ facture.getPrixTTC }} TTC</p>
-                        </div>
-                    {% endfor %}
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>Date</th><th>Ref</th><th>Montant HT</th><th>Montant TTC</th>
+                        </tr>
+                        {% for facture in client.commandes %}
+                            <tr>
+                                <td>{{ facture.createdAt | date('d/m/Y') }}</td>
+                                <td><a href="{{ path('view_commandes',{ref: facture.id}) }}"
+                                       target="_blank">{{ facture.reference }}</a></td>
+                                <td class="text-right">{{ facture.getPrixHT | number_format(2,'.',' ') }}€</td>
+                                <td class="text-right">{{ facture.getPrixTTC | number_format(2,'.',' ') }}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
                 </div>
 
             </div>

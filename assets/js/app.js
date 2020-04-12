@@ -8,21 +8,22 @@
 
 require('../css/bootstrap.scss');
 require('../css/c118_frame.scss');
+require('../css/modern-business.css');
 // jQuery
 
 const $ = require('jquery');
 require('jquery-ui/ui/widgets/autocomplete');
 
 global.$ = global.jQuery = $;
-global.pp = pp;
+
 // Bootstrap
 
-require('bootstrap');
 
 // Preview (TODO : n'est utilisé que par l'édition de la page d'accueil, a déplacer)
 
 $(document).ready(function() {
     pb = require('./components/previewbox.js');
+    require('bootstrap');
 });
 
 // Affichare du message d'avertissement cookie RGPD
