@@ -2,31 +2,25 @@
 
 {% block title %}Index des clients{% endblock %}
 
-{% block header %}{% endblock %}
-
 {% block main_page %}
 
     {% import 'macros/bouton.html.twig' as control %}
     {% import "macros/textAjax.html.twig" as ajax %}
 
-    <div class="container">
+    <div class="row">
 
-        <div class="row">
-
-            <div class="col">
-                <form method="post" action="{{ path('show_client') }}">
-                    <div class="form-group">
-                        {{ ajax.text('', 'recherche', path('ajax_search_clients'), term, currentPage) }}
-                    </div>
-                </form>
-            </div>
+        <div class="col">
+            <form method="post" action="{{ path('show_client') }}">
+                <div class="form-group">
+                    {{ ajax.text('', 'recherche', path('ajax_search_clients'), term, currentPage) }}
+                </div>
+            </form>
         </div>
-
-        <div id="render_list">
-        </div>
-
     </div>
 
-    {{ ajax.script(path('ajax_search_clients'), "'" ~ term ~ "'", currentPage) }}
+    <div id="render_list">
+    </div>
+
+     {{ ajax.script(path('ajax_search_clients'), "'" ~ term ~ "'", currentPage) }}
 
 {% endblock %}

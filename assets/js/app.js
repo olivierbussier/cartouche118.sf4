@@ -9,6 +9,7 @@
 require('../css/bootstrap.scss');
 require('../css/c118_frame.scss');
 require('../css/modern-business.css');
+
 // jQuery
 
 const $ = require('jquery');
@@ -18,13 +19,10 @@ global.$ = global.jQuery = $;
 
 // Bootstrap
 
+require('bootstrap');
 
 // Preview (TODO : n'est utilisé que par l'édition de la page d'accueil, a déplacer)
 
-$(document).ready(function() {
-    pb = require('./components/previewbox.js');
-    require('bootstrap');
-});
 
 // Affichare du message d'avertissement cookie RGPD
 
@@ -47,10 +45,11 @@ var options = {
 
 var cb = new Cookiebanner(options); cb.run();
 
-window.dataLayer = window.dataLayer || [];
+/*window.dataLayer = window.dataLayer || [];
 
 function gtag() {
     dataLayer.push(arguments)
 }
 gtag('js', new Date());
 gtag('config', 'UA-50183564-2');
+*/

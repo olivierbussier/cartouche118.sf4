@@ -31,3 +31,7 @@ public/imblog/
 npm-debug.log
 yarn-error.log
 ###< symfony/webpack-encore-bundle ###
+
+phploy.ini
+
+composer.lock
