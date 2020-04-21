@@ -74,7 +74,7 @@
             </div>
 
             <!-- Navigation -->
-            <nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-green-c118">
+            <nav class="navbar navbar-expand-xl sticky-top navbar-dark bg-green-c118">
                 <a class="navbar-brand" href="{{ path('root') }}">
                     <img src="{{ asset('images/logo-sm.jpg') }}" height="50" alt="">
                 </a>
@@ -92,20 +92,24 @@
                 <div class="collapse navbar-collapse" id="navbar">
                     <ul class="navbar-nav mr-auto">
 
-                        <li class="nav-item active">
+                        <li class="nav-item active ">
                             <a class="nav-link fg-blue-c118" href="{{ path('root') }}">Accueil</a>
                         </li>
 
                         <li class="nav-item active">
-                            <a class="nav-link fg-blue-c118" href="{{ path('index_contact') }}">Contact</a>
+                            <a class="nav-link fg-blue-c118" href="{{ path('acces') }}">Accès</a>
+                        </li>
+
+                        <li class="nav-item active">
+                            <a class="nav-link fg-blue-c118" href="{{ path('ecrire') }}">Nous écrire</a>
                         </li>
 
                         <li class="nav-item active">
                             <a class="nav-link fg-blue-c118" href="{{ path('index_faq') }}">FAQ</a>
                         </li>
 
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle fg-blue-c118" href="#" id="Intranet"
+                        <li class="nav-item dropdown active">
+                            <a class="nav-link dropdown-toggle fg-blue-c118 " href="#" id="Intranet"
                                role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">/
                             </a>
                             <div class="dropdown-menu" aria-labelledby="Intranet">
@@ -118,7 +122,7 @@
 
                         {% if testDroit(app, 'ROLE_VENDEUR') %}
 
-                            <li class="nav-item dropdown">
+                            <li class="nav-item dropdown active">
                                 <a class="nav-link dropdown-toggle fg-blue-c118" href="#" id="Vendeur" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Menu Vendeur
                                 </a>
@@ -162,16 +166,16 @@
             {% block main_page %}{% endblock %}
 
             <div class="row">
-                <div class="col-12">
+                <div class="col-12 footer">
                     <div class="footer">
                         {% set tag = readfile(asset('.revision')) %}
-                        <p>Copyright &copy; 2007-2017 GUC Plongée - {{ tag }}</p>
+                        <p>Copyright &copy; 2007-2020 OBU - {{ tag }}</p>
                     </div>
                 </div>
 
             </div>
 
-        </div>>
+        </div>
 
         {% endblock %}
 

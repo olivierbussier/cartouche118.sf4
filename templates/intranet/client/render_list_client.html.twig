@@ -16,49 +16,68 @@
 </style>
 
 
-    {% for client in clients %}
+    <div class="accordion" id="accordion_client">
 
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">
-                    <div class="alert alert-info">
-                        <a href="{{ path('show_client', {id: client.id}) }}"
-                           target="_blank"
-                           class="" > - {{ client.fullName }} - {{ client.nom ~ ', ' ~ client.prenom }}</a>
-                    </div>
-                </h5>
+        {% for client in clients %}
 
-                {% for note in client.notes %}
-                    <div class="card">
-                        <div class="card-body">
+            <div class="card">
+
+                <div class="card-title" id="heading_{{ client.id }}">
+                    <button class="btn btn-xs btn-success"
+                            style="width: 80%"
+                            type="button"
+                            data-toggle="collapse"
+                            data-target="#collapse_{{ client.id }}"
+                            aria-expanded="true"
+                            aria-controls="collapse_{{ client.id }}">
+                        &nbsp;{{ client.fullName }} <!-- - [{{ client.nom ~ ', ' ~ client.prenom }}]-->
+                    </button>
+
+                </div>
+
+                <div id="collapse_{{ client.id }}" class="collapse" aria-labelledby="heading_{{ client.id }}" data-parent="#accordion_client">
+                    <div class="card-body">
+                        <!--h5 class="card-title">
+                            <div class="alert alert-info">
+                                <a href="{{ path('show_client', {id: client.id}) }}"
+                                   target="_blank"
+                                   class="" > - {{ client.fullName }} - {{ client.nom ~ ', ' ~ client.prenom }}</a>
+                            </div>
+                        </h5>
+                    </div>-->
+
+                        {% for note in client.notes %}
+
+
                             <h5 class="card-title">
                                 {{ note.createdAt | date('d/m/Y') }}
                             </h5>
                             <p class="card-text">{{ note.text | nl2br }}</p>
+
+
+                        {% endfor %}
+
+                        <div class="client_fact">
+                            <table class="table table-bordered">
+                                <tr>
+                                    <th>Date</th><th>Ref</th><th>Montant HT</th><th>Montant TTC</th>
+                                </tr>
+                                {% for facture in client.commandes %}
+                                    <tr>
+                                        <td>{{ facture.createdAt | date('d/m/Y') }}</td>
+                                        <td><a href="{{ path('view_commandes',{ref: facture.id}) }}"
+                                               target="_blank">{{ facture.reference }}</a></td>
+                                        <td class="text-right">{{ facture.getPrixHT | number_format(2,'.',' ') }}€</td>
+                                        <td class="text-right">{{ facture.getPrixTTC | number_format(2,'.',' ') }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </table>
                         </div>
                     </div>
-                {% endfor %}
-
-                <div class="client_fact">
-                    <table class="table table-bordered">
-                        <tr>
-                            <th>Date</th><th>Ref</th><th>Montant HT</th><th>Montant TTC</th>
-                        </tr>
-                        {% for facture in client.commandes %}
-                            <tr>
-                                <td>{{ facture.createdAt | date('d/m/Y') }}</td>
-                                <td><a href="{{ path('view_commandes',{ref: facture.id}) }}"
-                                       target="_blank">{{ facture.reference }}</a></td>
-                                <td class="text-right">{{ facture.getPrixHT | number_format(2,'.',' ') }}€</td>
-                                <td class="text-right">{{ facture.getPrixTTC | number_format(2,'.',' ') }}</td>
-                            </tr>
-                        {% endfor %}
-                    </table>
                 </div>
-
             </div>
-        </div>
-    {% endfor %}
+        {% endfor %}
+    </div>
 </div>
 
 

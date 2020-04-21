@@ -1,5 +1,3 @@
-{% form_theme formContact 'bootstrap_3_layout.html.twig' %}
-
 {% extends 'base.html.twig' %}
 
 {% block title %}Contact{% endblock %}
@@ -8,7 +6,7 @@
 
     <div class="container">
 
-        <h1>Comment nous contacter ?</h1>
+        <h1>Comment venir nous voir ?</h1>
         <div class="row">
             <!-- Map Column -->
             <div class="col-lg-8 mb-4">
@@ -24,41 +22,20 @@
             <!-- Contact Details Column -->
             <div class="col-lg-4 mb-4">
                 <h3>Passez nous voir au magasin</h3>
-                <p>
+                <address>
+                    <strong>Cartouche 118</strong>
                     118 Cours Jean-Jaurès,
-                    <br>38000 Grenoble
-                </p>
-                <p>
-                    <abbr title="Phone">Téléphone</abbr>: +33 4 76 48 35 58
-                </p>
-                <p>
-                    <abbr title="Email">Email</abbr>:
-                    <a href="mailto:name@example.com">contact@cartouche118.fr</a>
-                </p>
-                <p>
-                    <abbr title="Hours">Horaires</abbr>: Ouvert du Lundi au Samedi
-                                                    de 10h00 - 19h00
-                </p>
+                    <br>38000 Grenoble<br>
+                    <br>Téléphone : +33 4 76 48 35 58
+                    <br>Email : <a href="mailto:name@example.com">contact@cartouche118.fr</a>
+                    <br>Ou rubrique <a href="{{ path('ecrire') }}">Nous écrire</a>
+                </address>
+                Horaires : Ouvert du Lundi au Samedi
+                <br>de 10h00 - 19h00
+
             </div>
         </div>
         <!-- /.row -->
-
-        <div class="col-xs-12">
-
-            <h3>Ou envoyez-nous un mail</h3>
-
-            {% for label, messages in app.flashes %}
-                {% for message in messages %}
-                    <div class="bg-{{ label }}">
-                        {{ message }}
-                    </div>
-                {% endfor %}
-            {% endfor %}
-
-            {{ form_start(formContact) }}
-            {{ form_widget(formContact) }}
-            {{ form_end(formContact) }}
-        </div>
     </div>
 
 {% endblock %}

@@ -10,9 +10,10 @@ use App\Repository\BlogRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Swift_Mailer;
 use Swift_Message;
-use Doctrine\Common\Persistence;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class BaseController extends AbstractController
@@ -21,7 +22,7 @@ class BaseController extends AbstractController
     /**
      * @Route("/", name="root")
      * @param ManagerRegistry $doctrine
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function index(ManagerRegistry $doctrine)
     {
@@ -50,7 +51,7 @@ class BaseController extends AbstractController
      * @Route("/view_article/mkt/{blogId}", name="view_blog_mkt")
      * @param ManagerRegistry $doctrine
      * @param $blogId
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function viewPost(ManagerRegistry $doctrine, $blogId)
     {
@@ -70,7 +71,7 @@ class BaseController extends AbstractController
     /**
      * @Route("/faq", name="index_faq")
      * @param ManagerRegistry $doctrine
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function indexFAQ(ManagerRegistry $doctrine)
     {
@@ -93,7 +94,7 @@ class BaseController extends AbstractController
      * @Route("/preview/{blogId}", name="root_preview")
      * @param ManagerRegistry $doctrine
      * @param string $blogId
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function indexPreviewBlog(ManagerRegistry $doctrine, $blogId = '')
     {
@@ -117,12 +118,23 @@ class BaseController extends AbstractController
     // Courses
 
     /**
-     * @Route("/contact", name="index_contact")
+     * @Route("/acces", name="acces")
      * @param Request $request
      * @param Swift_Mailer $mailer
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @return RedirectResponse|Response
      */
-    public function contact(Request $request, Swift_Mailer $mailer)
+    public function acces(Request $request, Swift_Mailer $mailer)
+    {
+        return $this->render('pages/index_acces.html.twig');
+    }
+
+    /**
+     * @Route("/ecrire", name="ecrire")
+     * @param Request $request
+     * @param Swift_Mailer $mailer
+     * @return RedirectResponse|Response
+     */
+    public function ecrire(Request $request, Swift_Mailer $mailer)
     {
         $form = $this->createForm(EcrireType::class);
 
@@ -148,7 +160,7 @@ class BaseController extends AbstractController
             }
         }
 
-        return $this->render('pages/index_contact.html.twig', [
+        return $this->render('pages/index_ecrire.html.twig', [
             'formContact' => $form->createView()
         ]);
     }
