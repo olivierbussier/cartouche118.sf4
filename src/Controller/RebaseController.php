@@ -668,7 +668,7 @@ class RebaseController extends AbstractController
                 $commande->setEcoHT(0);
                 $commande->setEcoTTC(0);
                 // Creation des ventes
-                $rnd = rand(1, 12);
+                $rnd = rand(1, 40);
                 for ($j = 0; $j < $rnd; $j++) {
                     $lf = new LigneCommande();
                     $lf->setCreatedAt($dat);

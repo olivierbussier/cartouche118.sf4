@@ -37,7 +37,8 @@ class ClientController extends AbstractController
             'term'    => $recherche,
             'currentPage' => $startPage,
             'nbItems' => Config::NB_ITEM_PAR_PAGE,
-            'nbPages' => ((int)($nbClients / Config::NB_ITEM_PAR_PAGE)) + (($nbClients % Config::NB_ITEM_PAR_PAGE) != 0 ? 1 : 0)
+            'nbPages' => ((int)($nbClients / Config::NB_ITEM_PAR_PAGE)) +
+                (($nbClients % Config::NB_ITEM_PAR_PAGE) != 0 ? 1 : 0)
         ]);
     }
 
