@@ -334,6 +334,28 @@ class RebaseController extends AbstractController
         return str_replace("\\r", "\n", $text);
     }
 
+    private function convertType(string $type)
+    {
+        $types = [
+            'fax'  => 'Fax',
+            'work' => 'Travail',
+            'cell' => 'Portable',
+            'home' => 'Maison',
+            'n'    => '?n?',
+            'internet' => 'Générique',
+            'internet;work' => 'Travail',
+            'internet;home' => 'Maison',
+            'work;postal' => 'Travail'
+        ];
+
+        foreach ($types as $k => $v) {
+            if (strtolower($type) == $k) {
+                return $v;
+            }
+        }
+        return $type;
+    }
+
     /**
      * Importation de la base "contacts.vcf"
      *
@@ -352,27 +374,16 @@ class RebaseController extends AbstractController
         $this->delData(Telephone::class);
         $this->delData(Email::class);
         $this->delData(Adresse::class);
-        $this->delData(Commande::class);
         $this->delData(LigneCommande::class);
-        $this->delData(Client::class);
         $this->delData(Produit::class);
+        $this->delData(Commande::class);
+        $this->delData(Client::class);
 
         // Création des clients et des notes
 
         //$parser = VCardParser::parseFromFile('contacts.vcf');
         //$parser = VCardParser::parseFromFile('test.vcf');
         //$cards = $parser->getCards();
-
-        $types = [
-            'FAX'  => 'Fax',
-            'WORK' => 'Travail',
-            'CELL' => 'Portable',
-            'HOME' => 'Maison',
-            'INTERNET' => 'Générique',
-            'INTERNET;WORK' => 'Travail',
-            'INTERNET;HOME' => 'Maison',
-            'WORK;POSTAL' => 'Travail'
-        ];
 
         $i=0;
 
@@ -386,7 +397,7 @@ class RebaseController extends AbstractController
             foreach ($v->email as $vmel) {
                 $mel = new Email();
                 $mel->setClient($client);
-                $mel->setNom($vmel['Type'][0]);
+                $mel->setNom($this->convertType($vmel['Type'][0]));
                 if (isset($vmel['label'])) {
                     $mel->setLabel($vmel['label']);
                 }
@@ -396,7 +407,7 @@ class RebaseController extends AbstractController
             foreach ($v->tel as $kpho => $vpho) {
                 $pho = new Telephone();
                 $pho->setClient($client);
-                $pho->setNom($vpho['Type'][0]);
+                $pho->setNom($this->convertType($vpho['Type'][0]));
                 if (isset($vpho['label'])) {
                     $pho->setLabel($vpho['label']);
                 }
@@ -413,7 +424,7 @@ class RebaseController extends AbstractController
             foreach ($v->adr as $vadr) {
                 $adr = new Adresse();
                 $adr->setClient($client);
-                $adr->setNom($vadr['Type'][0]);
+                $adr->setNom($this->convertType($vadr['Type'][0]));
                 $adr->setAdresse1($this->convertString($vadr['StreetAddress']));
                 $adr->setAdresse2($this->convertString($vadr['ExtendedAddress']));
                 $adr->setVille($this->convertString($vadr['Locality']));
@@ -659,7 +670,7 @@ class RebaseController extends AbstractController
 
             for ($i = 0; $i < $nbCommandes; $i++) {
                 $commande = new Commande();
-                $client = $repoCl->find(rand(1, $nbClients - 1));
+                $client = $repoCl->find(rand(1, $nbClients));
                 $commande->setClient($client);
                 $dat = $fak->dateTimeBetween('-5 years', 'now');
                 $commande->setCreatedAt($dat);

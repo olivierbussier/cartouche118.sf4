@@ -46,7 +46,9 @@
                         </svg>
                         {{ telephone.nom }}</h5>
                     <div class="card-body">
-                        <p class="card-text">{{ telephone.label }}</p>
+                        {% if telephone.label != '' %}
+                            <p class="card-text">{{ telephone.label }}</p>
+                        {% endif %}
                         <p class="card-text"><a href="tel:{{ telephone.telephone }}">{{ telephone.telephone }}</a></p>
                     </div>
                 </div>
