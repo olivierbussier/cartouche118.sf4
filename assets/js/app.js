@@ -45,11 +45,11 @@ var options = {
 
 var cb = new Cookiebanner(options); cb.run();
 
-/*window.dataLayer = window.dataLayer || [];
+window.dataLayer = window.dataLayer || [];
 
 function gtag() {
     dataLayer.push(arguments)
 }
 gtag('js', new Date());
-gtag('config', 'UA-50183564-2');
-*/
+gtag('config', 'UA-36637245-1');
+

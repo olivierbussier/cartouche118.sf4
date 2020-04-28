@@ -341,7 +341,7 @@ class RebaseController extends AbstractController
             'work' => 'Travail',
             'cell' => 'Portable',
             'home' => 'Maison',
-            'n'    => '?n?',
+            'n'    => 'label',
             'internet' => 'Générique',
             'internet;work' => 'Travail',
             'internet;home' => 'Maison',
@@ -709,9 +709,13 @@ class RebaseController extends AbstractController
 
                 if ($x++ % 500 == 0) {
                     $em->flush();
+                    $em->clear(LigneCommande::class);
+                    $em->clear(Commande::class);
                 }
             }
             $em->flush();
+            $em->clear(LigneCommande::class);
+            $em->clear(Commande::class);
         }
         return $this->render('intranet/rebase.html.twig', [
             'varTitre' => "Création de $nbCommandes commandes"
