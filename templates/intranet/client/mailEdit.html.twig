@@ -1,0 +1,32 @@
+<h6 class="card-title">
+    <img src="{{ asset('/ico/check.svg') }}"
+         style="color:green"
+         id="saveMail_{{ mail.id }}"
+         data-id="{{ mail.id }}"
+         data-form="#formMail_{{ mail.id }}"
+         data-url="{{ url('saveMail') }}"
+         data-receiver="#mail_{{ mail.id }}"
+         onclick="cSave('#saveMail_{{ mail.id }}')">
+    <img src="{{ asset('/ico/x-circle.svg') }}"
+         style="color:red"
+         id="cancelMail_{{ mail.id }}"
+         data-url="{{ url('cancelMail',{ id: mail.id  }) }}"
+         data-receiver="#mail_{{ mail.id }}"
+         onclick="cCancel('#cancelMail_{{ mail.id }}')">
+    {{ mail.nom }}
+</h6>
+<p class="card-text">
+<form id="formMail_{{ mail.id }}">
+    <label for="nom" class="col-form-label form-control-sm">Nom</label>
+    <input name="nom" id="nom" class="form-control form-control-sm" type="text" placeholder="{{ mail.id }}" value="{{ mail.nom }}">
+
+    <label for="labelx" class="col-form-label form-control-sm">Label</label>
+    <input name="label" id="labelx" class="form-control form-control-sm" type="text" placeholder="" value="{{ mail.label }}">
+
+    <label for="email" class="col-form-label form-control-sm">Email</label>
+    <input name="email" id="email" class="form-control form-control-sm" type="text" placeholder="" value="{{ mail.email }}">
+
+    {% if client is defined %}
+        <input type="hidden" name="client" value="{{ client }}">
+    {% endif %}
+</form>

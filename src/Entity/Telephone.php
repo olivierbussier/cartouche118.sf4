@@ -42,6 +42,11 @@ class Telephone
         return $this->id;
     }
 
+    public function clearId()
+    {
+        $this->id = 0;
+    }
+
     public function getTelephone(): ?string
     {
         return $this->telephone;

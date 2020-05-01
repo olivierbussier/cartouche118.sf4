@@ -30,8 +30,6 @@ class ClientController extends AbstractController
         $clients = $cr->getFilterAndPagination($recherche, $startPage);
         $nbClients = count($clients);
 
-        //$clients = $cr->findBy([], ['nom' => 'asc'], Config::NB_ITEM_PAR_PAGE, $startPage * Config::NB_ITEM_PAR_PAGE, Config::NB_ITEM_PAR_PAGE, $startPage * Config::NB_ITEM_PAR_PAGE);
-
         return $this->render('intranet/client/index.html.twig', [
             'clients' => $clients,
             'term'    => $recherche,
@@ -82,7 +80,8 @@ class ClientController extends AbstractController
         /** @var ClientRepository $cr */
         $clients = $cr->getFilterAndPagination($term, $pageNb);
         $nbClients = count($clients);
-        $nbPages = ((int)($nbClients / Config::NB_ITEM_PAR_PAGE)) + (($nbClients % Config::NB_ITEM_PAR_PAGE) != 0 ? 1 : 0);
+        $nbPages = ((int)($nbClients / Config::NB_ITEM_PAR_PAGE)) +
+            (($nbClients % Config::NB_ITEM_PAR_PAGE) != 0 ? 1 : 0);
 
         if ($nbPages == 0) {
             // Rien a afficher

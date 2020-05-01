@@ -42,6 +42,11 @@ class Email
         return $this->id;
     }
 
+    public function clearId()
+    {
+        $this->id = 0;
+    }
+
     public function getEmail(): ?string
     {
         return $this->email;

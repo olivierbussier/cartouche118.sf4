@@ -57,6 +57,13 @@ class Adresse
         return $this->id;
     }
 
+    public function setId(int $id): self
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
     public function getAdresse1(): ?string
     {
         return $this->adresse1;

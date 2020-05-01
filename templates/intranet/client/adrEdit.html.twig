@@ -1,0 +1,41 @@
+<h6 class="card-title">
+    <img src="{{ asset('/ico/check.svg') }}"
+         style="color:green"
+         id="saveAdr_{{ adresse.id }}"
+         data-id="{{ adresse.id }}"
+         data-form="#formAdr_{{ adresse.id }}"
+         data-url="{{ url('saveAdr') }}"
+         data-receiver="#adr_{{ adresse.id }}"
+         onclick="cSave('#saveAdr_{{ adresse.id }}')">
+    <img src="{{ asset('/ico/x-circle.svg') }}"
+         style="color:red"
+         id="cancelAdr_{{ adresse.id }}"
+         data-url="{{ url('cancelAdr',{ id: adresse.id  }) }}"
+         data-receiver="#adr_{{ adresse.id }}"
+         onclick="cCancel('#cancelAdr_{{ adresse.id }}')">
+    {{ adresse.nom }}
+</h6>
+<p class="card-text">
+<form id="formAdr_{{ adresse.id }}">
+    <label for="nom" class="col-form-label form-control-sm">Label</label>
+    <input name="nom" id="nom" class="form-control form-control-sm" type="text" placeholder="{{ adresse.id }}" value="{{ adresse.nom }}">
+
+    <label for="adr1" class="col-form-label form-control-sm">Adr1</label>
+    <input name="adr1" id="adr1" class="form-control form-control-sm" type="text" placeholder="" value="{{ adresse.adresse1 }}">
+
+    <label for="adr2" class="col-form-label form-control-sm">Adr2</label>
+    <input name="adr2" id="adr2" class="form-control form-control-sm" type="text" placeholder="" value="{{ adresse.adresse2 }}">
+
+    <label for="cp" class="col-form-label form-control-sm">Code Postal</label>
+    <input name="cp" id="cp" class="form-control form-control-sm" type="text" placeholder="" value="{{ adresse.codePostal }}">
+
+    <label for="ville" class="col-form-label form-control-sm">Ville</label>
+    <input name="ville" id="ville" class="form-control form-control-sm" type="text" placeholder="" value="{{ adresse.ville }}">
+
+    <label for="pays" class="col-form-label form-control-sm">Pays</label>
+    <input name="pays" id="pays" class="form-control form-control-sm" type="text" placeholder="" value="{{ adresse.pays }}">
+
+    {% if client is defined %}
+        <input type="hidden" name="client" value="{{ client }}">
+    {% endif %}
+</form>
