@@ -21,7 +21,6 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Exception;
 use Faker\Factory;
-use Doctrine\Common\Persistence;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -434,12 +433,14 @@ class RebaseController extends AbstractController
             foreach ($v->adr as $vadr) {
                 $adr = new Adresse();
                 $adr->setClient($client);
-                $adr->setNom($this->convertType($vadr['Type'][0]));
-                $adr->setAdresse1($this->convertString($vadr['StreetAddress']));
+                $adr->setBP($vadr['POBox']);
                 $adr->setAdresse2($this->convertString($vadr['ExtendedAddress']));
-                $adr->setVille($this->convertString($vadr['Locality']));
+                $adr->setAdresse1($this->convertString($vadr['StreetAddress']));
                 $adr->setCodePostal($vadr['PostalCode']);
+                $adr->setVille($this->convertString($vadr['Locality']));
+                $adr->setRegion($this->convertString($vadr['Region']));
                 $adr->setPays($vadr['Country']);
+                $adr->setNom($this->convertType($vadr['Type'][0]));
                 $em->persist($adr);
             }
             $em->persist($client);
@@ -689,7 +690,7 @@ class RebaseController extends AbstractController
                 $commande->setEcoHT(0);
                 $commande->setEcoTTC(0);
                 // Creation des ventes
-                $rnd = rand(1, 40);
+                $rnd = rand(1, 12);
                 for ($j = 0; $j < $rnd; $j++) {
                     $lf = new LigneCommande();
                     $lf->setCreatedAt($dat);
