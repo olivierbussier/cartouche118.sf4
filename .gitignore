@@ -34,3 +34,5 @@ yarn-error.log
 phploy.ini
 
 composer.lock
+
+public/test.vcf
