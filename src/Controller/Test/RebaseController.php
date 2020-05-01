@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Test;
 
 use App\Classes\VCF\VCard;
 use App\Entity\Adresse;
@@ -389,10 +389,20 @@ class RebaseController extends AbstractController
 
         foreach ($cards as $k => $v) {
             $client = new Client();
-            $client->setPrenom($v->n[0]['FirstName']);
-            $client->setNom($v->n[0]['LastName']);
-            $client->setFullName($v->fn[0]['Value']);
-            $client->setAdditional($v->n[0]['AdditionalNames']);
+            if (isset($v->n[0])) {
+                $client->setPrenom($v->n[0]['FirstName']);
+                $client->setNom($v->n[0]['LastName']);
+                $client->setAdditional($v->n[0]['AdditionalNames']);
+            } else {
+                $client->setPrenom('');
+                $client->setNom('');
+                $client->setAdditional('');
+            }
+            if (isset($v->fn[0])) {
+                $client->setFullName($v->fn[0]['Value']);
+            } else {
+                $client->setFullName('');
+            }
             $client->setType('personne_physique');
             foreach ($v->email as $vmel) {
                 $mel = new Email();
