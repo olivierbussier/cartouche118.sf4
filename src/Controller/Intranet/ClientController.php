@@ -6,8 +6,6 @@ use App\Classes\Config\Config;
 use App\Entity\Client;
 use App\Repository\ClientRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Query\Expr\Join;
-use Doctrine\ORM\Tools\Pagination\Paginator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -98,6 +96,27 @@ class ClientController extends AbstractController
             'clients' => $clients,
             'currentPage' => $pageNb,
             'nbPages' => $nbPages
+        ]);
+    }
+
+    /**
+     * @Route("/intranet/client/editclient/{id}", name="editClient")
+     * @param EntityManagerInterface $em
+     * @param int $id
+     * @return Response
+     */
+    public function editClient(EntityManagerInterface $em, $id = 0)
+    {
+        if ($id == 0) {
+            return $this->redirectToRoute('view_clients');
+        }
+        $cr = $em->getRepository(Client::class);
+
+        $client = $cr->find($id);
+
+        return $this->render('intranet/client/show_client.html.twig', [
+            //'clients' => $clients,
+            'client' => $client
         ]);
     }
 }

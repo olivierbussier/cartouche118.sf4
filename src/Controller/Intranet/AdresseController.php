@@ -84,8 +84,14 @@ class AdresseController extends AbstractController
                 case 'ville':
                     $adresse->setVille($v['value']);
                     break;
+                case 'bp':
+                    $adresse->setBP($v['value']);
+                    break;
                 case 'pays':
                     $adresse->setPays($v['value']);
+                    break;
+                case 'region':
+                    $adresse->setRegion($v['value']);
                     break;
                 case 'client':
                     $adresse->setClient($em->find(Client::class, $v['value']));

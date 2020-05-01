@@ -52,6 +52,16 @@ class Adresse
      */
     private $client;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $BP;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $region;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -154,5 +164,29 @@ class Adresse
     public function setPays($pays): void
     {
         $this->pays = $pays;
+    }
+
+    public function getBP(): ?string
+    {
+        return $this->BP;
+    }
+
+    public function setBP(?string $BP): self
+    {
+        $this->BP = $BP;
+
+        return $this;
+    }
+
+    public function getRegion(): ?string
+    {
+        return $this->region;
+    }
+
+    public function setRegion(?string $region): self
+    {
+        $this->region = $region;
+
+        return $this;
     }
 }
