@@ -1,5 +1,15 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('client') }}
+{% endblock %}
+
+{% block javascripts_head %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('client') }}
+{% endblock %}
+
 {% block title %}Index des clients{% endblock %}
 
 {% block main_page %}

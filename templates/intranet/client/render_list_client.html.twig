@@ -6,16 +6,6 @@
     </nav>
 {% endif %}
 
-<style>
-    .lw {
-        color: #ffffff ;
-    }
-    .lw:hover {
-        color: #aaaaaa ;
-    }
-</style>
-
-
 <div class="accordion" id="accordion_client">
 
     {% for client in clients %}
@@ -29,44 +19,121 @@
                         data-target="#collapse_{{ client.id }}"
                         aria-expanded="true"
                         aria-controls="collapse_{{ client.id }}">
-                    &nbsp;{{ client.fullName }} <!-- - [{{ client.nom ~ ', ' ~ client.prenom }}]-->
+                    <span id="client_{{ client.id }}">
+                        <img src="{{ asset('/ico/pencil-square.svg') }}"
+                             id="clientEdit_{{ client.id }}"
+                             data-url="{{ url('editClient', { id: client.id }) }}"
+                             data-receiver="#client_{{ client.id }}"
+                             onclick="cEdit('#clientEdit_{{ client.id }}')">
+                        {% if client.fullName | length == 0 %}
+                            {{ client.nom ~ ' ' ~ client.prenom }}
+                        {% else %}
+                        &nbsp;   {{ client.fullName }}
+                        {% endif %}
+                    </span>
                 </button>
             </div>
 
             <div id="collapse_{{ client.id }}" class="collapse" aria-labelledby="heading_{{ client.id }}" data-parent="#accordion_client">
 
-                <a class="btn btn-danger c118-btn-thick" type="button" href="{{ path('show_client',{id: client.id}) }}">Edition Client</a>
-                <button class="btn btn-danger c118-btn-thick" type="button">Edition Facture</button>
-                <button class="btn btn-danger c118-btn-thick" type="button">Edition Note</button>
+                <div class="row">
+                    <div class="col">
+                        <div class="card h-100">
+                            <h5 class="card-header">
+                                <img src="{{ asset('/ico/house.svg') }}">
+                                <img src="{{ asset('/ico/plus-circle.svg') }}"
+                                     id="addAdr"
+                                     class="text-success"
+                                     data-url="{{ url('addAdr') }}"
+                                     data-client-id="{{ client.id }}"
+                                     data-receiver="#adr_0"
+                                     onclick="cAdd('#addAdr')">
+                            </h5>
+                            <div id="addrbody" class="card-body">
+                                {% for adresse in client.adresses %}
+                                    {{ include('intranet/client/adrShow.html.twig', {adresse: adresse}) }}
+                                {% endfor %}
+                                <div id="adr_0"></div>
+                            </div>
+                        </div>
+                    </div>
 
-                <div class="card-body">
+                    <div class="col">
+                        <div class="card h-100">
+                            <h5 class="card-header">
+                                <img src="{{ asset('/ico/house.svg') }}">
+                                <img src="{{ asset('/ico/plus-circle.svg') }}"
+                                     id="addTel"
+                                     data-url="{{ url('addTel') }}"
+                                     data-client-id="{{ client.id }}"
+                                     data-receiver="#tel_0"
+                                     onclick="cAdd('#addTel')">
+                            </h5>
+                            <div class="card-body">
+                                {% for telephone in client.telephones %}
+                                    {{ include('intranet/client/telShow.html.twig', {telephone: telephone}) }}
+                                {% endfor %}
+                                <div id="tel_0"></div>
+                            </div>
+                        </div>
+                    </div>
 
-                    {% for note in client.notes %}
+                    <div class="col">
+                        <div class="card h-100">
+                            <h5 class="card-header">
+                                <img src="{{ asset('/ico/envelope.svg') }}">
+                                <img src="{{ asset('/ico/plus-circle.svg') }}"
+                                     id="addMail"
+                                     data-url="{{ url('addMail') }}"
+                                     data-client-id="{{ client.id }}"
+                                     data-receiver="#mail_0"
+                                     onclick="cAdd('#addMail')">
+                            </h5>
+                            <div class="card-body">
+                                {% for mail in client.emails %}
+                                    {{ include('intranet/client/mailShow.html.twig', {mail: mail}) }}
+                                {% endfor %}
+                                <div id="mail_0"></div>
+                            </div>
+                        </div>
+                    </div>
 
-                        <h5 class="card-title">
-                            {{ note.createdAt | date('d/m/Y') }}
-                        </h5>
-                        <p class="card-text">{{ note.text | nl2br }}</p>
+                </div>
 
-                    {% endfor %}
+                {% for note in client.notes %}
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ note.createdAt | date('d/m/Y') }}</h5>
+                            <p class="card-text">{{ note.text | nl2br }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
 
-                    <div class="client_fact">
-                        <table class="table table-bordered">
-                            <tr>
-                                <th>Date</th><th>Ref</th><th>Montant HT</th><th>Montant TTC</th>
-                            </tr>
-                            {% for facture in client.commandes %}
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-condensed table-hover table-striped">
                                 <tr>
-                                    <td>{{ facture.createdAt | date('d/m/Y') }}</td>
-                                    <td><a href="{{ path('view_commandes',{ref: facture.id}) }}"
-                                           target="_blank">{{ facture.reference }}</a></td>
-                                    <td class="text-right">{{ facture.getPrixHT | number_format(2,'.',' ') }}€</td>
-                                    <td class="text-right">{{ facture.getPrixTTC | number_format(2,'.',' ') }}</td>
+                                    <th>Id</th>
+                                    <th>Date</th>
+                                    <th>Référence</th>
+                                    <th>Prix HT</th>
+                                    <th>Prix TTC</th>
                                 </tr>
-                            {% endfor %}
-                        </table>
+                                {% for facture in client.commandes %}
+                                    <tr>
+                                        <td>{{ facture.id }}</td>
+                                        <td>{{ facture.createdAt | date('d/m/Y') }}</td>
+                                        <td><a target="_blank" href="{{ path('view_commandes',{ref: facture.id}) }}">{{ facture.reference }}</a></td>
+                                        <td>{{ facture.prixHT | format_currency('EUR') }}</td>
+                                        <td>{{ facture.prixTTC | format_currency('EUR') }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </table>
+                        </div>
                     </div>
                 </div>
+
             </div>
         </div>
     {% endfor %}

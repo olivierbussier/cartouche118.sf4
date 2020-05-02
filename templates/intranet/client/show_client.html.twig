@@ -21,12 +21,9 @@
 
     <div class="alert alert-info" role="alert">
        <h4>
-           <img src="{{ asset('/ico/pencil-square.svg') }}"
-                id="clientEdit_{{ client.id }}"
-                data-url="{{ url('editClient', { id: client.id }) }}"
-                data-receiver="#client_{{ client.id }}"
-                onclick="cEdit('#clientEdit_{{ client.id }}')">
-           Full : [{{ client.fullName }}] - Nom : [{{ client.nom }}] - Prénom : [{{ client.prenom }}]
+           <span id="client_{{ client.id }}">
+               {{ include('intranet/client/clientShow.html.twig', { client: client }) }}
+            </span>
        </h4>
     </div>
 

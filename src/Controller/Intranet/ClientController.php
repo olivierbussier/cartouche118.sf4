@@ -30,7 +30,7 @@ class ClientController extends AbstractController
 
         return $this->render('intranet/client/index.html.twig', [
             'clients' => $clients,
-            'term'    => $recherche,
+            'term' => $recherche,
             'currentPage' => $startPage,
             'nbItems' => Config::NB_ITEM_PAR_PAGE,
             'nbPages' => ((int)($nbClients / Config::NB_ITEM_PAR_PAGE)) +
@@ -110,11 +110,60 @@ class ClientController extends AbstractController
         if ($id == 0) {
             return $this->redirectToRoute('view_clients');
         }
-        $cr = $em->getRepository(Client::class);
+        $client = $em->find(Client::class, $id);
 
-        $client = $cr->find($id);
+        return $this->render('intranet/client/clientEdit.html.twig', [
+            //'clients' => $clients,
+            'client' => $client
+        ]);
+    }
 
-        return $this->render('intranet/client/show_client.html.twig', [
+    /**
+     * @Route("/intranet/client/saveclient/{id}", name="saveClient")
+     * @param EntityManagerInterface $em
+     * @param Request $request
+     * @param int $id
+     * @return Response
+     */
+    public function saveClient(EntityManagerInterface $em, Request $request, $id = 0)
+    {
+        if ($id != 0) {
+            $client = $em->find(Client::class, $id);
+        } else {
+            $client = new Client();
+        }
+        $tabClient = $request->request->get('fields');
+        foreach ($tabClient as $v) {
+            switch ($v['name']) {
+                case 'nom':
+                    $client->setNom($v['value']);
+                    break;
+                case 'prenom':
+                    $client->setPrenom($v['value']);
+                    break;
+                case 'full':
+                    $client->setFullName($v['value']);
+                    break;
+            }
+        }
+        $em->persist($client);
+        $em->flush();
+        return $this->render('intranet/client/clientShow.html.twig', [
+            'client' => $client
+        ]);
+    }
+
+    /**
+     * @Route("/intranet/client/cancelclient/{id}", name="cancelClient")
+     * @param EntityManagerInterface $em
+     * @param int $id
+     * @return Response
+     */
+    public function cancelClient(EntityManagerInterface $em, $id = 0)
+    {
+        $client = $em->find(Client::class, $id);
+
+        return $this->render('intranet/client/clientShow.html.twig', [
             //'clients' => $clients,
             'client' => $client
         ]);

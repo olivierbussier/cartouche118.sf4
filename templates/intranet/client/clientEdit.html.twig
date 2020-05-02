@@ -1,0 +1,28 @@
+
+<img src="{{ asset('/ico/check.svg') }}"
+     style="color:green"
+     id="saveClient_{{ client.id }}"
+     data-id="{{ client.id }}"
+     data-form="#formClient_{{ client.id }}"
+     data-url="{{ url('saveClient') }}"
+     data-receiver="#client_{{ client.id }}"
+     onclick="cSave('#saveClient_{{ client.id }}')">
+<img src="{{ asset('/ico/x-circle.svg') }}"
+     style="color:red"
+     id="cancelClient_{{ client.id }}"
+     data-url="{{ url('cancelClient',{ id: client.id  }) }}"
+     data-receiver="#client_{{ client.id }}"
+     onclick="cCancel('#cancelClient_{{ client.id }}')">
+    {{ client.nom }}
+</h6>
+<p class="card-text">
+<form id="formClient_{{ client.id }}">
+    <label for="full" class="col-form-label form-control-sm">Nom Complet</label>
+    <input name="full" id="full" class="form-control form-control-sm" type="text" placeholder="{{ client.id }}" value="{{ client.fullName }}">
+
+    <label for="prenom" class="col-form-label form-control-sm">Prénom</label>
+    <input name="prenom" id="prenom" class="form-control form-control-sm" type="text" placeholder="" value="{{ client.prenom }}">
+
+    <label for="nom" class="col-form-label form-control-sm">Nom</label>
+    <input name="nom" id="nom" class="form-control form-control-sm" type="text" placeholder="" value="{{ client.nom }}">
+</form>
