@@ -42,12 +42,15 @@ class ClientRepository extends ServiceEntityRepository
 
         $qb->select('c')
             //->from('App\\Entity\\Client', 'c')
-            ->leftJoin(
-                'c.notes', 'n')
+            ->leftJoin('c.notes', 'n')
+            ->leftJoin('c.telephones', 't')
+            ->leftJoin('c.emails', 'm')
             ->where("c.nom like :term")
             ->orWhere('c.prenom like :term')
             ->orWhere('c.fullName like :term')
             ->orWhere('n.text like :term')
+            ->orWhere('t.telephone like :term')
+            ->orWhere('m.email like :term')
             ->setParameter('term', "%$term%")
             ->setFirstResult($pageNb * Config::NB_ITEM_PAR_PAGE)
             ->setMaxResults(Config::NB_ITEM_PAR_PAGE);
