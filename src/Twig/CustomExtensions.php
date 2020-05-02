@@ -9,7 +9,7 @@ use Twig\TwigFunction;
 
 class CustomExtensions extends AbstractExtension
 {
-    static private $idCount = 1;
+    private static $idCount = 1;
 
     public function getFunctions()
     {

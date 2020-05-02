@@ -20,7 +20,7 @@
     <div class="row">
 
         <div class="col">
-            <form method="post" action="{{ path('show_client') }}">
+            <form method="post">
                 <div class="form-group">
                     {{ ajax.text('', 'recherche', path('ajax_search_clients'), term, currentPage) }}
                 </div>

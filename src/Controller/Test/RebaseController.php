@@ -356,6 +356,25 @@ class RebaseController extends AbstractController
     }
 
     /**
+     * Importation de la base "test.vcf"
+     *
+     * @Route("/importvcftest", name="importvcftest")
+     * @return Response
+     * @throws Exception
+     */
+    public function importVCFtest(EntityManagerInterface $em)
+    {
+        $cards = new VCard('test.vcf');
+
+        $content = "";
+
+        foreach ($cards as $k => $v) {
+            $content .= print_r($v, true) ."\n------------------\n\n";
+        }
+        return new Response("<pre>$content</pre>");
+    }
+
+    /**
      * Importation de la base "contacts.vcf"
      *
      * @Route("/importvcf", name="importvcf")

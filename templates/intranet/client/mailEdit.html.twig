@@ -1,18 +1,12 @@
 <h6 class="card-title">
     <img src="{{ asset('/ico/check.svg') }}"
-         style="color:green"
-         id="saveMail_{{ mail.id }}"
          data-id="{{ mail.id }}"
          data-form="#formMail_{{ mail.id }}"
          data-url="{{ url('saveMail') }}"
-         data-receiver="#mail_{{ mail.id }}"
-         onclick="cSave('#saveMail_{{ mail.id }}')">
+         onclick="cSave(this)">
     <img src="{{ asset('/ico/x-circle.svg') }}"
-         style="color:red"
-         id="cancelMail_{{ mail.id }}"
          data-url="{{ url('cancelMail',{ id: mail.id  }) }}"
-         data-receiver="#mail_{{ mail.id }}"
-         onclick="cCancel('#cancelMail_{{ mail.id }}')">
+         onclick="cCancel(this)">
     {{ mail.nom }}
 </h6>
 <p class="card-text">

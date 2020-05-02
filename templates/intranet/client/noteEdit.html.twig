@@ -1,0 +1,23 @@
+<h6 class="card-title">
+    <img src="{{ asset('/ico/check.svg') }}"
+         data-id="{{ note.id }}"
+         data-form="#formNote_{{ note.id }}"
+         data-url="{{ url('saveNote') }}"
+         onclick="cSave(this)">
+    <img src="{{ asset('/ico/x-circle.svg') }}"
+         data-url="{{ url('cancelNote',{ id: note.id  }) }}"
+         onclick="cCancel(this)">
+    {{ note.createdAt | date('d/m/Y')}}
+</h6>
+<p class="card-text">
+<form id="formNote_{{ note.id }}">
+    <label for="createdat" class="col-form-label form-control-sm">Date de création</label>
+    <input name="createdat" id="createdat" class="form-control form-control-sm" type="date" placeholder="{{ note.id }}" value="{{ note.createdAt }}">
+
+    <label for="text" class="col-form-label form-control-sm">Adr1</label>
+    <textarea class="form-control form-control-sm" name="text" id="text" rows="6">{{ note.text | raw }}</textarea>
+
+    {% if client is defined %}
+        <input type="hidden" name="client" value="{{ client }}">
+    {% endif %}
+</form>

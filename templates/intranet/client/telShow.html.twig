@@ -6,18 +6,16 @@
 
 {% endmacro %}
 
-<div id="tel_{{ telephone.id }}">
+<div class="new-edit" id="tel_{{ telephone.id }}">
     <h6 class="card-title">
         <img src="{{ asset('/ico/pencil-square.svg') }}"
-             id="telEdit_{{ telephone.id }}"
              data-url="{{ url('editTel', { id: telephone.id }) }}"
              data-receiver="#tel_{{ telephone.id }}"
-             onclick="cEdit('#telEdit_{{ telephone.id }}')">
+             onclick="cEdit(this)">
         <img src="{{ asset('/ico/trash.svg') }}"
-             id="telDel_{{ telephone.id }}"
              data-receiver="#tel_{{ telephone.id }}"
              data-url="{{ url('delTel', { id: telephone.id }) }}"
-             onclick="cDel('#telDel_{{ telephone.id }}')">
+             onclick="cDel(this)">
         {% if telephone.nom == 'label' %}
             {{ telephone.label }}
         {% else %}
@@ -26,7 +24,7 @@
     </h6>
 
     <div class="card-text" id="tel_{{ telephone.id }}">
-    <a href="tel:{{ telephone.telephone }}">{{ telephone.telephone }}</a>
+        <a href="tel:{{ telephone.telephone }}">{{ telephone.telephone }}</a>
     </div>
     <div class="card-text">&nbsp;</div>
 </div>

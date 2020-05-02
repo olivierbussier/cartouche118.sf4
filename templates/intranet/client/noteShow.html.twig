@@ -1,0 +1,26 @@
+{% macro show_line(line,fNew = true) %}
+
+    {% if line | length > 0 %}
+        {{ line }}{% if fNew == true %}<br>{% endif %}
+    {% endif %}
+
+{% endmacro %}
+
+<div class="new-edit" id="note_{{ note.id }}">
+    <h6 class="card-title">
+        <img src="{{ asset('/ico/pencil-square.svg') }}"
+             data-url="{{ url('editNote', { id: note.id }) }}"
+             data-receiver="#note_{{ note.id }}"
+             onclick="cEdit(this)">
+        <img src="{{ asset('/ico/trash.svg') }}"
+             data-receiver="#note_{{ note.id }}"
+             data-url="{{ url('delNote', { id: note.id }) }}"
+             onclick="cDel(this)">
+        {{ note.createdAt | date('d/m/Y')}}
+    </h6>
+
+    <div class="card-text" id="note_{{ note.id }}">
+        {{ note.text | nl2br }}
+    </div>
+    <div class="card-text">&nbsp;</div>
+</div>

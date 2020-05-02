@@ -39,27 +39,6 @@ class ClientController extends AbstractController
     }
 
     /**
-     * @Route("/intranet/client/show/{id}", name="show_client")
-     * @param EntityManagerInterface $em
-     * @param int $id
-     * @return Response
-     */
-    public function show(EntityManagerInterface $em, $id = 0)
-    {
-        if ($id == 0) {
-            return $this->redirectToRoute('view_clients');
-        }
-        $cr = $em->getRepository(Client::class);
-
-        $client = $cr->find($id);
-
-        return $this->render('intranet/client/show_client.html.twig', [
-            //'clients' => $clients,
-            'client' => $client
-        ]);
-    }
-
-    /**
      * @Route("/intranet/client/ajaxSearch", name="ajax_search_clients")
      * @param Request $request
      * @param EntityManagerInterface $em
@@ -167,5 +146,24 @@ class ClientController extends AbstractController
             //'clients' => $clients,
             'client' => $client
         ]);
+    }
+
+    /**
+     * @Route("/intranet/client/deleteclient/{id}", name="delClient")
+     * @param EntityManagerInterface $em
+     * @param int $id
+     * @return Response
+     */
+    public function delClient(EntityManagerInterface $em, $id = 0)
+    {
+        $client = $em->find(Client::class, $id);
+
+        // Mise a true de l'indicateur d'invalidité du contact
+
+        $client->setDeleted(true);
+        $em->persist($client);
+        $em->flush();
+
+        return new Response("");
     }
 }

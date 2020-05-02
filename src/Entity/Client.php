@@ -89,6 +89,11 @@ class Client
      */
     private $remisesClients;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $deleted;
+
     public function __construct()
     {
         $this->notes = new ArrayCollection();
@@ -419,6 +424,18 @@ class Client
                 $remisesClient->setClient(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDeleted(): ?bool
+    {
+        return $this->deleted;
+    }
+
+    public function setDeleted(bool $deleted): self
+    {
+        $this->deleted = $deleted;
 
         return $this;
     }

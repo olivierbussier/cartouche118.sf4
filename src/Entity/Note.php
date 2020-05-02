@@ -37,6 +37,11 @@ class Note
         return $this->id;
     }
 
+    public function clearId()
+    {
+        $this->id = 0;
+    }
+
     public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;

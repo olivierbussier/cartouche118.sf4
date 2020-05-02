@@ -6,18 +6,16 @@
 
 {% endmacro %}
 
-<div id="mail_{{ mail.id }}">
+<div class="new-edit" id="mail_{{ mail.id }}">
     <h6 class="card-title">
         <img src="{{ asset('/ico/pencil-square.svg') }}"
-             id="mailEdit_{{ mail.id }}"
              data-url="{{ url('editMail', { id: mail.id }) }}"
              data-receiver="#mail_{{ mail.id }}"
-             onclick="cEdit('#mailEdit_{{ mail.id }}')">
+             onclick="cEdit(this)">
         <img src="{{ asset('/ico/trash.svg') }}"
-             id="mailDel_{{ mail.id }}"
              data-receiver="#mail_{{ mail.id }}"
              data-url="{{ url('delMail', { id: mail.id }) }}"
-             onclick="cDel('#mailDel_{{ mail.id }}')">
+             onclick="cDel(this)">
         {% if mail.nom == 'label' %}
             {{ mail.label }}
         {% else %}
@@ -26,7 +24,7 @@
     </h6>
 
     <div class="card-text" id="mail_{{ mail.id }}">
-    <a href="mailto:{{ mail.email }}">{{ mail.email }}</a>
+        <a href="mailto:{{ mail.email }}">{{ mail.email }}</a>
     </div>
     <div class="card-text">&nbsp;</div>
 </div>

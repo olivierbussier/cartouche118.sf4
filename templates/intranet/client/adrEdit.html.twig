@@ -1,18 +1,12 @@
 <h6 class="card-title">
     <img src="{{ asset('/ico/check.svg') }}"
-         style="color:green"
-         id="saveAdr_{{ adresse.id }}"
          data-id="{{ adresse.id }}"
          data-form="#formAdr_{{ adresse.id }}"
          data-url="{{ url('saveAdr') }}"
-         data-receiver="#adr_{{ adresse.id }}"
-         onclick="cSave('#saveAdr_{{ adresse.id }}')">
+         onclick="cSave(this)">
     <img src="{{ asset('/ico/x-circle.svg') }}"
-         style="color:red"
-         id="cancelAdr_{{ adresse.id }}"
          data-url="{{ url('cancelAdr',{ id: adresse.id  }) }}"
-         data-receiver="#adr_{{ adresse.id }}"
-         onclick="cCancel('#cancelAdr_{{ adresse.id }}')">
+         onclick="cCancel(this)">
     {{ adresse.nom }}
 </h6>
 <p class="card-text">

@@ -1,6 +1,5 @@
 <img src="{{ asset('/ico/pencil-square.svg') }}"
-     id="clientEdit_{{ client.id }}"
      data-url="{{ url('editClient', { id: client.id }) }}"
      data-receiver="#client_{{ client.id }}"
-     onclick="cEdit('#clientEdit_{{ client.id }}')">
+     onclick="cEdit(this)">
 Full : [{{ client.fullName }}] - Nom : [{{ client.nom }}] - Prénom : [{{ client.prenom }}]

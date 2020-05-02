@@ -18,10 +18,11 @@ class AdresseController extends AbstractController
 {
     /**
      * @Route("/intranet/client/addadr/{client}", name="addAdr")
-     * @param $client
+     * @param Request $request
+     * @param int $client
      * @return Response
      */
-    public function addAdr($client = 0)
+    public function addAdr(Request $request, $client = 0)
     {
         if ($client != 0) {
             $adresse = new Adresse();
@@ -29,6 +30,7 @@ class AdresseController extends AbstractController
         }
         return $this->render('intranet/client/adrEdit.html.twig', [
             'adresse' => $adresse,
+            'receiver'=> $request->request->get('receiver', 0),
             'client'  => $client
         ]);
     }
@@ -39,7 +41,7 @@ class AdresseController extends AbstractController
      * @param $id
      * @return Response
      */
-    public function editAdr(EntityManagerInterface $em, $id = 0)
+    public function editAdr(EntityManagerInterface $em, Request $request, $id = 0)
     {
         if ($id != 0) {
             $adresse = $em->find(Adresse::class, $id);
@@ -48,7 +50,8 @@ class AdresseController extends AbstractController
             $adresse->setId(0);
         }
         return $this->render('intranet/client/adrEdit.html.twig', [
-            'adresse' => $adresse
+            'adresse' => $adresse,
+            'receiver'=> $request->request->get('receiver', 0)
         ]);
     }
 
@@ -101,7 +104,8 @@ class AdresseController extends AbstractController
         $em->persist($adresse);
         $em->flush();
         return $this->render('intranet/client/adrShow.html.twig', [
-            'adresse' => $adresse
+            'adresse' => $adresse,
+            'receiver'=> $request->request->get('receiver', 0)
         ]);
     }
 
@@ -126,15 +130,17 @@ class AdresseController extends AbstractController
     /**
      * @Route("/intranet/client/canceladr/{id}", name="cancelAdr")
      * @param EntityManagerInterface $em
+     * @param Request $request
      * @param int $id
      * @return Response
      */
-    public function cancelAddr(EntityManagerInterface $em, $id = 0)
+    public function cancelAddr(EntityManagerInterface $em, Request $request, $id = 0)
     {
         if ($id != null) {
             $adresse = $em->find(Adresse::class, $id);
             return $this->render('intranet/client/adrShow.html.twig', [
-                'adresse' => $adresse
+                'adresse' => $adresse,
+                'receiver'=> $request->request->get('receiver', 0)
             ]);
         }
         return new Response("");

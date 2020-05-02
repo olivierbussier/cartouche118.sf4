@@ -20,7 +20,12 @@ function cAdd(id)
     var url = $(id).data('url');
     var client = $(id).data('clientId');
     var rec  = $(id).data('receiver');
-    $.ajax(url+'/'+client).done(function (data) {
+
+    $.ajax({
+        method: 'POST',
+        data: { receiver: rec },
+        url: url + '/' + client,
+    }).done(function (data) {
         $(rec).html(data);
     })
 } window.cAdd = cAdd;
@@ -33,7 +38,11 @@ function cEdit(id)
 {
     var url = $(id).data('url');
     var rec  = $(id).data('receiver');
-    $.ajax(url).done(function (data) {
+    $.ajax({
+        method: 'POST',
+        data: { receiver: rec },
+        url: url
+    }).done(function (data) {
         $(rec).html(data);
     })
 } window.cEdit = cEdit;
@@ -45,9 +54,15 @@ function cEdit(id)
 function cCancel(id)
 {
     var url = $(id).data('url');
-    var rec  = $(id).data('receiver');
-    $.ajax(url).done(function (data) {
-        $(rec).html(data);
+
+    var rec = $(id).closest('.new-edit').attr('id');
+
+    $.ajax({
+        method: 'POST',
+        data: { receiver: rec },
+        url: url
+    }).done(function (data) {
+        $('#'+rec).html(data);
     })
 
 } window.cCancel = cCancel;
@@ -61,17 +76,19 @@ function cSave(id)
     var adrId = $(id).data('id');
     var form  = $(id).data('form');
     var url = $(id).data('url');
-    var rec = $(id).data('receiver');
+
+    var rec = $(id).closest('.new-edit').attr('id');
+
     if (adrId !== 0) {
         url = url + "/" + adrId;
     }
     var fields = $(form).serializeArray();
     $.ajax({
         method: 'POST',
-        data: {fields: fields },
+        data: {receiver: rec, fields: fields },
         url: url
     }).done(function (data) {
-        $(rec).html(data)
+        $('#'+rec).html(data)
     })
 } window.cSave = cSave;
 
@@ -92,3 +109,10 @@ function cDel(id)
     }
 } window.cDel = cDel;
 
+function initEdit() {
+    var idx = 1;
+    $('.edit-save').each(function (d) {
+        //$(d).attr('id',idx);
+        //console.log($(this));
+    })
+} window.initEdit = initEdit;
