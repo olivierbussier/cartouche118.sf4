@@ -49,9 +49,11 @@ class ClientRepository extends ServiceEntityRepository
             ->leftJoin('c.telephones', 't')
             ->leftJoin('c.emails', 'm')
             ->where("((c.nom like :term) or (c.prenom like :term) or (c.fullName like :term) or ".
-                             "(n.text like :term) or (t.telephone like :term) or (m.email like :term))")
+                             "(n.text like :term) or (t.telephone like :term) or (m.email like :term) or ".
+                             "m.email like :term)")
             ->andWhere("c.deleted = false")
             ->setParameter('term', "%$term%")
+            ->orderBy('c.fullName', 'ASC')
             ->setFirstResult($pageNb * Config::NB_ITEM_PAR_PAGE)
             ->setMaxResults(Config::NB_ITEM_PAR_PAGE);
 
