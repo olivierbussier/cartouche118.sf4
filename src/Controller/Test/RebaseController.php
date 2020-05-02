@@ -407,6 +407,7 @@ class RebaseController extends AbstractController
 
         foreach ($cards as $k => $v) {
             $client = new Client();
+            $client->setDeleted(false);
             if (isset($v->n[0])) {
                 $client->setPrenom($v->n[0]['FirstName']);
                 $client->setNom($v->n[0]['LastName']);
