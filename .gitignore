@@ -36,3 +36,5 @@ phploy.ini
 composer.lock
 
 public/test.vcf
+
+public/build/
