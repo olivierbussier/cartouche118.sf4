@@ -140,12 +140,16 @@ class ClientController extends AbstractController
      */
     public function cancelClient(EntityManagerInterface $em, $id = 0)
     {
-        $client = $em->find(Client::class, $id);
+        return new Response("");
+        /*
+        ($id != 0) {
+            $client = $em->find(Client::class, $id);
 
-        return $this->render('intranet/client/clientShow.html.twig', [
-            //'clients' => $clients,
-            'client' => $client
-        ]);
+            return $this->render('intranet/client/clientShow.html.twig', [
+                //'clients' => $clients,
+                'client' => $client
+            ]);
+        }*/
     }
 
     /**

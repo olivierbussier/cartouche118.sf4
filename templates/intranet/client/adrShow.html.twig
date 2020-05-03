@@ -6,25 +6,21 @@
 
 {% endmacro %}
 
-<div class="new-edit" id="adr_{{ adresse.id }}">
-    <h6 class="card-title">
-        <img src="{{ asset('/ico/pencil-square.svg') }}"
-             data-url="{{ url('editAdr', {id: adresse.id}) }}"
-             data-receiver="#adr_{{ adresse.id }}"
-             onclick="cEdit(this)">
-             <!--onclick="cEdit('#adrEdit_{{ adresse.id }}')">-->
-        <img src="{{ asset('/ico/trash.svg') }}"
-             data-receiver="#adr_{{ adresse.id }}"
-             data-url="{{ url('delAdr', { id: adresse.id }) }}"
-             onclick="cDel(this)">
-        {{ adresse.nom }}
-    </h6>
+<h6 class="card-title">
+    <img src="{{ asset('/ico/pencil-square.svg') }}" alt="edit"
+         data-url="{{ url('editAdr', {id: adresse.id}) }}"
+         onclick="cEdit(this)">
+    <img src="{{ asset('/ico/trash.svg') }}" alt="del"
+         data-url="{{ url('delAdr', { id: adresse.id }) }}"
+         onclick="cDel(this)">
+    {{ adresse.nom }}
+</h6>
 
-    <div class="card-text">
-    {{ _self.show_line(adresse.adresse1) }}
-    {{ _self.show_line(adresse.adresse2) }}
-    {{ _self.show_line(adresse.codePostal, false) }} {{ _self.show_line(adresse.ville) }}
-    {{ _self.show_line(adresse.pays) }}
-    </div>
-    <div class="card-text">&nbsp;</div>
+<div class="card-text">
+{{ _self.show_line(adresse.adresse1) }}
+{{ _self.show_line(adresse.adresse2) }}
+{{ _self.show_line(adresse.codePostal, false) }} {{ _self.show_line(adresse.ville) }}
+{{ _self.show_line(adresse.pays) }}
 </div>
+<div class="card-text">&nbsp;</div>
+

@@ -6,25 +6,22 @@
 
 {% endmacro %}
 
-<div class="new-edit" id="mail_{{ mail.id }}">
-    <h6 class="card-title">
-        <img src="{{ asset('/ico/pencil-square.svg') }}"
-             data-url="{{ url('editMail', { id: mail.id }) }}"
-             data-receiver="#mail_{{ mail.id }}"
-             onclick="cEdit(this)">
-        <img src="{{ asset('/ico/trash.svg') }}"
-             data-receiver="#mail_{{ mail.id }}"
-             data-url="{{ url('delMail', { id: mail.id }) }}"
-             onclick="cDel(this)">
-        {% if mail.nom == 'label' %}
-            {{ mail.label }}
-        {% else %}
-            {{ mail.nom }}
-        {% endif %}
-    </h6>
+<h6 class="card-title">
+    <img src="{{ asset('/ico/pencil-square.svg') }}" alt="edit"
+         data-url="{{ url('editMail', { id: mail.id }) }}"
+         onclick="cEdit(this)">
+    <img src="{{ asset('/ico/trash.svg') }}" alt="del"
+         data-url="{{ url('delMail', { id: mail.id }) }}"
+         onclick="cDel(this)">
+    {% if mail.nom == 'label' %}
+        {{ mail.label }}
+    {% else %}
+        {{ mail.nom }}
+    {% endif %}
+</h6>
 
-    <div class="card-text" id="mail_{{ mail.id }}">
-        <a href="mailto:{{ mail.email }}">{{ mail.email }}</a>
-    </div>
-    <div class="card-text">&nbsp;</div>
+<div class="card-text">
+    <a href="mailto:{{ mail.email }}">{{ mail.email }}</a>
 </div>
+<div class="card-text">&nbsp;</div>
+

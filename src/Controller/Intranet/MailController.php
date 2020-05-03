@@ -93,9 +93,9 @@ class MailController extends AbstractController
      * @param int $id
      * @return Response
      */
-    public function delMail(EntityManagerInterface $em, int $id = null)
+    public function delMail(EntityManagerInterface $em, int $id = 0)
     {
-        if ($id != null) {
+        if ($id != 0) {
             $mail = $em->find(Email::class, $id);
             if ($mail != null) {
                 $em->remove($mail);
@@ -111,9 +111,9 @@ class MailController extends AbstractController
      * @param int $id
      * @return Response
      */
-    public function cancelMail(EntityManagerInterface $em, $id = 0)
+    public function cancelMail(EntityManagerInterface $em, int $id = 0)
     {
-        if ($id != null) {
+        if ($id != 0) {
             $mail = $em->find(Email::class, $id);
             return $this->render('intranet/client/mailShow.html.twig', [
                 'mail' => $mail

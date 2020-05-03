@@ -2,15 +2,10 @@
 
 namespace App\Controller\Intranet;
 
-use App\Classes\Config\Config;
-use App\Entity\Adresse;
 use App\Entity\Client;
 use App\Entity\Note;
-use App\Repository\ClientRepository;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Query\Expr\Join;
-use Doctrine\ORM\Tools\Pagination\Paginator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,7 +15,7 @@ class NoteController extends AbstractController
 {
     /**
      * @Route("/intranet/client/addnote/{client}", name="addNote")
-     * @param $client
+     * @param int $client
      * @return Response
      */
     public function addNote($client = 0)
@@ -30,8 +25,8 @@ class NoteController extends AbstractController
             $note->clearId();
         }
         return $this->render('intranet/client/noteEdit.html.twig', [
-            'note' => $note,
-            'client'  => $client
+            'note'   => $note,
+            'client' => $client
         ]);
     }
 
@@ -43,7 +38,12 @@ class NoteController extends AbstractController
      */
     public function editNote(EntityManagerInterface $em, $id = 0)
     {
-        $note = $em->find(Note::class, $id);
+        if ($id != 0) {
+            $note = $em->find(Note::class, $id);
+        } else {
+            $note = new Note();
+            $note->clearId();
+        }
         return $this->render('intranet/client/noteEdit.html.twig', [
             'note' => $note
         ]);
@@ -90,9 +90,9 @@ class NoteController extends AbstractController
      * @param int $id
      * @return Response
      */
-    public function delNote(EntityManagerInterface $em, int $id = null)
+    public function delNote(EntityManagerInterface $em, int $id = 0)
     {
-        if ($id != null) {
+        if ($id != 0) {
             $note = $em->find(Note::class, $id);
             if ($note != null) {
                 $em->remove($note);
@@ -108,9 +108,9 @@ class NoteController extends AbstractController
      * @param int $id
      * @return Response
      */
-    public function cancelNote(EntityManagerInterface $em, $id = 0)
+    public function cancelNote(EntityManagerInterface $em, int $id = 0)
     {
-        if ($id != null) {
+        if ($id != 0) {
             $note = $em->find(Note::class, $id);
             return $this->render('intranet/client/noteShow.html.twig', [
                 'note' => $note

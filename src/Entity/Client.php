@@ -45,6 +45,7 @@ class Client
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Commande", mappedBy="client")
+     * @ORM\OrderBy({"createdAt" = "DESC"})
      */
     private $commandes;
 

@@ -1,8 +1,6 @@
 <h6 class="card-title">
     <img src="{{ asset('/ico/check.svg') }}"
-         data-id="{{ telephone.id }}"
-         data-form="#formTel_{{ telephone.id }}"
-         data-url="{{ url('saveTel') }}"
+         data-url="{{ url('saveTel',{ id: telephone.id  })  }}"
          onclick="cSave(this)">
     <img src="{{ asset('/ico/x-circle.svg') }}"
          data-url="{{ url('cancelTel',{ id: telephone.id  }) }}"
@@ -10,7 +8,7 @@
     {{ telephone.nom }}
 </h6>
 <p class="card-text">
-<form id="formTel_{{ telephone.id }}">
+<form>
     <label for="nom" class="col-form-label form-control-sm">Nom</label>
     <input name="nom" id="nom" class="form-control form-control-sm" type="text" placeholder="" value="{{ telephone.nom }}">
 

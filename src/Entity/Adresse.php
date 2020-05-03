@@ -67,9 +67,9 @@ class Adresse
         return $this->id;
     }
 
-    public function setId(int $id): self
+    public function clearId(): self
     {
-        $this->id = $id;
+        $this->id = 0;
 
         return $this;
     }

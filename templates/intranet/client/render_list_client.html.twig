@@ -6,8 +6,6 @@
     </nav>
 {% endif %}
 
-{% set indexId = 1 %}
-
 <div class="accordion" id="accordion_client">
 
     {% for client in clients %}
@@ -21,23 +19,11 @@
                         data-target="#collapse_{{ client.id }}"
                         aria-expanded="true"
                         aria-controls="collapse_{{ client.id }}">
-                    <span class="new-edit" id="client_{{ client.id }}">
-                        <img src="{{ asset('/ico/pencil-square.svg') }}"
-                             data-url="{{ url('editClient', { id: client.id }) }}"
-                             data-receiver="#client_{{ client.id }}"
-                             onclick="cEdit(this)">
-                        <img src="{{ asset('/ico/trash.svg') }}"
-                             data-receiver="#client_{{ client.id }}"
-                             data-url="{{ url('delClient', { id: client.id }) }}"
-                             onclick="cDel(this)">
-
-                        {% if client.fullName | length == 0 %}
-                            {{ client.nom ~ ' ' ~ client.prenom }}
-                        {% else %}
-                        &nbsp;   {{ client.fullName }}
-                        {% endif %}
+                    <span class="titre-edit">
+                        {{ include('intranet/client/clientShow.html.twig', { client: client }) }}
                     </span>
                 </button>
+                <div class="item-edit"></div>
             </div>
 
             <div id="collapse_{{ client.id }}" class="collapse" aria-labelledby="heading_{{ client.id }}" data-parent="#accordion_client">
@@ -46,19 +32,19 @@
                     <div class="col">
                         <div class="card h-100">
                             <h5 class="card-header">
-                                <img src="{{ asset('/ico/house.svg') }}">
-                                <img src="{{ asset('/ico/plus-circle.svg') }}"
-                                     data-url="{{ url('addAdr') }}"
-                                     data-client-id="{{ client.id }}"
-                                     data-receiver="#adrNew_{{ indexId }}"
+                                <img src="{{ asset('/ico/house.svg') }}" alt="home">
+                                <img src="{{ asset('/ico/plus-circle.svg') }}" alt="add"
+                                     data-url="{{ url('addAdr', { client: client.id }) }}"
                                      onclick="cAdd(this)">
                             </h5>
-                            <div id="addrbody" class="card-body">
-                                {% for adresse in client.adresses %}
-                                    {{ include('intranet/client/adrShow.html.twig', { adresse: adresse }) }}
-                                {% endfor %}
-                                <div class="new-edit" id="adrNew_{{ indexId }}"></div>
-                                {% set indexId = indexId + 1 %}
+                            <div class="card-body">
+                                <div class="old-edit">
+                                    {% for adresse in client.adresses %}
+                                        <div class="item-edit">
+                                            {{ include('intranet/client/adrShow.html.twig', { adresse: adresse }) }}
+                                        </div>
+                                    {% endfor %}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -66,19 +52,19 @@
                     <div class="col">
                         <div class="card h-100">
                             <h5 class="card-header">
-                                <img src="{{ asset('/ico/house.svg') }}">
-                                <img src="{{ asset('/ico/plus-circle.svg') }}"
-                                     data-url="{{ url('addTel') }}"
-                                     data-client-id="{{ client.id }}"
-                                     data-receiver="#telNew_{{ indexId }}"
+                                <img src="{{ asset('/ico/house.svg') }}" alt="home">
+                                <img src="{{ asset('/ico/plus-circle.svg') }}" alt="add"
+                                     data-url="{{ url('addTel', { client: client.id }) }}"
                                      onclick="cAdd(this)">
                             </h5>
                             <div class="card-body">
-                                {% for telephone in client.telephones %}
-                                    {{ include('intranet/client/telShow.html.twig', {telephone: telephone}) }}
-                                {% endfor %}
-                                <div class="new-edit" id="telNew_{{ indexId }}"></div>
-                                {% set indexId = indexId + 1 %}
+                                <div class="old-edit">
+                                    {% for telephone in client.telephones %}
+                                        <div class="item-edit">
+                                            {{ include('intranet/client/telShow.html.twig', {telephone: telephone}) }}
+                                        </div>
+                                    {% endfor %}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -86,19 +72,19 @@
                     <div class="col">
                         <div class="card h-100">
                             <h5 class="card-header">
-                                <img src="{{ asset('/ico/envelope.svg') }}">
-                                <img src="{{ asset('/ico/plus-circle.svg') }}"
-                                     data-url="{{ url('addMail') }}"
-                                     data-client-id="{{ client.id }}"
-                                     data-receiver="#mailNew_{{ indexId }}"
+                                <img src="{{ asset('/ico/envelope.svg') }}" alt="home">
+                                <img src="{{ asset('/ico/plus-circle.svg') }}" alt="add"
+                                     data-url="{{ url('addMail', { client: client.id }) }}"
                                      onclick="cAdd(this)">
                             </h5>
                             <div class="card-body">
-                                {% for mail in client.emails %}
-                                    {{ include('intranet/client/mailShow.html.twig', {mail: mail}) }}
-                                {% endfor %}
-                                <div class="new-edit" id="mailNew_{{ indexId }}"></div>
-                                {% set indexId = indexId + 1 %}
+                                <div class="old-edit">
+                                    {% for mail in client.emails %}
+                                        <div class="item-edit">
+                                            {{ include('intranet/client/mailShow.html.twig', {mail: mail}) }}
+                                        </div>
+                                    {% endfor %}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -109,19 +95,19 @@
                     <div class="col">
                         <div class="card h-100">
                             <h5 class="card-header">
-                                <img src="{{ asset('/ico/note.svg') }}" style="width: 20px;">
-                                <img src="{{ asset('/ico/plus-circle.svg') }}"
-                                     data-url="{{ url('addNote') }}"
-                                     data-client-id="{{ client.id }}"
-                                     data-receiver="#noteNew_{{ indexId }}"
+                                <img src="{{ asset('/ico/note.svg') }}" style="width: 20px;" alt="home">
+                                <img src="{{ asset('/ico/plus-circle.svg') }}" alt="add"
+                                     data-url="{{ url('addNote', {client: client.id }) }}"
                                      onclick="cAdd(this)">
                             </h5>
                             <div class="card-body">
-                                {% for note in client.notes %}
-                                    {{ include('intranet/client/noteShow.html.twig', { note: note }) }}
-                                {% endfor %}
-                                <div class="new-edit" id="noteNew_{{ indexId }}"></div>
-                                {% set indexId = indexId + 1 %}
+                                <div class="old-edit"> {#| sortByField('createdAt','desc')#}
+                                    {% for note in client.notes %}
+                                        <div class="item-edit">
+                                            {{ include('intranet/client/noteShow.html.twig', { note: note }) }}
+                                        </div>
+                                    {% endfor %}
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -368,8 +368,50 @@ class RebaseController extends AbstractController
 
         $content = "";
 
+        /**
+         * @var VCard $v
+         */
         foreach ($cards as $k => $v) {
-            $content .= print_r($v, true) ."\n------------------\n\n";
+
+            // Adresse
+            $adr = $v->adr;
+            foreach ($adr as $x) {
+                $buf = explode('\n', $x['StreetAddress']);
+                if (count($buf)>1) {
+                    $content .= "2L Org    : '".trim($buf[0])."'\n";
+                    $content .= "2L Street : '".trim($buf[1])."'\n";
+                } else {
+                    $content .= "1L        : '{$x['StreetAddress']}'";
+                }
+                $content .= "POBox     : '".trim($x['POBox'])."'\n";
+                $content .= "EXTAdr    : '".trim($x['ExtendedAddress'])."'\n";
+                $content .= "StreetAdr : '".trim($x['StreetAddress'])."'\n";
+                $content .= "Locality  : '".trim($x['Locality'])."'\n";
+                $content .= "Region    : '".trim($x['Region'])."'\n";
+                $content .= "PostalCode: '".trim($x['PostalCode'])."'\n";
+                $content .= "Country   : '".trim($x['Country'])."'\n";
+                $content .= "------------------\n";
+            }
+            $org = $v->org;
+            foreach ($org as $x) {
+                $content .=  "ORG Name  : '".trim($x['Name'])."'\n";
+                $content .=  "ORG Unit1 : '".trim($x['Unit1'])."'\n";
+                $content .=  "ORG Unit2 : '".trim($x['Unit2'])."'\n";
+                $content .= "------------------\n";
+            }
+            $org = $v->email;
+            foreach ($org as $x) {
+                $content .=  "email val : '".trim($x['Value'])."'\n";
+                if (isset($x['label']))
+                    $content .=  "email labl: '".trim($x['label'])."'\n";
+                $content .=  "email val : '";
+                foreach ($x['Type'] as $y) {
+                    $content .= $y.",";
+                }
+                $content .= "'\n";
+                $content .= "------------------\n";
+            }
+            $content .= "*****************\n";
         }
         return new Response("<pre>$content</pre>");
     }

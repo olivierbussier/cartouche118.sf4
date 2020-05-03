@@ -43,7 +43,7 @@ class ClientRepository extends ServiceEntityRepository
     {
         $qb = $this->createQueryBuilder('c');
 
-        $qb->select('c')
+        $qb->select('c,n,t,m')
             //->from('App\\Entity\\Client', 'c')
             ->leftJoin('c.notes', 'n')
             ->leftJoin('c.telephones', 't')
@@ -53,10 +53,12 @@ class ClientRepository extends ServiceEntityRepository
                              "m.email like :term)")
             ->andWhere("c.deleted = false")
             ->setParameter('term', "%$term%")
-            ->orderBy('c.fullName', 'ASC')
+            ->OrderBy('c.fullName', 'ASC')
+            ->addOrderBy('n.createdAt', 'desc')
             ->setFirstResult($pageNb * Config::NB_ITEM_PAR_PAGE)
             ->setMaxResults(Config::NB_ITEM_PAR_PAGE);
 
+        $tmp = $qb->getDQL();
         return new Paginator($qb);
     }
 }

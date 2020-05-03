@@ -1,16 +1,14 @@
 <h6 class="card-title">
-    <img src="{{ asset('/ico/check.svg') }}"
-         data-id="{{ mail.id }}"
-         data-form="#formMail_{{ mail.id }}"
-         data-url="{{ url('saveMail') }}"
+    <img src="{{ asset('/ico/check.svg') }}" alt="save"
+         data-url="{{ url('saveMail', {id: mail.id }) }}"
          onclick="cSave(this)">
-    <img src="{{ asset('/ico/x-circle.svg') }}"
+    <img src="{{ asset('/ico/x-circle.svg') }}" alt="cancel"
          data-url="{{ url('cancelMail',{ id: mail.id  }) }}"
          onclick="cCancel(this)">
     {{ mail.nom }}
 </h6>
 <p class="card-text">
-<form id="formMail_{{ mail.id }}">
+<form>
     <label for="nom" class="col-form-label form-control-sm">Nom</label>
     <input name="nom" id="nom" class="form-control form-control-sm" type="text" placeholder="{{ mail.id }}" value="{{ mail.nom }}">
 

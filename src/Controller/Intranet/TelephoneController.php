@@ -14,7 +14,7 @@ class TelephoneController extends AbstractController
 {
     /**
      * @Route("/intranet/client/addtel/{client}", name="addTel")
-     * @param $client
+     * @param int $client
      * @return Response
      */
     public function addTel($client = 0)
@@ -55,7 +55,7 @@ class TelephoneController extends AbstractController
      * @param int $id
      * @return Response
      */
-    public function saveTel(EntityManagerInterface $em, Request $request, $id = 0)
+    public function saveTel(EntityManagerInterface $em, Request $request, int $id = 0)
     {
         if ($id != 0) {
             $telephone = $em->find(Telephone::class, $id);
@@ -92,9 +92,9 @@ class TelephoneController extends AbstractController
      * @param int $id
      * @return Response
      */
-    public function delTel(EntityManagerInterface $em, int $id = null)
+    public function delTel(EntityManagerInterface $em, int $id = 0)
     {
-        if ($id != null) {
+        if ($id != 0) {
             $tel = $em->find(Telephone::class, $id);
             if ($tel != null) {
                 $em->remove($tel);
@@ -110,9 +110,9 @@ class TelephoneController extends AbstractController
      * @param int $id
      * @return Response
      */
-    public function cancelTel(EntityManagerInterface $em, $id = 0)
+    public function cancelTel(EntityManagerInterface $em, int $id = 0)
     {
-        if ($id != null) {
+        if ($id != 0) {
             $telephone = $em->find(Telephone::class, $id);
             return $this->render('intranet/client/telShow.html.twig', [
                 'telephone' => $telephone

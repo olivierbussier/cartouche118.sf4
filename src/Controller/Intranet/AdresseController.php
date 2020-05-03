@@ -2,13 +2,9 @@
 
 namespace App\Controller\Intranet;
 
-use App\Classes\Config\Config;
 use App\Entity\Adresse;
 use App\Entity\Client;
-use App\Repository\ClientRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Query\Expr\Join;
-use Doctrine\ORM\Tools\Pagination\Paginator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,19 +14,17 @@ class AdresseController extends AbstractController
 {
     /**
      * @Route("/intranet/client/addadr/{client}", name="addAdr")
-     * @param Request $request
      * @param int $client
      * @return Response
      */
-    public function addAdr(Request $request, $client = 0)
+    public function addAdr($client = 0)
     {
         if ($client != 0) {
             $adresse = new Adresse();
-            $adresse->setId(0);
+            $adresse->clearId();
         }
         return $this->render('intranet/client/adrEdit.html.twig', [
             'adresse' => $adresse,
-            'receiver'=> $request->request->get('receiver', 0),
             'client'  => $client
         ]);
     }
@@ -41,17 +35,16 @@ class AdresseController extends AbstractController
      * @param $id
      * @return Response
      */
-    public function editAdr(EntityManagerInterface $em, Request $request, $id = 0)
+    public function editAdr(EntityManagerInterface $em, $id = 0)
     {
         if ($id != 0) {
             $adresse = $em->find(Adresse::class, $id);
         } else {
             $adresse = new Adresse();
-            $adresse->setId(0);
+            $adresse->clearId();
         }
         return $this->render('intranet/client/adrEdit.html.twig', [
-            'adresse' => $adresse,
-            'receiver'=> $request->request->get('receiver', 0)
+            'adresse' => $adresse
         ]);
     }
 
@@ -104,8 +97,7 @@ class AdresseController extends AbstractController
         $em->persist($adresse);
         $em->flush();
         return $this->render('intranet/client/adrShow.html.twig', [
-            'adresse' => $adresse,
-            'receiver'=> $request->request->get('receiver', 0)
+            'adresse' => $adresse
         ]);
     }
 
@@ -115,9 +107,9 @@ class AdresseController extends AbstractController
      * @param int $id
      * @return Response
      */
-    public function delAdr(EntityManagerInterface $em, int $id = null)
+    public function delAdr(EntityManagerInterface $em, int $id = 0)
     {
-        if ($id != null) {
+        if ($id != 0) {
             $adr = $em->find(Adresse::class, $id);
             if ($adr != null) {
                 $em->remove($adr);
@@ -130,17 +122,15 @@ class AdresseController extends AbstractController
     /**
      * @Route("/intranet/client/canceladr/{id}", name="cancelAdr")
      * @param EntityManagerInterface $em
-     * @param Request $request
      * @param int $id
      * @return Response
      */
-    public function cancelAddr(EntityManagerInterface $em, Request $request, $id = 0)
+    public function cancelAdr(EntityManagerInterface $em, int $id = 0)
     {
-        if ($id != null) {
+        if ($id != 0) {
             $adresse = $em->find(Adresse::class, $id);
             return $this->render('intranet/client/adrShow.html.twig', [
-                'adresse' => $adresse,
-                'receiver'=> $request->request->get('receiver', 0)
+                'adresse' => $adresse
             ]);
         }
         return new Response("");
