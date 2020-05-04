@@ -50,7 +50,7 @@ class ClientRepository extends ServiceEntityRepository
             ->leftJoin('c.emails', 'm')
             ->where("((c.nom like :term) or (c.prenom like :term) or (c.fullName like :term) or ".
                              "(n.text like :term) or (t.telephone like :term) or (m.email like :term) or ".
-                             "m.email like :term)")
+                             "m.email like :term) or (c.organization like :term) or (c.titre like :term)")
             ->andWhere("c.deleted = false")
             ->setParameter('term', "%$term%")
             ->OrderBy('c.fullName', 'ASC')

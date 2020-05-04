@@ -16,22 +16,63 @@
     })
 </script>
 <p class="card-text">
-<form>
-    <label for="full" class="col-form-label form-control-sm">Nom commercial</label>
-    <input name="full" id="full" class="form-control form-control-sm" type="text" placeholder="{{ client.id }}" value="{{ client.fullName }}"
-           data-toggle="tooltip" data-placement="left" data-html="true"
-           title="{{ "Pour une entreprise, renseignez ici le nom commercial de la structure, comme par exemple 'cartouche 118'<br>" ~
-                 "Pour un particulier, laissez ce champ vide" | raw }}">
+    <form>
+        <div class="row">
+            <div class="col-xs-12 col-lg-4">
+                <label for="full" class="col-form-label form-control-sm">Nom commercial</label>
+                <input name="full" id="full" class="form-control form-control-sm" type="text" placeholder="Vide" value="{{ client.fullName }}"
+                       data-toggle="tooltip" data-placement="left" data-html="true"
+                       title="{{ "Pour une entreprise, renseignez ici le nom commercial de la structure, comme par exemple 'cartouche 118'<br>" ~
+                             "Pour un particulier, laissez ce champ vide" | raw }}">
+            </div>
 
-    <label for="nom" class="col-form-label form-control-sm">Nom / Raison sociale</label>
-    <input name="nom" id="nom" class="form-control form-control-sm" type="text" placeholder="" value="{{ client.nom }}"
-           data-toggle="tooltip" data-placement="left" data-html="true"
-           title="{{ "Pour une entreprise, renseignez ici la raison commerciale de la structure, comme par exemple 'NPC Diffusion'<br>" ~
-           "Pour un particulier, renseignez ici le nom de la personne" | raw }}">
+            <div class="col-xs-12 col-lg-4">
+                <label for="nom" class="col-form-label form-control-sm">Nom / Raison sociale</label>
+                <input name="nom" id="nom" class="form-control form-control-sm" type="text" placeholder="Vide" value="{{ client.nom }}"
+                       data-toggle="tooltip" data-placement="left" data-html="true"
+                       title="{{ "Pour une entreprise, renseignez ici la raison commerciale de la structure, comme par exemple 'NPC Diffusion'<br>" ~
+                       "Pour un particulier, renseignez ici le nom de la personne" | raw }}">
+            </div>
+            <div class="col-xs-12 col-lg-4">
+                <label for="prenom" class="col-form-label form-control-sm">Prénom / Nom complet</label>
+                <input name="prenom" id="prenom" class="form-control form-control-sm" type="text" placeholder="Vide" value="{{ client.prenom }}"
+                       data-toggle="tooltip" data-placement="left" data-html="true"
+                       title="{{ "Pour une entreprise, renseignez ici le nom complet du contact, comme par exemple 'Nicolas Bréchignac'<br>" ~
+                       "Pour un particulier, renseignez le prénom de la personne" | raw }}">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-md-2">
+                <label for="titre" class="col-form-label form-control-sm">Titre</label>
+                <input name="titre" id="titre" class="form-control form-control-sm" type="text" placeholder="Vide" value="{{ client.titre }}"
+                       data-toggle="tooltip" data-placement="left" data-html="true" readonly
+                       title="{{ "Champ issu des contacts originaux, présent en lecture seule pour information" | raw }}">
+            </div>
+            <div class="col-xs-12 col-md-3">
+                <label for="additional" class="col-form-label form-control-sm">Nom additionnel</label>
+                <input name="additional" id="additional" class="form-control form-control-sm" type="text" placeholder="Vide" value="{{ client.additional}}"
+                       data-toggle="tooltip" data-placement="left" data-html="true" readonly
+                       title="{{ "Champ issu des contacts originaux, présent en lecture seule pour information" | raw }}">
+            </div>
+            <div class="col-xs-12 col-md-3">
+                <label for="organization" class="col-form-label form-control-sm">Organisation</label>
+                <input name="organization" id="organization" class="form-control form-control-sm" type="text" placeholder="Vide" value="{{ client.organization }}"
+                       data-toggle="tooltip" data-placement="left" data-html="true" readonly
+                       title="{{ "Champ issu des contacts originaux, présent en lecture seule pour information" | raw }}">
+            </div>
+            <div class="col-xs-12 col-md-2">
+                <label for="prefix" class="col-form-label form-control-sm">Préfixe</label>
+                <input name="prefix" id="prefix" class="form-control form-control-sm" type="text" placeholder="Vide" value="{{ client.prefix }}"
+                       data-toggle="tooltip" data-placement="left" data-html="true" readonly
+                       title="{{ "Champ issu des contacts originaux, présent en lecture seule pour information" | raw }}">
+            </div>
+            <div class="col-xs-12 col-md-2">
+                <label for="suffix" class="col-form-label form-control-sm">Suffixe</label>
+                <input name="suffix" id="suffix" class="form-control form-control-sm" type="text" placeholder="Vide" value="{{ client.suffix }}"
+                       data-toggle="tooltip" data-placement="left" data-html="true" readonly
+                       title="{{ "Champ issu des contacts originaux, présent en lecture seule pour information" | raw }}">
+            </div>
 
-    <label for="prenom" class="col-form-label form-control-sm">Prénom / Nom complet</label>
-    <input name="prenom" id="prenom" class="form-control form-control-sm" type="text" placeholder="" value="{{ client.prenom }}"
-           data-toggle="tooltip" data-placement="left" data-html="true"
-           title="{{ "Pour une entreprise, renseignez ici le nom complet du contact, comme par exemple 'Nicolas Bréchignac'<br>" ~
-           "Pour un particulier, renseignez le prénom de la personne" | raw }}">
-</form>
+        </div>
+    </form>
+<p>&nbsp</p>

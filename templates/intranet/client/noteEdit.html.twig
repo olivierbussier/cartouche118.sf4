@@ -10,7 +10,7 @@
 <p class="card-text">
 <form>
     <label for="createdat" class="col-form-label form-control-sm">Date de création</label>
-    <input name="createdat" id="createdat" class="form-control form-control-sm" type="date" placeholder="{{ note.id }}" value="{{ note.createdAt | date('d/m/Y') }}">
+    <input name="createdat" id="createdat" class="form-control form-control-sm" type="date" placeholder="{{ note.id }}" value="{{ note.createdAt | date('Y-m-d') }}">
 
     <label for="text" class="col-form-label form-control-sm">Adr1</label>
     <textarea class="form-control form-control-sm" name="text" id="text" rows="6">{{ note.text | raw }}</textarea>

@@ -338,15 +338,18 @@ class RebaseController extends AbstractController
     private function convertType(string $type)
     {
         $types = [
-            'fax'  => 'Fax',
-            'work' => 'Travail',
-            'cell' => 'Portable',
-            'home' => 'Maison',
-            'n'    => 'label',
-            'internet' => 'Générique',
-            'internet;work' => 'Travail',
-            'internet;home' => 'Maison',
-            'work;postal' => 'Travail'
+            'fax'           => 'Fax',
+            'work'          => 'Travail',
+            'cell'          => 'Portable',
+            'home'          => 'Maison',
+            'n'             => 'Par defaut',
+            'internet'      => 'Mail',
+            'internet;work' => 'Mail pro',
+            'internet;home' => 'Mail perso',
+            'work;postal'   => 'Adresse pro',
+            'default'       => 'Tel par defaut',
+            'main'          => 'Tel principal',
+            'pager'         => 'Tel pager'
         ];
 
         foreach ($types as $k => $v) {
@@ -354,6 +357,7 @@ class RebaseController extends AbstractController
                 return $v;
             }
         }
+        echo "erreur de traitement : $type\n"; exit;
         return $type;
     }
 
@@ -390,10 +394,21 @@ class RebaseController extends AbstractController
         return $tab;
     }
 
+    private function convertText($string)
+    {
+        //echo "<pre>$string</pre>\n";
+        $b = str_replace("\\n", "\n", $string);
+        $b = str_replace("\\,", ",", $b);
+        $b = str_replace("\\:", ":", $b);
+        $b = str_replace("\\\"", "\"", $b);
+        echo "<pre>$b</pre>\n";
+        return $string;
+    }
+
     /**
      * Importation de la base "contacts.vcf"
      *
-     * @Route("/importvcf", name="importvcf")
+     * @Route("/importvcf", name="importVCF")
      * @param EntityManagerInterface $em
      * @return Response
      * @throws Exception
@@ -402,7 +417,6 @@ class RebaseController extends AbstractController
     {
 
         $content = "";
-        $file = fopen('test.vcf', 'r');
 
         //$cards = new VCard('test.vcf');
         $cards = VCardParser::parseFromFile('contacts.vcf');
@@ -461,7 +475,7 @@ class RebaseController extends AbstractController
 
                     case 'note':
                         $note = new Note();
-                        $note->setText($item0);
+                        $note->setText($this->convertText($item0));
                         $note->setCreatedAt(new DateTime('now'));
                         $note->setClient($client);
                         $em->persist($note);
@@ -479,6 +493,7 @@ class RebaseController extends AbstractController
                         $tab = $this->getStructured($item0);
                         foreach ($tab as $k => $v) {
                             $adr = new Adresse();
+                            $adr->setNom($this->convertType($v[0]));
                             if (!is_object($v[1])) {
                                 $content .= "Erreur sur le traitement d'une adresse : ".print_r($item0, true)."\n";
                                 return new Response("<pre>$content</pre>");
@@ -489,10 +504,10 @@ class RebaseController extends AbstractController
                                         $adr->setBP($value);
                                         break;
                                     case 'extended':
-                                        $adr->setNom($value);
+                                        $adr->setAdresse2($this->convertText($value));
                                         break;
                                     case 'street':
-                                        $adr->setAdresse1($value);
+                                        $adr->setAdresse1($this->convertText($value));
                                         break;
                                     case 'city':
                                         $adr->setVille($value);
@@ -523,7 +538,7 @@ class RebaseController extends AbstractController
                         foreach ($tab as $k => $v) {
                             $mail = new Email();
                             $mail->setNom($v[0]);
-                            $mail->setLabel('');
+                            $mail->setLabel($this->convertType($v[0]));
                             $mail->setEmail($v[1]);
                             $mail->setClient($client);
                             $em->persist($mail);
@@ -534,7 +549,7 @@ class RebaseController extends AbstractController
                         foreach ($tab as $k => $v) {
                             $tel = new Telephone();
                             $tel->setNom($v[0]);
-                            $tel->setLabel('');
+                            $tel->setLabel($this->convertType($v[0]));
                             $tel->setTelephone($v[1]);
                             $tel->setClient($client);
                             $em->persist($tel);
@@ -555,76 +570,6 @@ class RebaseController extends AbstractController
         $em->flush();
         $content .= "Terminé : $Index traités\n";
         return new Response("<pre>$content</pre>");
-            /*
-        foreach ($cards as $k => $v) {
-            $client = new Client();
-            $client->setDeleted(false);
-            if (isset($v->n[0])) {
-                $client->setPrenom($v->n[0]['FirstName']);
-                $client->setNom($v->n[0]['LastName']);
-                $client->setAdditional($v->n[0]['AdditionalNames']);
-            } else {
-                $client->setPrenom('');
-                $client->setNom('');
-                $client->setAdditional('');
-            }
-            if (isset($v->fn[0])) {
-                $client->setFullName($v->fn[0]['Value']);
-            } else {
-                $client->setFullName('');
-            }
-            $org = $v->org;
-            $client->setType('personne_physique');
-            foreach ($v->email as $vmel) {
-                $mel = new Email();
-                $mel->setClient($client);
-                $mel->setNom($this->convertType($vmel['Type'][0]));
-                if (isset($vmel['label'])) {
-                    $mel->setLabel($vmel['label']);
-                }
-                $mel->setEmail($vmel['Value']);
-                $em->persist($mel);
-            }
-            foreach ($v->tel as $kpho => $vpho) {
-                $pho = new Telephone();
-                $pho->setClient($client);
-                $pho->setNom($this->convertType($vpho['Type'][0]));
-                if (isset($vpho['label'])) {
-                    $pho->setLabel($vpho['label']);
-                }
-                $pho->setTelephone($vpho['Value']);
-                $em->persist($pho);
-            }
-            foreach ($v->note as $n) {
-                $note = new Note();
-                $note->setClient($client);
-                $note->setCreatedAt(new DateTime());
-                $note->setText($this->convertString($n['Value']));
-                $em->persist($note);
-            }
-            foreach ($v->adr as $vadr) {
-                $adr = new Adresse();
-                $adr->setClient($client);
-                $adr->setBP($vadr['POBox']);
-                $adr->setAdresse2($this->convertString($vadr['ExtendedAddress']));
-                $adr->setAdresse1($this->convertString($vadr['StreetAddress']));
-                $adr->setCodePostal($vadr['PostalCode']);
-                $adr->setVille($this->convertString($vadr['Locality']));
-                $adr->setRegion($this->convertString($vadr['Region']));
-                $adr->setPays($vadr['Country']);
-                $adr->setNom($this->convertType($vadr['Type'][0]));
-                $em->persist($adr);
-            }
-            $em->persist($client);
-            if ($i++ % 200 == 0) {
-                $em->flush();
-            }
-        }
-        $em->flush();
-
-        return $this->render('intranet/rebase.html.twig', [
-            'varTitre' => 'Importation VCF'
-        ]);*/
     }
 
     private function val($str)

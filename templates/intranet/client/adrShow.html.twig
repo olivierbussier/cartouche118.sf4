@@ -1,7 +1,7 @@
 {% macro show_line(line,fNew = true) %}
 
     {% if line | length > 0 %}
-        {{ line }}{% if fNew == true %}<br>{% endif %}
+        {{ line | raw }}{% if fNew == true %}<br>{% endif %}
     {% endif %}
 
 {% endmacro %}
