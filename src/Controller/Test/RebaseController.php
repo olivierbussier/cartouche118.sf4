@@ -401,8 +401,7 @@ class RebaseController extends AbstractController
         $b = str_replace("\\,", ",", $b);
         $b = str_replace("\\:", ":", $b);
         $b = str_replace("\\\"", "\"", $b);
-        echo "<pre>$b</pre>\n";
-        return $string;
+        return $b;
     }
 
     /**
