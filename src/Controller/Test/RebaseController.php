@@ -2,7 +2,6 @@
 
 namespace App\Controller\Test;
 
-use App\Classes\VCF\VCard;
 use App\Entity\Adresse;
 use App\Entity\CategorieProduit;
 use App\Entity\Client;
@@ -21,6 +20,9 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Exception;
 use Faker\Factory;
+use JeroenDesloovere\VCard\VCard;
+use JeroenDesloovere\VCard\VCardParser;
+use ReflectionObject;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -355,65 +357,37 @@ class RebaseController extends AbstractController
         return $type;
     }
 
-    /**
-     * Importation de la base "test.vcf"
-     *
-     * @Route("/importvcftest", name="importvcftest")
-     * @return Response
-     * @throws Exception
-     */
-    public function importVCFtest(EntityManagerInterface $em)
+    private function getField($array, $field, $default = "[absent]")
     {
-        $cards = new VCard('test.vcf');
-
-        $content = "";
-
-        /**
-         * @var VCard $v
-         */
-        foreach ($cards as $k => $v) {
-
-            // Adresse
-            $adr = $v->adr;
-            foreach ($adr as $x) {
-                $buf = explode('\n', $x['StreetAddress']);
-                if (count($buf)>1) {
-                    $content .= "2L Org    : '".trim($buf[0])."'\n";
-                    $content .= "2L Street : '".trim($buf[1])."'\n";
-                } else {
-                    $content .= "1L        : '{$x['StreetAddress']}'";
-                }
-                $content .= "POBox     : '".trim($x['POBox'])."'\n";
-                $content .= "EXTAdr    : '".trim($x['ExtendedAddress'])."'\n";
-                $content .= "StreetAdr : '".trim($x['StreetAddress'])."'\n";
-                $content .= "Locality  : '".trim($x['Locality'])."'\n";
-                $content .= "Region    : '".trim($x['Region'])."'\n";
-                $content .= "PostalCode: '".trim($x['PostalCode'])."'\n";
-                $content .= "Country   : '".trim($x['Country'])."'\n";
-                $content .= "------------------\n";
-            }
-            $org = $v->org;
-            foreach ($org as $x) {
-                $content .=  "ORG Name  : '".trim($x['Name'])."'\n";
-                $content .=  "ORG Unit1 : '".trim($x['Unit1'])."'\n";
-                $content .=  "ORG Unit2 : '".trim($x['Unit2'])."'\n";
-                $content .= "------------------\n";
-            }
-            $org = $v->email;
-            foreach ($org as $x) {
-                $content .=  "email val : '".trim($x['Value'])."'\n";
-                if (isset($x['label']))
-                    $content .=  "email labl: '".trim($x['label'])."'\n";
-                $content .=  "email val : '";
-                foreach ($x['Type'] as $y) {
-                    $content .= $y.",";
-                }
-                $content .= "'\n";
-                $content .= "------------------\n";
-            }
-            $content .= "*****************\n";
+        if (isset($array[$field])) {
+            return $array[$field];
+        } else {
+            return $default;
         }
-        return new Response("<pre>$content</pre>");
+    }
+
+    private $content = "";
+
+    private function prt($field, $array)
+    {
+        $this->content .= "$field  : '".$this->getField($array, $field)."'\n";
+    }
+
+    private function getStructured($array)
+    {
+        $tab = [];
+
+        //return print_r($array, true);
+        foreach ($array as $key1 => $value1) {
+            if (is_array($value1)) {
+                foreach ($value1 as $key2 => $value2) {
+                    $tab[] = [$key1,$value2];
+                }
+            } else {
+                $tab[] = [$key1, $value1];
+            }
+        }
+        return $tab;
     }
 
     /**
@@ -427,8 +401,11 @@ class RebaseController extends AbstractController
     public function importVCF(EntityManagerInterface $em)
     {
 
+        $content = "";
+        $file = fopen('test.vcf', 'r');
 
-        $cards = new VCard('contacts.vcf');
+        //$cards = new VCard('test.vcf');
+        $cards = VCardParser::parseFromFile('contacts.vcf');
 
         $this->delData(Note::class);
         $this->delData(Telephone::class);
@@ -441,12 +418,144 @@ class RebaseController extends AbstractController
 
         // Création des clients et des notes
 
-        //$parser = VCardParser::parseFromFile('contacts.vcf');
-        //$parser = VCardParser::parseFromFile('test.vcf');
-        //$cards = $parser->getCards();
+        $Index=0;
+        foreach ($cards as $index => $card) {
+            $Index++;
+            $client = new Client();
+            $client->setDeleted(false);
+            $client->setType('personne_physique');
+            foreach ($card as $key0 => $item0) {
+                switch (strtolower($key0)) {
+                    // Champs textes
+                    case 'version':
+                        break;
+                    case 'title':
+                        $client->setTitre($item0);
+                        break;
+                    case 'photo':
+                        $client->setPhoto($item0);
+                        break;
+                    case 'organization':
+                        $client->setOrganization($item0);
+                        break;
+                    case 'fullname':
+                        $client->setFullName($item0);
+                        break;
+                    case 'lastname':
+                        $client->setNom($item0);
+                        break;
+                    case 'firstname':
+                        $client->setPrenom($item0);
+                        break;
+                    case 'additional':
+                        $client->setAdditional($item0);
+                        break;
+                    case 'prefix':
+                        $client->setPrefix($item0);
+                        break;
+                    case 'suffix':
+                        $client->setSuffix($item0);
+                        break;
 
-        $i=0;
+                    // Champs note
 
+                    case 'note':
+                        $note = new Note();
+                        $note->setText($item0);
+                        $note->setCreatedAt(new DateTime('now'));
+                        $note->setClient($client);
+                        $em->persist($note);
+                        break;
+
+                    // Champs structurés
+
+                    case 'categories':
+                        break;
+
+                    case 'url':
+                        break;
+
+                    case 'address':
+                        $tab = $this->getStructured($item0);
+                        foreach ($tab as $k => $v) {
+                            $adr = new Adresse();
+                            if (!is_object($v[1])) {
+                                $content .= "Erreur sur le traitement d'une adresse : ".print_r($item0, true)."\n";
+                                return new Response("<pre>$content</pre>");
+                            }
+                            foreach ($v[1] as $key => $value) {
+                                switch (strtolower($key)) {
+                                    case 'name':
+                                        $adr->setBP($value);
+                                        break;
+                                    case 'extended':
+                                        $adr->setNom($value);
+                                        break;
+                                    case 'street':
+                                        $adr->setAdresse1($value);
+                                        break;
+                                    case 'city':
+                                        $adr->setVille($value);
+                                        break;
+                                    case 'region':
+                                        $adr->setRegion($value);
+                                        break;
+                                    case 'zip':
+                                        $adr->setCodePostal($value);
+                                        break;
+                                    case 'country':
+                                        $adr->setPays($value);
+                                        break;
+
+                                    default:
+                                        $content .= "Erreur sur le traitement adresse : clé non traitée".$key."\n";
+                                        return new Response("<pre>$content</pre>");
+                                        break;
+                                }
+                            }
+                            $adr->setClient($client);
+                            $em->persist($adr);
+                        }
+                        break;
+
+                    case 'email':
+                        $tab = $this->getStructured($item0);
+                        foreach ($tab as $k => $v) {
+                            $mail = new Email();
+                            $mail->setNom($v[0]);
+                            $mail->setLabel('');
+                            $mail->setEmail($v[1]);
+                            $mail->setClient($client);
+                            $em->persist($mail);
+                        }
+                        break;
+                    case 'phone':
+                        $tab = $this->getStructured($item0);
+                        foreach ($tab as $k => $v) {
+                            $tel = new Telephone();
+                            $tel->setNom($v[0]);
+                            $tel->setLabel('');
+                            $tel->setTelephone($v[1]);
+                            $tel->setClient($client);
+                            $em->persist($tel);
+                        }
+                        break;
+
+                    default:
+                        echo "erreur, champ '$key0' non traité\n";
+                        exit;
+                        break;
+                }
+            }
+            $em->persist($client);
+            if ($Index % 500 == 0) {
+                $em->flush();
+            }
+        }
+        $em->flush();
+        $content .= "Terminé : $Index traités\n";
+        return new Response("<pre>$content</pre>");
+            /*
         foreach ($cards as $k => $v) {
             $client = new Client();
             $client->setDeleted(false);
@@ -464,6 +573,7 @@ class RebaseController extends AbstractController
             } else {
                 $client->setFullName('');
             }
+            $org = $v->org;
             $client->setType('personne_physique');
             foreach ($v->email as $vmel) {
                 $mel = new Email();
@@ -514,7 +624,7 @@ class RebaseController extends AbstractController
 
         return $this->render('intranet/rebase.html.twig', [
             'varTitre' => 'Importation VCF'
-        ]);
+        ]);*/
     }
 
     private function val($str)

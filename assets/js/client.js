@@ -15,7 +15,7 @@ require('../css/client.scss');
 function cEditTitre(id)
 {
     var url = $(id).data('url');
-    var rec  = $(id).closest('.card-title').find('.item-edit');
+    var rec  = $(id).closest('.card-title').find('.item-edit-titre');
 
     $.ajax(url).done(function (data) {
         $(rec).html(data);
@@ -31,7 +31,7 @@ function cSaveTitre(id)
     var url = $(id).data('url');
 
     var ancestor = $(id).closest('.card-title');
-    var editzone  = ancestor.find('.item-edit');
+    var editzone  = ancestor.find('.item-edit-titre');
     var titrezone  = ancestor.find('.titre-edit');
 
     var form = $(editzone).find('form');
@@ -74,7 +74,7 @@ function cDelTitre(id)
 function cCancelTitre(id)
 {
     var url = $(id).data('url');
-    var rec  = $(id).closest('.card').find('.item-edit');
+    var rec  = $(id).closest('.card').find('.item-edit-titre');
 
     $.ajax(url).done(function (data) {
         $(rec).html(data);
