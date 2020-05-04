@@ -93,8 +93,8 @@ function cAdd(id)
     var o = $(id).closest('.card').find('.old-edit');
 
     $.ajax(url).done(function (data) {
-        data = o.html() + '<div class="item-edit">' + data + "</div>"
-        $(o).html(data);
+        data = '<div class="item-edit frame-note">' + data + '</div>' + o.html()
+            $(o).html(data);
     })
 } window.cAdd = cAdd;
 
@@ -109,6 +109,7 @@ function cEdit(id)
 
     $.ajax(url).done(function (data) {
         $(rec).html(data);
+        $(rec).addClass("frame-note")
     })
 } window.cEdit = cEdit;
 
@@ -126,6 +127,7 @@ function cCancel(id)
             $(rec).remove();
         } else {
             $(rec).html(data);
+            $(rec).removeClass("frame-note")
         }
     })
 
@@ -149,6 +151,7 @@ function cSave(id)
         url: url
     }).done(function (data) {
         $(rec).html(data)
+        $(rec).removeClass("frame-note")
     })
 } window.cSave = cSave;
 
