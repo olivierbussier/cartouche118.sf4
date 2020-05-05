@@ -142,6 +142,13 @@
         </div>
     {% endfor %}
 </div>
+
+{% if nbPages > 1 %}
+    <nav aria-label="NavClients">
+        {{ pages.pages(nbPages, currentPage, term) }}
+    </nav>
+{% endif %}
+
 <script>
     $(document).ready(function () {
         initEdit();
