@@ -2,6 +2,7 @@
 
 namespace App\Controller\Test;
 
+use App\Classes\VCF\VCardParser;
 use App\Entity\Adresse;
 use App\Entity\CategorieProduit;
 use App\Entity\Client;
@@ -20,9 +21,6 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Exception;
 use Faker\Factory;
-use JeroenDesloovere\VCard\VCard;
-use JeroenDesloovere\VCard\VCardParser;
-use ReflectionObject;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -377,23 +375,6 @@ class RebaseController extends AbstractController
         $this->content .= "$field  : '".$this->getField($array, $field)."'\n";
     }
 
-    private function getStructured($array)
-    {
-        $tab = [];
-
-        //return print_r($array, true);
-        foreach ($array as $key1 => $value1) {
-            if (is_array($value1)) {
-                foreach ($value1 as $key2 => $value2) {
-                    $tab[] = [$key1,$value2];
-                }
-            } else {
-                $tab[] = [$key1, $value1];
-            }
-        }
-        return $tab;
-    }
-
     private function convertText($string)
     {
         //echo "<pre>$string</pre>\n";
@@ -403,7 +384,6 @@ class RebaseController extends AbstractController
         $b = str_replace("\\\"", "\"", $b);
         return $b;
     }
-
 
     /**
      * Importation de la base "contacts.vcf"
