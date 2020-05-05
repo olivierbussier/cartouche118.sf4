@@ -804,7 +804,7 @@ class RebaseController extends AbstractController
                 $commande->setClient($client);
                 $dat = $fak->dateTimeBetween('-5 years', 'now');
                 $commande->setCreatedAt($dat);
-                $commande->setReference($dat->format('Ymd-hms') . '-' . $commande->getClient());
+                $commande->setReference("commande-".$client->getNom());
                 $commande->setPrixHT(0);
                 $commande->setEcoHT(0);
                 $commande->setEcoTTC(0);
