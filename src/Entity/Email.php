@@ -22,11 +22,6 @@ class Email
     private $nom;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $label;
-
-    /**
      * @ORM\Column(type="string", length=255)
      */
     private $email;
@@ -36,6 +31,11 @@ class Email
      * @ORM\JoinColumn(nullable=false)
      */
     private $client;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $label;
 
     public function getId(): ?int
     {
@@ -87,19 +87,15 @@ class Email
         $this->nom = $nom;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getLabel()
+    public function getLabel(): ?string
     {
         return $this->label;
     }
 
-    /**
-     * @param mixed $label
-     */
-    public function setLabel($label): void
+    public function setLabel(?string $label): self
     {
         $this->label = $label;
+
+        return $this;
     }
 }

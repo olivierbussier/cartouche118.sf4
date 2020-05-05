@@ -13,7 +13,11 @@
     <img src="{{ asset('/ico/trash.svg') }}" alt="del"
          data-url="{{ url('delAdr', { id: adresse.id }) }}"
          onclick="cDel(this)">
-    {{ adresse.nom }}
+    {% if adresse.label %}
+        {{ adresse.label }}
+    {% else %}
+        {{ adresse.nom }}
+    {% endif %}
 </h6>
 
 <div class="card-text">

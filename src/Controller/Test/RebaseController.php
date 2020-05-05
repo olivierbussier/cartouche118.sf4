@@ -404,6 +404,25 @@ class RebaseController extends AbstractController
         return $b;
     }
 
+
+    /**
+     * Importation de la base "contacts.vcf"
+     *
+     * @Route("/test", name="test")
+     * @param EntityManagerInterface $em
+     * @return Response
+     * @throws Exception
+     */
+    public function test(EntityManagerInterface $em)
+    {
+
+        $content = "";
+
+        echo "<pre>";
+        $cards = VCardParser::parseFromFile('contacts.vcf');
+        return new Response("");
+    }
+
     /**
      * Importation de la base "contacts.vcf"
      *
@@ -417,7 +436,6 @@ class RebaseController extends AbstractController
 
         $content = "";
 
-        //$cards = new VCard('test.vcf');
         $cards = VCardParser::parseFromFile('contacts.vcf');
 
         $this->delData(Note::class);
@@ -489,15 +507,16 @@ class RebaseController extends AbstractController
                         break;
 
                     case 'address':
-                        $tab = $this->getStructured($item0);
-                        foreach ($tab as $k => $v) {
+                        //$tab = $this->getStructured($item0);
+                        foreach ($item0 as $k => $v) {
                             $adr = new Adresse();
                             $adr->setNom($this->convertType($v[0]));
-                            if (!is_object($v[1])) {
+                            $adr->setLabel($v[1]);
+                            if (!is_object($v[2])) {
                                 $content .= "Erreur sur le traitement d'une adresse : ".print_r($item0, true)."\n";
                                 return new Response("<pre>$content</pre>");
                             }
-                            foreach ($v[1] as $key => $value) {
+                            foreach ($v[2] as $key => $value) {
                                 switch (strtolower($key)) {
                                     case 'name':
                                         $adr->setBP($value);
@@ -533,26 +552,30 @@ class RebaseController extends AbstractController
                         break;
 
                     case 'email':
-                        $tab = $this->getStructured($item0);
-                        foreach ($tab as $k => $v) {
+                        //$tab = $this->getStructured($item0);
+                        foreach ($item0 as $k => $v) {
                             $mail = new Email();
-                            $mail->setNom($v[0]);
-                            $mail->setLabel($this->convertType($v[0]));
-                            $mail->setEmail($v[1]);
+                            $mail->setNom($this->convertType($v[0]));
+                            $mail->setLabel($v[1]);
+                            $mail->setEmail($v[2]);
                             $mail->setClient($client);
                             $em->persist($mail);
                         }
                         break;
                     case 'phone':
-                        $tab = $this->getStructured($item0);
-                        foreach ($tab as $k => $v) {
+                        //$tab = $this->getStructured($item0);
+                        foreach ($item0 as $k => $v) {
                             $tel = new Telephone();
-                            $tel->setNom($v[0]);
-                            $tel->setLabel($this->convertType($v[0]));
-                            $tel->setTelephone($v[1]);
+                            $tel->setNom($this->convertType($v[0]));
+                            $tel->setLabel($v[1]);
+                            $tel->setTelephone($v[2]);
                             $tel->setClient($client);
                             $em->persist($tel);
                         }
+                        break;
+
+                    case 'nickname':
+                    case 'role':
                         break;
 
                     default:

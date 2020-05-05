@@ -13,7 +13,7 @@
     <img src="{{ asset('/ico/trash.svg') }}" alt="del"
          data-url="{{ url('delMail', { id: mail.id }) }}"
          onclick="cDel(this)">
-    {% if mail.nom == 'label' %}
+    {% if mail.label %}
         {{ mail.label }}
     {% else %}
         {{ mail.nom }}

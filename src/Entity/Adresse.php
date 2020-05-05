@@ -62,6 +62,11 @@ class Adresse
      */
     private $region;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $label;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -186,6 +191,18 @@ class Adresse
     public function setRegion(?string $region): self
     {
         $this->region = $region;
+
+        return $this;
+    }
+
+    public function getLabel(): ?string
+    {
+        return $this->label;
+    }
+
+    public function setLabel(?string $label): self
+    {
+        $this->label = $label;
 
         return $this;
     }
