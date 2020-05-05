@@ -22,44 +22,6 @@ use Symfony\Component\Routing\Annotation\Route;
 class SecurityController extends AbstractController
 {
     /**
-     * @Route("/registration", name="registration")
-     * @param Request $request
-     * @param ObjectManager $manager
-     * @param UserPasswordEncoderInterface $encoder
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
-     */
-    public function Registration(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder)
-    {
-        $user = new User();
-
-        $form = $this->createForm(RegistrationType::class, $user);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $hash = $encoder->encodePassword($user, $user->getPassword());
-            $user->setPassword($hash);
-
-            $role = new Roles();
-            $role->setRole('ROLE_USER');
-            $user->addRole($role);
-            $manager->persist($role);
-            $role = new Roles();
-            $role->setRole('ROLE_PUB');
-            $user->addRole($role);
-            $manager->persist($role);
-
-            $manager->flush();
-
-            return $this->redirectToRoute('connexion');
-        }
-
-        return $this->render('intranet/registration.html.twig', [
-            'formInscr' => $form->createView()
-        ]);
-    }
-
-    /**
      * @Route("/connexion", name="connexion")
      * @param Request $request
      * @param AuthenticationUtils $authenticationUtils

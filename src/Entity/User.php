@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -46,20 +45,15 @@ class User implements UserInterface
     private $confirmPassword;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Roles", mappedBy="adherent", cascade={"persist"})
+    @ORM\Column(type="json")
      */
-    private $roles;
+    private $roles = [];
 
     public function __toString()
     {
         return "-------";
 
         // TODO: Implement __toString() method.
-    }
-
-    public function __construct()
-    {
-        $this->roles = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -128,46 +122,27 @@ class User implements UserInterface
     }
 
     /**
-     * @return Collection|Roles[]
+     * @return array
      */
     public function getRoles()
     {
-        $ret = [];
-        /**
-         * @var Roles $v
-         */
-        foreach ($this->roles as $v) {
-            $ret[] = $v->getRole();
+        $roles = $this->roles;
+
+        // give everyone ROLE_USER!
+        if (!in_array('ROLE_USER', $roles)) {
+            $roles[] = 'ROLE_USER';
         }
-        // $ret = $this->roles->getValues();
-        return $ret;
+
+        return $roles;
     }
 
-    public function addRole(Roles $role): self
+    /**
+     * @param array $roles
+     */
+    public function setRoles(array $roles)
     {
-        if (!$this->roles->contains($role)) {
-            $this->roles[] = $role;
-            $role->setAdherent($this);
-        }
-
-        return $this;
+        $this->roles = $roles;
     }
-
-    public function removeRole(Roles $role): self
-    {
-        if ($this->roles->contains($role)) {
-            $this->roles->removeElement($role);
-            // set the owning side to null (unless already changed)
-            if ($role->getAdherent() === $this) {
-                $role->setAdherent(null);
-            }
-        }
-
-        return $this;
-    }
-
-
-
 
     public function eraseCredentials()
     {

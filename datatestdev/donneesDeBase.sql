@@ -15,51 +15,6 @@
 --
 -- Base de données :  `c118`
 --
-delete from note;
-ALTER TABLE note AUTO_INCREMENT=1;
-
-delete from telephone;
-ALTER TABLE telephone AUTO_INCREMENT=1;
-
-delete from email;
-ALTER TABLE email AUTO_INCREMENT=1;
-
-delete from adresse;
-ALTER TABLE adresse AUTO_INCREMENT=1;
-
-delete from ligne_commande;
-ALTER TABLE ligne_commande AUTO_INCREMENT=1;
-
-delete from produit;
-ALTER TABLE produit AUTO_INCREMENT=1;
-
-delete from commande;
-ALTER TABLE commande AUTO_INCREMENT=1;
-
-delete from client;
-ALTER TABLE client AUTO_INCREMENT=1;
-
-delete from taxe;
-ALTER TABLE taxe AUTO_INCREMENT=1;
-
-delete from categorie_produit;
-ALTER TABLE categorie_produit AUTO_INCREMENT=1;
-
-delete from marque;
-ALTER TABLE marque AUTO_INCREMENT=1;
-
-delete from fournisseur;
-ALTER TABLE fournisseur AUTO_INCREMENT=1;
-
-delete from blog;
-ALTER TABLE blog AUTO_INCREMENT=1;
-
-delete from roles;
-ALTER TABLE roles AUTO_INCREMENT=1;
-
-delete from user;
-ALTER TABLE user AUTO_INCREMENT=1;
-
 -- --------------------------------------------------------
 
 --
@@ -94,18 +49,8 @@ INSERT INTO `blog` (`id`, `posted_at`, `position`, `title`, `headline`, `content
 -- Déchargement des données de la table `user`
 --
 
-INSERT INTO `user` (`id`, `user_name`, `nom`, `prenom`, `mail`, `password`) VALUES
-(1, 'obussier_adm', 'Bussier', 'Olivier', 'olivier@bussier.fr', '$2y$10$livyvJfA92niw.1fgnV/A.RXc5sP.a.ddABCsVcD9CITZ0HOj2u3i'),
-(2, 'obussier_usr', 'Bussier', 'Olivier', 'olivier@bussier.fr', '$2y$10$livyvJfA92niw.1fgnV/A.RXc5sP.a.ddABCsVcD9CITZ0HOj2u3i'),
-(3, 'obussier_pub', 'Bussier', 'Olivier', 'olivier@bussier.fr', '$2y$10$livyvJfA92niw.1fgnV/A.RXc5sP.a.ddABCsVcD9CITZ0HOj2u3i');
+INSERT INTO `user` (`id`, `user_name`, `nom`, `prenom`, `mail`, `password`, `roles`) VALUES
+(1, 'obussier_adm', 'Bussier', 'Olivier', 'olivier@bussier.fr', '$2y$10$livyvJfA92niw.1fgnV/A.RXc5sP.a.ddABCsVcD9CITZ0HOj2u3i','["ROLE_USER","ROLE_ADMIN"]'),
+(2, 'sylvie', 'Bussier', 'Olivier', 'olivier2@bussier.fr', '$2y$10$livyvJfA92niw.1fgnV/A.RXc5sP.a.ddABCsVcD9CITZ0HOj2u3i','["ROLE_USER","ROLE_VENDEUR"]'),
+(3, 'obussier_pub', 'Bussier', 'Olivier', 'olivier3@bussier.fr', '$2y$10$livyvJfA92niw.1fgnV/A.RXc5sP.a.ddABCsVcD9CITZ0HOj2u3i','["ROLE_USER","ROLE_PUB"]');
 
---
--- Déchargement des données de la table `roles`
---
-
-INSERT INTO `roles` (`id`, `adherent_id`, `role`) VALUES
-(1, 1, 'ROLE_USER'),
-(2, 1, 'ROLE_ADMIN'),
-(3, 2, 'ROLE_USER'),
-(5, 3, 'ROLE_USER'),
-(6, 3, 'ROLE_PUB');

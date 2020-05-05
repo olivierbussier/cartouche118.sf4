@@ -4,11 +4,14 @@
 
 {% block main_page %}
 
+    <h5>Créer un utilisateur</h5>
     <h1>Liste des utilisateurs</h1>
     <table class="table table-hover">
         <tr>
         <th>ID</th>
-        <th>Email</th>
+        <th>Prénom</th>
+        <th>Nom</th>
+        <th>Mail</th>
         <th>Rôles</th>
         <th>Actions</th>
         </tr>
@@ -17,16 +20,20 @@
         {% for user in users %}
             <tr>
                 <td>{{ user.id }}</td>
+                <td>{{ user.prenom }}</td>
+                <td>{{ user.nom }}</td>
                 <td>{{ user.mail }}</td>
                 <td>
                     {# On boucle sur les rôles #}
                     {% for role in user.roles %}
                         {% if role == "ROLE_USER" %}
-                            Utilisateur
+                            [Utilisateur]
                         {% elseif role == "ROLE_EDITOR" %}
-                            Editeur
+                            [Editeur]
                         {% elseif role == "ROLE_ADMIN" %}
-                            Administrateur
+                            [Administrateur]
+                        {% elseif role == "ROLE_VENDEUR" %}
+                            [Vendeur]
                         {% endif %}
                     {% endfor %}
                 </td>
