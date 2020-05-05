@@ -43,14 +43,16 @@ class ClientRepository extends ServiceEntityRepository
     {
         $qb = $this->createQueryBuilder('c');
 
-        $qb->select('c,n,t,m')
+        $qb->select('c,n,t,m,a')
             //->from('App\\Entity\\Client', 'c')
             ->leftJoin('c.notes', 'n')
             ->leftJoin('c.telephones', 't')
             ->leftJoin('c.emails', 'm')
+            ->leftJoin('c.adresses', 'a')
             ->where("((c.nom like :term) or (c.prenom like :term) or (c.fullName like :term) or ".
                              "(n.text like :term) or (t.telephone like :term) or (m.email like :term) or ".
-                             "m.email like :term) or (c.organization like :term) or (c.titre like :term)")
+                             "(m.email like :term) or (c.organization like :term) or (c.titre like :term) or ".
+                             "(a.codePostal like :term) or (a.ville like :term))")
             ->andWhere("c.deleted = false")
             ->setParameter('term', "%$term%")
             ->OrderBy('c.fullName', 'ASC')
