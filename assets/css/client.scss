@@ -6,3 +6,7 @@
   border-radius: 0.25rem;
 }
 
+.button-edits:hover {
+  transform: rotate(360deg);
+  transition-duration: 900ms;
+}

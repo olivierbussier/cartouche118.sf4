@@ -1,8 +1,8 @@
 <h6 class="card-title">
-    <img src="{{ asset('/ico/check.svg') }}"
+    <img src="{{ asset('/ico/check.svg') }}" class="button-edits"
          data-url="{{ url('saveTel',{ id: telephone.id  })  }}"
          onclick="cSave(this)">
-    <img src="{{ asset('/ico/x-circle.svg') }}"
+    <img src="{{ asset('/ico/x-circle.svg') }}" class="button-edits"
          data-url="{{ url('cancelTel',{ id: telephone.id  }) }}"
          onclick="cCancel(this)">
     {{ telephone.nom }}

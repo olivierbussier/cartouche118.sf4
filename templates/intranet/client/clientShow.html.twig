@@ -1,7 +1,7 @@
-<img src="{{ asset('/ico/pencil-square.svg') }}" alt="edit"
+<img src="{{ asset('/ico/pencil-square.svg') }}" alt="edit"  class="button-edits"
      data-url="{{ url('editClient', { id: client.id }) }}"
      onclick="cEditTitre(this)">
-<img src="{{ asset('/ico/trash.svg') }}" alt="del"
+<img src="{{ asset('/ico/trash.svg') }}" alt="del"  class="button-edits"
      data-url="{{ url('delClient', { id: client.id }) }}"
      onclick="cDelTitre(this)">
 

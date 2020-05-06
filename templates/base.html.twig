@@ -107,18 +107,6 @@
                             <a class="nav-link fg-blue-c118" href="{{ path('index_faq') }}">FAQ</a>
                         </li>
 
-                        <li class="nav-item dropdown active">
-                            <a class="nav-link dropdown-toggle fg-blue-c118 " href="#" id="Intranet"
-                               role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">/
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="Intranet">
-                                {{ Menu.item('index_intranet', 'Accès à l\'intranet') }}
-                                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                                    {{ Menu.item('deconnexion','Logout') }}
-                                {% endif %}
-                            </div>
-                        </li>
-
                         {% if testDroit(app, 'ROLE_VENDEUR') %}
 
                             <li class="nav-item dropdown active">
@@ -153,6 +141,18 @@
                             </li>
 
                         {% endif %}
+
+                        <li class="nav-item dropdown active">
+                            <a class="nav-link dropdown-toggle fg-blue-c118 " href="#" id="Intranet"
+                               role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">/
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="Intranet">
+                                {{ Menu.item('index_intranet', 'Accès à l\'intranet') }}
+                                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                                    {{ Menu.item('deconnexion','Logout') }}
+                                {% endif %}
+                            </div>
+                        </li>
 
                     </ul>
 

@@ -1,8 +1,8 @@
 <h6 class="card-title">
-    <img src="{{ asset('/ico/pencil-square.svg') }}" alt="edit"
+    <img src="{{ asset('/ico/pencil-square.svg') }}" alt="edit" class="button-edits"
          data-url="{{ url('editTel', { id: telephone.id }) }}"
          onclick="cEdit(this)">
-    <img src="{{ asset('/ico/trash.svg') }}" alt="del"
+    <img src="{{ asset('/ico/trash.svg') }}" alt="del" class="button-edits"
          data-url="{{ url('delTel', { id: telephone.id }) }}"
          onclick="cDel(this)">
     {% if telephone.label %}

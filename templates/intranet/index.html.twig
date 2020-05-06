@@ -9,7 +9,7 @@
     <div class="container">
 
         <div class="col">
-            <h3>{{ app.user.Prenom ~ ' ' ~ app.user.nom ~ ' (' ~ (app.user.username) ~ ')' }} , Bienvenue sur l'Intranet Plongeur</h3>
+            <h4>{{ app.user.Prenom ~ ' ' ~ app.user.nom ~ ' (' ~ (app.user.username) ~ ')' }} , Bienvenue sur l'Intranet</h4>
         </div>
 
 
@@ -20,11 +20,25 @@
 #}
 
         {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_PUB') %}
-            {% include 'intranet/menu/inc_admin_publication.html.twig' %}
+            <div class="col">
+                <h5>Intranet publication des contenus</h5>
+            </div>
+
+            <div class="col">
+
+                {{  control.bouton(
+                    ' Publications page d\'accueil',
+                    url('blog_admin_index'),
+                    '',
+                    'btn-block btn-outline-primary',
+                    '')
+                }}
+
+            </div>
         {% endif %}
 
         <div class="col">
-            <h3>Pour vous déconnecter :</h3>
+            <h5>Pour vous déconnecter :</h5>
         </div>
 
         <div class="col">

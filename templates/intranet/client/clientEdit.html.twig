@@ -1,7 +1,7 @@
-<img src="{{ asset('/ico/check.svg') }}" alt="save"
+<img src="{{ asset('/ico/check.svg') }}" alt="save" class="button-edits"
      data-url="{{ url('saveClient', { id: client.id }) }}"
      onclick="cSaveTitre(this)">
-<img src="{{ asset('/ico/x-circle.svg') }}" alt="cancel"
+<img src="{{ asset('/ico/x-circle.svg') }}" alt="cancel" class="button-edits"
      data-url="{{ url('cancelClient',{ id: client.id  }) }}"
      onclick="cCancelTitre(this)">
 {% if client.fullName | length == 0 %}
