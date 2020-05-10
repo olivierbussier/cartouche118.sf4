@@ -49,6 +49,9 @@ INSERT INTO `blog` (`id`, `posted_at`, `position`, `title`, `headline`, `content
 -- Déchargement des données de la table `user`
 --
 
+INSERT INTO `unik_id` (`id`, `reference`) VALUES
+(1, 1);
+
 INSERT INTO `user` (`id`, `user_name`, `nom`, `prenom`, `mail`, `password`, `roles`) VALUES
 (1, 'obussier_adm', 'Bussier', 'Olivier', 'olivier@bussier.fr', '$2y$10$livyvJfA92niw.1fgnV/A.RXc5sP.a.ddABCsVcD9CITZ0HOj2u3i','["ROLE_USER","ROLE_ADMIN"]'),
 (2, 'sylvie', 'Bussier', 'Olivier', 'olivier2@bussier.fr', '$2y$10$livyvJfA92niw.1fgnV/A.RXc5sP.a.ddABCsVcD9CITZ0HOj2u3i','["ROLE_USER","ROLE_VENDEUR"]'),

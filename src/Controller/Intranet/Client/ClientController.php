@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\Intranet;
+namespace App\Controller\Intranet\Client;
 
 use App\Classes\Config\Config;
 use App\Entity\Client;
@@ -48,8 +48,8 @@ class ClientController extends AbstractController
     {
         $r = new Response();
 
-        $term = $request->request->get('term');
-        $pageNb = $request->request->get('pageNb');
+        $term = $request->get('query');
+        $pageNb = $request->get('pageNb');
         $r->setContent('ok');
 
         $cr = $em->getRepository(Client::class);

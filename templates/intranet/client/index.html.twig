@@ -15,14 +15,51 @@
 {% block main_page %}
 
     {% import 'macros/bouton.html.twig' as control %}
-    {% import "macros/textAjax.html.twig" as ajax %}
 
     <div class="row">
 
         <div class="col">
             <form method="post">
                 <div class="form-group">
-                    {{ ajax.text('', 'recherche', path('ajax_search_clients'), term, currentPage) }}
+                    <script>
+                        $(function () {
+
+                            $('#id_1').autocomplete({
+                                serviceUrl: '{{ path('ajax_search_clients') }}',
+                                params: { pageNb:{{ currentPage }} },
+
+                                noCache: true,
+                                minChars: 2,
+                                transformResult: function (response) {
+                                    $('#render_list').html(response)
+                                    return '{}'
+                                }
+                            });
+
+                            {#
+                            $("#id_1111").autocomplete({
+                                source: function (request) {
+                                    $.ajax({
+                                        type: "POST",
+                                        url: '{{ path('ajax_search_clients') }}',
+                                        data: {term: request.term, pageNb:{{ currentPage }} },
+                                        success: function(data) {
+                                            $('#render_list').html(data)
+                                        },
+                                        datatype: 'html',
+                                        delay: 0
+                                    });
+                                },
+                                minLength: 0,
+                                select: function (event, ui) {
+                                    $("#id_1").autocomplete('search', ui['item']['value'])
+                                }
+                            })#}
+                        })
+                    </script>
+                    <div class="ui-widget">
+                        <input name="recherche" class="form-control" id="id_1" value="{{ term }}" placeholder="Texte à rechercher">
+                    </div>
                 </div>
             </form>
         </div>
@@ -31,6 +68,17 @@
     <div id="render_list">
     </div>
 
-     {{ ajax.script(path('ajax_search_clients'), "'" ~ term ~ "'", currentPage) }}
+    <script>
+        $.ajax({
+            type: "POST",
+            url: '{{ path('ajax_search_clients') }}',
+            data: {term: '{{ term | raw}}', pageNb:{{ currentPage }} },
+            success: function(data) {
+                $('#render_list').html(data)
+            },
+            datatype: 'html',
+            delay: 0
+        });
+    </script>
 
 {% endblock %}

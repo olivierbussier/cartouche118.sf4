@@ -12,6 +12,10 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Commande
 {
+    public const DRAFT = 1;
+    public const VALIDATED = 2;
+    public const REMOVED = 10;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -26,26 +30,27 @@ class Commande
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @ORM\GeneratedValue()
      */
     private $reference;
 
     /**
-     * @ORM\Column(type="decimal", precision=10, scale=2)
+     * @ORM\Column(type="decimal", precision=10, scale=2, nullable=true)
      */
     private $prixHT;
 
     /**
-     * @ORM\Column(type="decimal", precision=10, scale=2)
+     * @ORM\Column(type="decimal", precision=10, scale=2, nullable=true)
      */
     private $prixTTC;
 
     /**
-     * @ORM\Column(type="decimal", precision=10, scale=2)
+     * @ORM\Column(type="decimal", precision=10, scale=2, nullable=true)
      */
     private $ecoHT;
 
     /**
-     * @ORM\Column(type="decimal", precision=10, scale=2)
+     * @ORM\Column(type="decimal", precision=10, scale=2, nullable=true)
      */
     private $ecoTTC;
 
@@ -60,6 +65,11 @@ class Commande
      */
     private $ligneCommandes;
 
+    /**
+     * @ORM\Column(type="smallint")
+     */
+    private $status;
+
     public function __construct()
     {
         $this->ligneCommandes = new ArrayCollection();
@@ -68,6 +78,11 @@ class Commande
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function clearId()
+    {
+        $this->id = 0;
     }
 
     public function getCreatedAt(): ?DateTimeInterface
@@ -199,5 +214,17 @@ class Commande
     public function setEcoTTC($ecoTTC): void
     {
         $this->ecoTTC = $ecoTTC;
+    }
+
+    public function getStatus(): ?int
+    {
+        return $this->status;
+    }
+
+    public function setStatus(int $status): self
+    {
+        $this->status = $status;
+
+        return $this;
     }
 }

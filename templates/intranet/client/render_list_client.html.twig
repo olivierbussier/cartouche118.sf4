@@ -32,8 +32,9 @@
                     <div class="col">
                         <div class="card h-100">
                             <h5 class="card-header">
-                                <img src="{{ asset('/ico/house.svg') }}" alt="home">
+                                <img src="{{ asset('/ico/adresse.svg') }}" alt="home" style="width: 30px">
                                 <img src="{{ asset('/ico/plus-circle.svg') }}" alt="add" class="button-edits"
+                                     style="width: 30px"
                                      data-url="{{ url('addAdr', { client: client.id }) }}"
                                      onclick="cAdd(this)">
                             </h5>
@@ -52,8 +53,9 @@
                     <div class="col">
                         <div class="card h-100">
                             <h5 class="card-header">
-                                <img src="{{ asset('/ico/house.svg') }}" alt="home">
+                                <img src="{{ asset('/ico/telephone.svg') }}" alt="home" style="width: 30px">
                                 <img src="{{ asset('/ico/plus-circle.svg') }}" alt="add" class="button-edits"
+                                     style="width: 30px"
                                      data-url="{{ url('addTel', { client: client.id }) }}"
                                      onclick="cAdd(this)">
                             </h5>
@@ -72,8 +74,9 @@
                     <div class="col">
                         <div class="card h-100">
                             <h5 class="card-header">
-                                <img src="{{ asset('/ico/envelope.svg') }}" alt="home">
+                                <img src="{{ asset('/ico/email.svg') }}" alt="home" style="width: 30px">
                                 <img src="{{ asset('/ico/plus-circle.svg') }}" alt="add" class="button-edits"
+                                     style="width: 30px"
                                      data-url="{{ url('addMail', { client: client.id }) }}"
                                      onclick="cAdd(this)">
                             </h5>
@@ -95,8 +98,9 @@
                     <div class="col">
                         <div class="card h-100">
                             <h5 class="card-header">
-                                <img src="{{ asset('/ico/note.svg') }}" style="width: 20px;" alt="home">
+                                <img src="{{ asset('/ico/edit.svg') }}" alt="home" style="width: 30px">
                                 <img src="{{ asset('/ico/plus-circle.svg') }}" alt="add" class="button-edits"
+                                     style="width: 30px"
                                      data-url="{{ url('addNote', {client: client.id }) }}"
                                      onclick="cAdd(this)">
                             </h5>
@@ -113,30 +117,48 @@
                     </div>
                 </div>
 
-                <div class="card">
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-condensed table-hover table-striped">
-                                <tr>
-                                    <th>Id</th>
-                                    <th>Date</th>
-                                    <th>Référence</th>
-                                    <th>Prix HT</th>
-                                    <th>Prix TTC</th>
-                                </tr>
-                                {% for facture in client.commandes %}
-                                    <tr>
-                                        <td>{{ facture.id }}</td>
-                                        <td>{{ facture.createdAt | date('d/m/Y') }}</td>
-                                        <td><a target="_blank" href="{{ path('view_commandes',{ref: facture.id}) }}">{{ facture.reference }}</a></td>
-                                        <td>{{ facture.prixHT | format_currency('EUR') }}</td>
-                                        <td>{{ facture.prixTTC | format_currency('EUR') }}</td>
-                                    </tr>
-                                {% endfor %}
-                            </table>
+                {# Commande #}
+
+                {% if false %}
+
+                <div class="row">
+                    <div class="col">
+                        <div class="card h-100">
+                            <h5 class="card-header">
+                                <img src="{{ asset('/ico/facture.svg') }}" style="width: 30px;" alt="home">
+                                <img src="{{ asset('/ico/plus-circle.svg') }}" alt="add" class="button-edits"
+                                     style="width: 30px"
+                                     data-url="{{ url('addCommande', {clientId: client.id }) }}"
+                                     onclick="cAdd(this)">
+                            </h5>
+                            <div class="card-body">
+                                <div class="old-edit"> {#| sortByField('createdAt','desc')#}
+                                    <div class="table-responsive">
+                                        <table class="table table-condensed table-hover table-striped">
+                                            <tr>
+                                                <th>Id</th>
+                                                <th>Date</th>
+                                                <th>Référence</th>
+                                                <th>Prix HT</th>
+                                                <th>Prix TTC</th>
+                                            </tr>
+                                            {% for facture in client.commandes %}
+                                                <tr>
+                                                    <td>{{ facture.id }}</td>
+                                                    <td>{{ facture.createdAt | date('d/m/Y') }}</td>
+                                                    <td><a target="_blank" href="{{ path('view_commandes',{ref: facture.id}) }}">{{ facture.reference }}</a></td>
+                                                    <td>{{ facture.prixHT | format_currency('EUR') }}</td>
+                                                    <td>{{ facture.prixTTC | format_currency('EUR') }}</td>
+                                                </tr>
+                                            {% endfor %}
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
+                {% endif %}
 
             </div>
         </div>

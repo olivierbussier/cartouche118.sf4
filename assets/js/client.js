@@ -8,6 +8,7 @@
 
 require('../css/client.scss');
 
+require('./components/jquery.autocomplete')
 /**
  * Edition d'un élément de titre (existant)
  * @param id

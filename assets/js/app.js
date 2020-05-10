@@ -13,7 +13,7 @@ require('../css/modern-business.css');
 // jQuery
 
 const $ = require('jquery');
-require('jquery-ui/ui/widgets/autocomplete');
+//require('jquery-ui/ui/widgets/autocomplete');
 
 global.$ = global.jQuery = $;
 

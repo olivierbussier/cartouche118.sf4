@@ -12,6 +12,10 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class LigneCommande
 {
+    public const DRAFT = 1;
+    public const VALIDATED = 2;
+    public const REMOVED = 10;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -25,23 +29,23 @@ class LigneCommande
     private $createdAt;
 
     /**
-     * @ORM\Column(type="decimal", precision=10, scale=2)
+     * @ORM\Column(type="decimal", precision=10, scale=2, nullable=true)
      */
     private $quantite;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $remiseType;
 
     /**
-     * @ORM\Column(type="decimal", precision=10, scale=2)
+     * @ORM\Column(type="decimal", precision=10, scale=2, nullable=true)
      */
     private $remise;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Produit", inversedBy="ligneCommandes")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $produit;
 
@@ -50,6 +54,11 @@ class LigneCommande
      * @ORM\JoinColumn(nullable=false)
      */
     private $commande;
+
+    /**
+     * @ORM\Column(type="smallint")
+     */
+    private $status;
 
     public function getId(): ?int
     {
@@ -132,6 +141,18 @@ class LigneCommande
     public function setCommande(?Commande $commande): self
     {
         $this->commande = $commande;
+
+        return $this;
+    }
+
+    public function getStatus(): ?int
+    {
+        return $this->status;
+    }
+
+    public function setStatus(int $status): self
+    {
+        $this->status = $status;
 
         return $this;
     }

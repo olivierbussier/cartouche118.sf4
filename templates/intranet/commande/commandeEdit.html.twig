@@ -1,0 +1,76 @@
+<h6 class="card-title">
+    {% if flash is defined %}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>Attention!</strong>{{ flash}}.
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    {% endif %}
+    <img src="{{ asset('/ico/check.svg') }}" class="button-edits"
+         data-url="{{ url('saveCommande',{ id: commande.id  })  }}"
+         onclick="cSave(this)">
+    <img src="{{ asset('/ico/x-circle.svg') }}" class="button-edits"
+         data-url="{{ url('cancelCommande',{ id: commande.id  }) }}"
+         onclick="cCancel(this)">
+</h6>
+<p class="card-text">
+<form>
+    <label for="createdAt" class="col-form-label form-control-sm">Date de création</label>
+    <input name="createAt"
+           id="createdAt"
+           class="form-control form-control-sm"
+           type="date"
+           placeholder=""
+           value="{{ commande.createdAt | date('Y-m-d')}}">
+
+    <img src="{{ asset('/ico/plus-square.svg') }}" class="button-grows"
+         data-url="{{ url('addLineCommande',{ id: commande.id  })  }}"
+         onclick="cAdd(this)">
+
+    <style>
+        .col-edit-line {
+            padding-right: 0;
+            margin-left: 0.1rem;
+            margin-right: 0.1rem;
+        }
+    </style>
+    {% for ligne in commande.ligneCommandes %}
+        <div class="ligne-commande">
+            <form>
+                <div class="row">
+                    <div class="col-1 col-edit-line">
+                        <label for="marque" class="col-form-label form-control-sm">Marque</label>
+                        <input name="marque" id="marque" class="form-control form-control-sm" type="text" placeholder="" value="">
+                    </div>
+                    <div class="col-5 col-edit-line">
+                        <label for="produit" class="col-form-label form-control-sm">Produit</label>
+                        <input name="produit" id="produit" class="form-control form-control-sm" type="text" placeholder="" value="{{ ligne.produit }}">
+                    </div>
+                    <script>
+                        $('#produit').autocomplete({
+                            serviceUrl: '{{ url('autocompleteProduit') }}',
+                            groupBy: 'Marque',
+                            noCache: true,
+                            minChars: 2,
+                            onSelect: function (suggestion) {
+                                //alert('You selected: ' + suggestion.value + ', ' + suggestion.data);
+                            }
+                        });
+                    </script>
+                    <div class="col-1 col-edit-line">
+                        <label for="Quantite" class="col-form-label form-control-sm">Prix H.T</label>
+                        <input name="quantite" id="Quantite" class="form-control form-control-sm" type="text" placeholder="" value="{{ ligne.quantite }}">
+                    </div>
+                    <div class="col-1 col-edit-line">
+                        <label for="Quantite" class="col-form-label form-control-sm">Quantité</label>
+                        <input name="quantite" id="Quantite" class="form-control form-control-sm" type="text" placeholder="" value="{{ ligne.quantite }}">
+                    </div>
+                </div>
+            </form>
+        </div>
+    {% endfor %}
+    <div class="line-commande">
+
+    </div>
+</form>
