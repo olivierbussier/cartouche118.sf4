@@ -23,21 +23,7 @@
                 <div class="form-group">
                     <script>
                         $(function () {
-
-                            $('#id_1').autocomplete({
-                                serviceUrl: '{{ path('ajax_search_clients') }}',
-                                params: { pageNb:{{ currentPage }} },
-
-                                noCache: true,
-                                minChars: 2,
-                                transformResult: function (response) {
-                                    $('#render_list').html(response)
-                                    return '{}'
-                                }
-                            });
-
-                            {#
-                            $("#id_1111").autocomplete({
+                            $("#id_1").autocomplete({
                                 source: function (request) {
                                     $.ajax({
                                         type: "POST",
@@ -54,7 +40,7 @@
                                 select: function (event, ui) {
                                     $("#id_1").autocomplete('search', ui['item']['value'])
                                 }
-                            })#}
+                            })
                         })
                     </script>
                     <div class="ui-widget">

@@ -48,8 +48,8 @@ class ClientController extends AbstractController
     {
         $r = new Response();
 
-        $term = $request->get('query');
-        $pageNb = $request->get('pageNb');
+        $term = $request->request->get('term');
+        $pageNb = $request->request->get('pageNb');
         $r->setContent('ok');
 
         $cr = $em->getRepository(Client::class);
