@@ -1,0 +1,55 @@
+<div class="card">
+
+    <div class="card-title c118-mb-l" id="heading_{{ client.id }}">
+        <button class="btn btn-xs btn-success btn-block"
+                type="button"
+                data-toggle="collapse"
+                data-target="#collapse_{{ client.id }}"
+                aria-expanded="true"
+                aria-controls="collapse_{{ client.id }}">
+                    <span class="zone-titre-edit">
+                        {{ include('intranet/client/clientShow.html.twig', { client: client }) }}
+                    </span>
+        </button>
+    </div>
+
+    <div id="collapse_{{ client.id }}" class="collapse" aria-labelledby="heading_{{ client.id }}" data-parent="#accordion_client">
+
+        <div class="card-header">
+            {{ include('intranet/client/clientDelete.html.twig', { client: client }) }}
+            {{ include('intranet/client/clientEdit.html.twig', { client: client }) }}
+        </div>
+        <div class="row">
+            <div class="col">
+                {{ include('intranet/client/adress/render_list_address.html.twig', { client: client }) }}
+            </div>
+
+            <div class="col">
+                {{ include('intranet/client/phone/render_list_phone.html.twig', { client: client }) }}
+            </div>
+
+            <div class="col">
+                {{ include('intranet/client/mail/render_list_mail.html.twig', { client: client }) }}
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col">
+                {{ include('intranet/client/note/render_list_note.html.twig', { client: client }) }}
+            </div>
+        </div>
+
+        {# Commande #}
+
+        {% if false %}
+
+            <div class="row">
+                <div class="col">
+                    {{ include('intranet/client/commande/render_list_commande.html.twig', { client: client }) }}
+                </div>
+            </div>
+        {% endif %}
+
+    </div>
+</div>

@@ -13,42 +13,6 @@ use Symfony\Component\Routing\Annotation\Route;
 class TelephoneController extends AbstractController
 {
     /**
-     * @Route("/intranet/client/addtel/{client}", name="addTel")
-     * @param int $client
-     * @return Response
-     */
-    public function addTel($client = 0)
-    {
-        if ($client != 0) {
-            $telephone = new Telephone();
-            $telephone->clearId();
-        }
-        return $this->render('intranet/client/telEdit.html.twig', [
-            'telephone' => $telephone,
-            'client'  => $client
-        ]);
-    }
-
-    /**
-     * @Route("/intranet/client/edittel/{id}", name="editTel")
-     * @param EntityManagerInterface $em
-     * @param $id
-     * @return Response
-     */
-    public function editTel(EntityManagerInterface $em, $id = 0)
-    {
-        if ($id != 0) {
-            $telephone = $em->find(Telephone::class, $id);
-        } else {
-            $telephone = new Telephone();
-            $telephone->clearId();
-        }
-        return $this->render('intranet/client/telEdit.html.twig', [
-            'telephone' => $telephone
-        ]);
-    }
-
-    /**
      * @Route("/intranet/client/savetel/{id}", name="saveTel")
      * @param EntityManagerInterface $em
      * @param Request $request
@@ -81,7 +45,7 @@ class TelephoneController extends AbstractController
         }
         $em->persist($telephone);
         $em->flush();
-        return $this->render('intranet/client/telShow.html.twig', [
+        return $this->render('intranet/client/phone/telShow.html.twig', [
             'telephone' => $telephone
         ]);
     }
@@ -100,23 +64,6 @@ class TelephoneController extends AbstractController
                 $em->remove($tel);
                 $em->flush();
             }
-        }
-        return new Response("");
-    }
-
-    /**
-     * @Route("/intranet/client/canceltel/{id}", name="cancelTel")
-     * @param EntityManagerInterface $em
-     * @param int $id
-     * @return Response
-     */
-    public function cancelTel(EntityManagerInterface $em, int $id = 0)
-    {
-        if ($id != 0) {
-            $telephone = $em->find(Telephone::class, $id);
-            return $this->render('intranet/client/telShow.html.twig', [
-                'telephone' => $telephone
-            ]);
         }
         return new Response("");
     }

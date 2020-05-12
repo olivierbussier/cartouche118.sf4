@@ -9,18 +9,49 @@
 require('../css/client.scss');
 
 /**
- * Edition d'un élément de titre (existant)
+ * Sauver une adresse en cours d'édition
  * @param id
  */
-function cEditTitre(id)
+function cSaveNewTitre(id)
 {
     var url = $(id).data('url');
-    var rec  = $(id).closest('.card-title').find('.item-edit-titre');
 
-    $.ajax(url).done(function (data) {
-        $(rec).html(data);
+    var ancestor    = $(id).closest('.zone-globale');
+    var zoneclients = ancestor.find('.zone-liste-clients');
+    var card        = $(id).closest('.card');
+    var form        = card.find('.zone-form');
+
+    var fields = $(form).serializeArray();
+    $.ajax({
+        method: 'POST',
+        data: { fields: fields },
+        url: url
+    }).done(function (data) {
+        $(zoneclients).prepend(data)
     })
-} window.cEditTitre = cEditTitre;
+} window.cSaveNewTitre = cSaveNewTitre;
+
+/**
+ * Sauver une adresse en cours d'édition
+ * @param id
+ */
+function cSaveNew(id)
+{
+    var url = $(id).data('url');
+
+    var ancestor = $(id).closest('.card');
+    var rec = ancestor.find('.zone-old-edit')
+    var form = ancestor.find('.zone-new-edit').find('form');
+
+    var fields = $(form).serializeArray();
+    $.ajax({
+        method: 'POST',
+        data: { fields: fields },
+        url: url
+    }).done(function (data) {
+        $(rec).prepend(data)
+    })
+} window.cSaveNew = cSaveNew;
 
 /**
  * Sauver une adresse en cours d'édition
@@ -30,11 +61,8 @@ function cSaveTitre(id)
 {
     var url = $(id).data('url');
 
-    var ancestor = $(id).closest('.card-title');
-    var editzone  = ancestor.find('.item-edit-titre');
-    var titrezone  = ancestor.find('.titre-edit');
-
-    var form = $(editzone).find('form');
+    var card  = $(id).closest('.card');
+    var form      = $(card).find('.zone-form');
 
     var fields = $(form).serializeArray();
     $.ajax({
@@ -42,8 +70,7 @@ function cSaveTitre(id)
         data: { fields: fields },
         url: url
     }).done(function (data) {
-        $(titrezone).html(data)
-        $(editzone).html('')
+        $(card).replaceWith(data)
     })
 } window.cSaveTitre = cSaveTitre;
 
@@ -68,72 +95,6 @@ function cDelTitre(id)
 } window.cDelTitre = cDelTitre;
 
 /**
- * Aborter une édition d'adresse en cours
- * @param id
- */
-function cCancelTitre(id)
-{
-    var url = $(id).data('url');
-    var rec  = $(id).closest('.card').find('.item-edit-titre');
-
-    $.ajax(url).done(function (data) {
-        $(rec).html(data);
-    })
-
-} window.cCancelTitre = cCancelTitre;
-
-/**
- * Ajout d'un element vide en mode édition
- * @param id
- */
-function cAdd(id)
-{
-    var url = $(id).data('url');
-
-    var o = $(id).closest('.card').find('.old-edit');
-
-    $.ajax(url).done(function (data) {
-        data = '<div class="item-edit frame-note">' + data + '</div>' + o.html()
-            $(o).html(data);
-    })
-} window.cAdd = cAdd;
-
-/**
- * Edition d'un élément existant
- * @param id
- */
-function cEdit(id)
-{
-    var url = $(id).data('url');
-    var rec  = $(id).closest('.item-edit');
-
-    $.ajax(url).done(function (data) {
-        $(rec).html(data);
-        $(rec).addClass("frame-note")
-    })
-} window.cEdit = cEdit;
-
-/**
- * Aborter une édition d'adresse en cours
- * @param id
- */
-function cCancel(id)
-{
-    var url = $(id).data('url');
-    var rec  = $(id).closest('.item-edit');
-
-    $.ajax(url).done(function (data) {
-        if (data.length === 0) {
-            $(rec).remove();
-        } else {
-            $(rec).html(data);
-            $(rec).removeClass("frame-note")
-        }
-    })
-
-} window.cCancel = cCancel;
-
-/**
  * Sauver une adresse en cours d'édition
  * @param id
  */
@@ -141,8 +102,8 @@ function cSave(id)
 {
     var url = $(id).data('url');
 
-    var rec  = $(id).closest('.item-edit');
-    var form = $(rec).find('form');
+    var rec  = $(id).closest('.zone-item-edit');
+    var form = $(rec).find('.zone-form');
 
     var fields = $(form).serializeArray();
     $.ajax({
@@ -151,7 +112,6 @@ function cSave(id)
         url: url
     }).done(function (data) {
         $(rec).html(data)
-        $(rec).removeClass("frame-note")
     })
 } window.cSave = cSave;
 
@@ -162,7 +122,7 @@ function cSave(id)
 function cDel(id)
 {
     var url = $(id).data('url');
-    var rec = $(id).closest('.item-edit');
+    var rec = $(id).closest('.zone-item-edit');
 
     if (id !== 0) {
         if (window.confirm('Êtes-vous sûr ?')) {
@@ -174,11 +134,3 @@ function cDel(id)
         }
     }
 } window.cDel = cDel;
-
-function initEdit() {
-    var idx = 1;
-    $('.edit-save').each(function (d) {
-        //$(d).attr('id',idx);
-        //console.log($(this));
-    })
-} window.initEdit = initEdit;

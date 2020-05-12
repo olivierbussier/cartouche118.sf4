@@ -8,161 +8,21 @@
 
 <div class="accordion" id="accordion_client">
 
-    {% for client in clients %}
-
+    <div class="zone-globale">
         <div class="card">
-
-            <div class="card-title c118-mb-l" id="heading_{{ client.id }}">
-                <button class="btn btn-xs btn-success btn-block"
-                        type="button"
-                        data-toggle="collapse"
-                        data-target="#collapse_{{ client.id }}"
-                        aria-expanded="true"
-                        aria-controls="collapse_{{ client.id }}">
-                    <span class="titre-edit">
-                        {{ include('intranet/client/clientShow.html.twig', { client: client }) }}
-                    </span>
-                </button>
-                <div class="item-edit-titre"></div>
-            </div>
-
-            <div id="collapse_{{ client.id }}" class="collapse" aria-labelledby="heading_{{ client.id }}" data-parent="#accordion_client">
-
-                <div class="row">
-                    <div class="col">
-                        <div class="card h-100">
-                            <h5 class="card-header">
-                                <img src="{{ asset('/ico/adresse.svg') }}" alt="home" style="width: 30px">
-                                <img src="{{ asset('/ico/plus-circle.svg') }}" alt="add" class="button-edits"
-                                     style="width: 30px"
-                                     data-url="{{ url('addAdr', { client: client.id }) }}"
-                                     onclick="cAdd(this)">
-                            </h5>
-                            <div class="card-body">
-                                <div class="old-edit">
-                                    {% for adresse in client.adresses %}
-                                        <div class="item-edit">
-                                            {{ include('intranet/client/adrShow.html.twig', { adresse: adresse }) }}
-                                        </div>
-                                    {% endfor %}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="card h-100">
-                            <h5 class="card-header">
-                                <img src="{{ asset('/ico/telephone.svg') }}" alt="home" style="width: 30px">
-                                <img src="{{ asset('/ico/plus-circle.svg') }}" alt="add" class="button-edits"
-                                     style="width: 30px"
-                                     data-url="{{ url('addTel', { client: client.id }) }}"
-                                     onclick="cAdd(this)">
-                            </h5>
-                            <div class="card-body">
-                                <div class="old-edit">
-                                    {% for telephone in client.telephones %}
-                                        <div class="item-edit">
-                                            {{ include('intranet/client/telShow.html.twig', {telephone: telephone}) }}
-                                        </div>
-                                    {% endfor %}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="card h-100">
-                            <h5 class="card-header">
-                                <img src="{{ asset('/ico/email.svg') }}" alt="home" style="width: 30px">
-                                <img src="{{ asset('/ico/plus-circle.svg') }}" alt="add" class="button-edits"
-                                     style="width: 30px"
-                                     data-url="{{ url('addMail', { client: client.id }) }}"
-                                     onclick="cAdd(this)">
-                            </h5>
-                            <div class="card-body">
-                                <div class="old-edit">
-                                    {% for mail in client.emails %}
-                                        <div class="item-edit">
-                                            {{ include('intranet/client/mailShow.html.twig', {mail: mail}) }}
-                                        </div>
-                                    {% endfor %}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="row">
-                    <div class="col">
-                        <div class="card h-100">
-                            <h5 class="card-header">
-                                <img src="{{ asset('/ico/edit.svg') }}" alt="home" style="width: 30px">
-                                <img src="{{ asset('/ico/plus-circle.svg') }}" alt="add" class="button-edits"
-                                     style="width: 30px"
-                                     data-url="{{ url('addNote', {client: client.id }) }}"
-                                     onclick="cAdd(this)">
-                            </h5>
-                            <div class="card-body">
-                                <div class="old-edit"> {#| sortByField('createdAt','desc')#}
-                                    {% for note in client.notes %}
-                                        <div class="item-edit">
-                                            {{ include('intranet/client/noteShow.html.twig', { note: note }) }}
-                                        </div>
-                                    {% endfor %}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                {# Commande #}
-
-                {% if false %}
-
-                <div class="row">
-                    <div class="col">
-                        <div class="card h-100">
-                            <h5 class="card-header">
-                                <img src="{{ asset('/ico/facture.svg') }}" style="width: 30px;" alt="home">
-                                <img src="{{ asset('/ico/plus-circle.svg') }}" alt="add" class="button-edits"
-                                     style="width: 30px"
-                                     data-url="{{ url('addCommande', {clientId: client.id }) }}"
-                                     onclick="cAdd(this)">
-                            </h5>
-                            <div class="card-body">
-                                <div class="old-edit"> {#| sortByField('createdAt','desc')#}
-                                    <div class="table-responsive">
-                                        <table class="table table-condensed table-hover table-striped">
-                                            <tr>
-                                                <th>Id</th>
-                                                <th>Date</th>
-                                                <th>Référence</th>
-                                                <th>Prix HT</th>
-                                                <th>Prix TTC</th>
-                                            </tr>
-                                            {% for facture in client.commandes %}
-                                                <tr>
-                                                    <td>{{ facture.id }}</td>
-                                                    <td>{{ facture.createdAt | date('d/m/Y') }}</td>
-                                                    <td><a target="_blank" href="{{ path('view_commandes',{ref: facture.id}) }}">{{ facture.reference }}</a></td>
-                                                    <td>{{ facture.prixHT | format_currency('EUR') }}</td>
-                                                    <td>{{ facture.prixTTC | format_currency('EUR') }}</td>
-                                                </tr>
-                                            {% endfor %}
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {% endif %}
-
-            </div>
+            <h5 class="card-title">
+                <img src="{{ asset('/ico/card-list.svg') }}" alt="home" class="c118-big-btn">
+                {{ include('/intranet/client/clientAdd.html.twig', { client: 0 }) }}
+            </h5>
         </div>
-    {% endfor %}
+
+
+        <div class="zone-liste-clients">
+            {% for client in clients %}
+                {{ include('intranet/client/render_client.html.twig', {client: client}) }}
+            {% endfor %}
+        </div>
+    </div>
 </div>
 
 {% if nbPages > 1 %}
@@ -170,9 +30,3 @@
         {{ pages.pages(nbPages, currentPage, term) }}
     </nav>
 {% endif %}
-
-<script>
-    $(document).ready(function () {
-        initEdit();
-    })
-</script>

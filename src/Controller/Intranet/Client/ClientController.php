@@ -79,39 +79,25 @@ class ClientController extends AbstractController
     }
 
     /**
-     * @Route("/intranet/client/editclient/{id}", name="editClient")
-     * @param EntityManagerInterface $em
-     * @param int $id
-     * @return Response
-     */
-    public function editClient(EntityManagerInterface $em, $id = 0)
-    {
-        if ($id == 0) {
-            return $this->redirectToRoute('view_clients');
-        }
-        $client = $em->find(Client::class, $id);
-
-        return $this->render('intranet/client/clientEdit.html.twig', [
-            //'clients' => $clients,
-            'client' => $client
-        ]);
-    }
-
-    /**
      * @Route("/intranet/client/saveclient/{id}", name="saveClient")
      * @param EntityManagerInterface $em
      * @param Request $request
      * @param int $id
      * @return Response
      */
-    public function saveClient(EntityManagerInterface $em, Request $request, $id = 0)
+    public function saveClient(EntityManagerInterface $em, Request $request, int $id = 0)
     {
+
         if ($id != 0) {
             $client = $em->find(Client::class, $id);
         } else {
             $client = new Client();
+            $client->setType('personne_physique');
+            $client->setDeleted(false);
         }
+
         $tabClient = $request->request->get('fields');
+
         foreach ($tabClient as $v) {
             switch ($v['name']) {
                 case 'nom':
@@ -127,29 +113,9 @@ class ClientController extends AbstractController
         }
         $em->persist($client);
         $em->flush();
-        return $this->render('intranet/client/clientShow.html.twig', [
+        return $this->render('intranet/client/render_client.html.twig', [
             'client' => $client
         ]);
-    }
-
-    /**
-     * @Route("/intranet/client/cancelclient/{id}", name="cancelClient")
-     * @param EntityManagerInterface $em
-     * @param int $id
-     * @return Response
-     */
-    public function cancelClient(EntityManagerInterface $em, $id = 0)
-    {
-        return new Response("");
-        /*
-        ($id != 0) {
-            $client = $em->find(Client::class, $id);
-
-            return $this->render('intranet/client/clientShow.html.twig', [
-                //'clients' => $clients,
-                'client' => $client
-            ]);
-        }*/
     }
 
     /**

@@ -1,0 +1,33 @@
+{% macro show_line(line,fNew = true) %}
+
+    {% if line | length > 0 %}
+        {{ line }}{% if fNew == true %}<br>{% endif %}
+    {% endif %}
+
+{% endmacro %}
+
+<div class="zone-item-edit">
+    <h6 class="card-title">
+
+        <button type="button" class="btn c118-small-btn" data-toggle="modal" data-target="#staticBackdrop_adredit_{{ note.id }}">
+            <img src="{{ asset('/ico/pencil-square.svg') }}" alt="edit"  class="button-edits">
+        </button>
+
+        {{ include('intranet/client/note/noteForm.html.twig', {
+            id: "staticBackdrop_adredit_" ~ note.id,
+            title: 'Modifier une adresse',
+            func: 'cSave',
+            noteId: note.id
+        }) }}
+
+        <img src="{{ asset('/ico/trash.svg') }}" alt="del" class="button-edits"
+             data-url="{{ url('delNote', { id: note.id }) }}"
+             onclick="cDel(this)">
+        {{ note.createdAt | date('d/m/Y')}}
+    </h6>
+
+    <div class="card-text">
+        {{ note.text | nl2br }}
+    </div>
+    <div class="card-text">&nbsp;</div>
+</div>

@@ -1,0 +1,29 @@
+<div class="zone-item-edit">
+    <h6 class="card-title">
+
+        <button type="button" class="btn c118-small-btn" data-toggle="modal" data-target="#staticBackdrop_teledit_{{ telephone.id }}">
+            <img src="{{ asset('/ico/pencil-square.svg') }}" alt="edit"  class="button-edits">
+        </button>
+
+        {{ include('intranet/client/phone/telForm.html.twig', {
+            id: "staticBackdrop_teledit_" ~ telephone.id,
+            title: 'Modifier un téléphone',
+            func: 'cSave',
+            telId: telephone.id
+        }) }}
+
+        <img src="{{ asset('/ico/trash.svg') }}" alt="del" class="button-edits"
+             data-url="{{ url('delTel', { id: telephone.id }) }}"
+             onclick="cDel(this)">
+        {% if telephone.label %}
+            {{ telephone.label }}
+        {% else %}
+            {{ telephone.nom }}
+        {% endif %}
+    </h6>
+
+    <div class="card-text">
+        <a href="tel:{{ telephone.telephone }}">{{ telephone.telephone }}</a>
+    </div>
+    <div class="card-text">&nbsp;</div>
+</div>

@@ -1,0 +1,65 @@
+<div class="modal fade" id="{{ id }}" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">{{ title }}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="zone-form">
+                    <label for="nom" class="col-form-label form-control-sm">Nom</label>
+                    <input name="nom" id="nom" class="form-control form-control-sm" type="text"
+                           placeholder="Entrez ici le libellé de l'adresse (maison, travail, nom de société)"
+                           value="{% if adresse.nom is defined %}{{ adresse.nom }}{% endif %}">
+
+                    <label for="adr1" class="col-form-label form-control-sm">1ere ligne d'adresse</label>
+                    <input name="adr1" id="adr1" class="form-control form-control-sm" type="text"
+                           placeholder="Entrez ici la première ligne d'adresse"
+                           value="{% if adresse.adresse1 is defined %}{{ adresse.adresse1 }}{% endif %}">
+
+                    <label for="adr2" class="col-form-label form-control-sm">2eme ligne d'adresse (facultative)</label>
+                    <input name="adr2" id="adr2" class="form-control form-control-sm" type="text"
+                           placeholder="Entrez ici la seconde ligne d'adresse"
+                           value="{% if adresse.adresse2 is defined %}{{ adresse.adresse2 }}{% endif %}">
+
+                    <label for="cp" class="col-form-label form-control-sm">Code Postal</label>
+                    <input name="cp" id="cp" class="form-control form-control-sm" type="text"
+                           placeholder=""
+                           value="{% if adresse.codePostal is defined %}{{ adresse.codePostal }}{% endif %}">
+
+                    <label for="ville" class="col-form-label form-control-sm">Ville</label>
+                    <input name="ville" id="ville" class="form-control form-control-sm" type="text"
+                           placeholder=""
+                           value="{% if adresse.ville is defined %}{{ adresse.ville }}{% endif %}">
+
+                    <label for="bp" class="col-form-label form-control-sm">Boite Postale</label>
+                    <input name="bp" id="bp" class="form-control form-control-sm" type="text"
+                           placeholder=""
+                           value="{% if adresse.BP is defined %}{{ adresse.BP }}{% endif %}">
+
+                    <label for="region" class="col-form-label form-control-sm">Région</label>
+                    <input name="region" id="region" class="form-control form-control-sm" type="text"
+                           placeholder=""
+                           value="{% if adresse.region is defined %}{{ adresse.region }}{% endif %}">
+
+                    <label for="pays" class="col-form-label form-control-sm">Pays</label>
+                    <input name="pays" id="pays" class="form-control form-control-sm" type="text"
+                           placeholder=""
+                           value="{% if adresse.pays is defined %}{{ adresse.pays }}{% endif %}">
+
+                    {% if client is defined %}
+                        <input type="hidden" name="client" value="{{ client.id }}">
+                    {% endif %}
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Abandonner</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal"
+                        data-url="{{ path('saveAdr', { id: adrId }) }}"
+                        onclick="{{ func }}(this)">Sauvegarder</button>
+            </div>
+        </div>
+    </div>
+</div>

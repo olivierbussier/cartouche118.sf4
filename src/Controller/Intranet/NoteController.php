@@ -14,42 +14,6 @@ use Symfony\Component\Routing\Annotation\Route;
 class NoteController extends AbstractController
 {
     /**
-     * @Route("/intranet/client/addnote/{client}", name="addNote")
-     * @param int $client
-     * @return Response
-     */
-    public function addNote($client = 0)
-    {
-        if ($client != 0) {
-            $note = new Note();
-            $note->clearId();
-        }
-        return $this->render('intranet/client/noteEdit.html.twig', [
-            'note'   => $note,
-            'client' => $client
-        ]);
-    }
-
-    /**
-     * @Route("/intranet/client/editnote/{id}", name="editNote")
-     * @param EntityManagerInterface $em
-     * @param $id
-     * @return Response
-     */
-    public function editNote(EntityManagerInterface $em, $id = 0)
-    {
-        if ($id != 0) {
-            $note = $em->find(Note::class, $id);
-        } else {
-            $note = new Note();
-            $note->clearId();
-        }
-        return $this->render('intranet/client/noteEdit.html.twig', [
-            'note' => $note
-        ]);
-    }
-
-    /**
      * @Route("/intranet/client/savenote/{id}", name="saveNote")
      * @param EntityManagerInterface $em
      * @param Request $request
@@ -79,7 +43,7 @@ class NoteController extends AbstractController
         }
         $em->persist($note);
         $em->flush();
-        return $this->render('intranet/client/noteShow.html.twig', [
+        return $this->render('intranet/client/note/noteShow.html.twig', [
             'note' => $note
         ]);
     }
@@ -98,23 +62,6 @@ class NoteController extends AbstractController
                 $em->remove($note);
                 $em->flush();
             }
-        }
-        return new Response("");
-    }
-
-    /**
-     * @Route("/intranet/client/cancelnote/{id}", name="cancelNote")
-     * @param EntityManagerInterface $em
-     * @param int $id
-     * @return Response
-     */
-    public function cancelNote(EntityManagerInterface $em, int $id = 0)
-    {
-        if ($id != 0) {
-            $note = $em->find(Note::class, $id);
-            return $this->render('intranet/client/noteShow.html.twig', [
-                'note' => $note
-            ]);
         }
         return new Response("");
     }

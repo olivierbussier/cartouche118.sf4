@@ -1,0 +1,26 @@
+<div class="card h-100">
+    <h5 class="card-header">
+        <img src="{{ asset('/ico/telephone.svg') }}" alt="home" class="c118-big-btn">
+
+        <button type="button" class="btn c118-small-btn" data-toggle="modal" data-target="#staticBackdrop_telnew_{{ client.id }}">
+            <img src="{{ asset('/ico/plus-circle.svg') }}" alt="edit"  class="button-edits c118-big-btn">
+        </button>
+    </h5>
+
+    <div class="zone-new-edit">
+        {{ include('intranet/client/phone/telForm.html.twig', {
+            id: 'staticBackdrop_telnew_' ~ client.id,
+            title: 'Ajouter un téléphone',
+            func: 'cSaveNew',
+            telId: 0
+        }) }}
+    </div>
+
+    <div class="card-body">
+        <div class="zone-old-edit">
+            {% for telephone in client.telephones %}
+                {{ include('intranet/client/phone/telShow.html.twig', {telephone: telephone}) }}
+            {% endfor %}
+        </div>
+    </div>
+</div>

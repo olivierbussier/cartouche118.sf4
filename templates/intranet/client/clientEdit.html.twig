@@ -1,78 +1,84 @@
-<img src="{{ asset('/ico/check.svg') }}" alt="save" class="button-edits"
-     data-url="{{ url('saveClient', { id: client.id }) }}"
-     onclick="cSaveTitre(this)">
-<img src="{{ asset('/ico/x-circle.svg') }}" alt="cancel" class="button-edits"
-     data-url="{{ url('cancelClient',{ id: client.id  }) }}"
-     onclick="cCancelTitre(this)">
-{% if client.fullName | length == 0 %}
-    {{ client.nom ~ ' ' ~ client.prenom }}
-{% else %}
-    {{ client.fullName }} - ({{ client.prenom }} {{ client.nom }})
-{% endif %}
+<button type="button" class="btn c118-small-btn" data-toggle="modal" data-target="#staticBackdrop_{{ client.id }}">
+    <img src="{{ asset('/ico/pencil-square.svg') }}" alt="edit"  class="button-edits" style="width: 30px;">
+</button>
 
-<script>
-    $(function () {
-        $('[data-toggle="tooltip"]').tooltip()
-    })
-</script>
-<p class="card-text">
-    <form>
-        <div class="row">
-            <div class="col-xs-12 col-lg-4">
-                <label for="full" class="col-form-label form-control-sm">Nom commercial</label>
-                <input name="full" id="full" class="form-control form-control-sm" type="text" placeholder="Vide" value="{{ client.fullName }}"
-                       data-toggle="tooltip" data-placement="left" data-html="true"
-                       title="{{ "Pour une entreprise, renseignez ici le nom commercial de la structure, comme par exemple 'cartouche 118'<br>" ~
-                             "Pour un particulier, laissez ce champ vide" | raw }}">
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop_{{ client.id }}" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
+            <div class="modal-body">
+                <form class="zone-form">
+                    <div class="row">
+                        <div class="col-xs-12 col-lg-4">
+                            <label for="full" class="col-form-label form-control-sm">Nom commercial</label>
+                            <input name="full" id="full" class="form-control form-control-sm" type="text" placeholder="Vide" value="{{ client.fullName }}"
+                                   data-toggle="tooltip" data-placement="left" data-html="true"
+                                   title="{{ "Pour une entreprise, renseignez ici le nom commercial de la structure, comme par exemple 'cartouche 118'<br>" ~
+                                   "Pour un particulier, laissez ce champ vide" | raw }}">
+                        </div>
 
-            <div class="col-xs-12 col-lg-4">
-                <label for="nom" class="col-form-label form-control-sm">Nom / Raison sociale</label>
-                <input name="nom" id="nom" class="form-control form-control-sm" type="text" placeholder="Vide" value="{{ client.nom }}"
-                       data-toggle="tooltip" data-placement="left" data-html="true"
-                       title="{{ "Pour une entreprise, renseignez ici la raison commerciale de la structure, comme par exemple 'NPC Diffusion'<br>" ~
-                       "Pour un particulier, renseignez ici le nom de la personne" | raw }}">
+                        <div class="col-xs-12 col-lg-4">
+                            <label for="nom" class="col-form-label form-control-sm">Nom / Raison sociale</label>
+                            <input name="nom" id="nom" class="form-control form-control-sm" type="text" placeholder="Vide" value="{{ client.nom }}"
+                                   data-toggle="tooltip" data-placement="left" data-html="true"
+                                   title="{{ "Pour une entreprise, renseignez ici la raison commerciale de la structure, comme par exemple 'NPC Diffusion'<br>" ~
+                                   "Pour un particulier, renseignez ici le nom de la personne" | raw }}">
+                        </div>
+                        <div class="col-xs-12 col-lg-4">
+                            <label for="prenom" class="col-form-label form-control-sm">Prénom / Nom complet</label>
+                            <input name="prenom" id="prenom" class="form-control form-control-sm" type="text" placeholder="Vide" value="{{ client.prenom }}"
+                                   data-toggle="tooltip" data-placement="left" data-html="true"
+                                   title="{{ "Pour une entreprise, renseignez ici le nom complet du contact, comme par exemple 'Nicolas Bréchignac'<br>" ~
+                                   "Pour un particulier, renseignez le prénom de la personne" | raw }}">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-md-2">
+                            <label for="titre" class="col-form-label form-control-sm">Titre</label>
+                            <input name="titre" id="titre" class="form-control form-control-sm" type="text" placeholder="Vide" value="{{ client.titre }}"
+                                   data-toggle="tooltip" data-placement="left" data-html="true" readonly
+                                   title="{{ "Champ issu des contacts originaux, présent en lecture seule pour information" | raw }}">
+                        </div>
+                        <div class="col-xs-12 col-md-3">
+                            <label for="additional" class="col-form-label form-control-sm">Nom additionnel</label>
+                            <input name="additional" id="additional" class="form-control form-control-sm" type="text" placeholder="Vide" value="{{ client.additional}}"
+                                   data-toggle="tooltip" data-placement="left" data-html="true" readonly
+                                   title="{{ "Champ issu des contacts originaux, présent en lecture seule pour information" | raw }}">
+                        </div>
+                        <div class="col-xs-12 col-md-3">
+                            <label for="organization" class="col-form-label form-control-sm">Organisation</label>
+                            <input name="organization" id="organization" class="form-control form-control-sm" type="text" placeholder="Vide" value="{{ client.organization }}"
+                                   data-toggle="tooltip" data-placement="left" data-html="true" readonly
+                                   title="{{ "Champ issu des contacts originaux, présent en lecture seule pour information" | raw }}">
+                        </div>
+                        <div class="col-xs-12 col-md-2">
+                            <label for="prefix" class="col-form-label form-control-sm">Préfixe</label>
+                            <input name="prefix" id="prefix" class="form-control form-control-sm" type="text" placeholder="Vide" value="{{ client.prefix }}"
+                                   data-toggle="tooltip" data-placement="left" data-html="true" readonly
+                                   title="{{ "Champ issu des contacts originaux, présent en lecture seule pour information" | raw }}">
+                        </div>
+                        <div class="col-xs-12 col-md-2">
+                            <label for="suffix" class="col-form-label form-control-sm">Suffixe</label>
+                            <input name="suffix" id="suffix" class="form-control form-control-sm" type="text" placeholder="Vide" value="{{ client.suffix }}"
+                                   data-toggle="tooltip" data-placement="left" data-html="true" readonly
+                                   title="{{ "Champ issu des contacts originaux, présent en lecture seule pour information" | raw }}">
+                        </div>
+
+                    </div>
+                </form>
             </div>
-            <div class="col-xs-12 col-lg-4">
-                <label for="prenom" class="col-form-label form-control-sm">Prénom / Nom complet</label>
-                <input name="prenom" id="prenom" class="form-control form-control-sm" type="text" placeholder="Vide" value="{{ client.prenom }}"
-                       data-toggle="tooltip" data-placement="left" data-html="true"
-                       title="{{ "Pour une entreprise, renseignez ici le nom complet du contact, comme par exemple 'Nicolas Bréchignac'<br>" ~
-                       "Pour un particulier, renseignez le prénom de la personne" | raw }}">
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Abandonner</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal"
+                        data-url="{{ path('saveClient', { id: client.id }) }}"
+                        onclick="cSaveTitre(this)">Sauvegarder</button>
             </div>
         </div>
-        <div class="row">
-            <div class="col-xs-12 col-md-2">
-                <label for="titre" class="col-form-label form-control-sm">Titre</label>
-                <input name="titre" id="titre" class="form-control form-control-sm" type="text" placeholder="Vide" value="{{ client.titre }}"
-                       data-toggle="tooltip" data-placement="left" data-html="true" readonly
-                       title="{{ "Champ issu des contacts originaux, présent en lecture seule pour information" | raw }}">
-            </div>
-            <div class="col-xs-12 col-md-3">
-                <label for="additional" class="col-form-label form-control-sm">Nom additionnel</label>
-                <input name="additional" id="additional" class="form-control form-control-sm" type="text" placeholder="Vide" value="{{ client.additional}}"
-                       data-toggle="tooltip" data-placement="left" data-html="true" readonly
-                       title="{{ "Champ issu des contacts originaux, présent en lecture seule pour information" | raw }}">
-            </div>
-            <div class="col-xs-12 col-md-3">
-                <label for="organization" class="col-form-label form-control-sm">Organisation</label>
-                <input name="organization" id="organization" class="form-control form-control-sm" type="text" placeholder="Vide" value="{{ client.organization }}"
-                       data-toggle="tooltip" data-placement="left" data-html="true" readonly
-                       title="{{ "Champ issu des contacts originaux, présent en lecture seule pour information" | raw }}">
-            </div>
-            <div class="col-xs-12 col-md-2">
-                <label for="prefix" class="col-form-label form-control-sm">Préfixe</label>
-                <input name="prefix" id="prefix" class="form-control form-control-sm" type="text" placeholder="Vide" value="{{ client.prefix }}"
-                       data-toggle="tooltip" data-placement="left" data-html="true" readonly
-                       title="{{ "Champ issu des contacts originaux, présent en lecture seule pour information" | raw }}">
-            </div>
-            <div class="col-xs-12 col-md-2">
-                <label for="suffix" class="col-form-label form-control-sm">Suffixe</label>
-                <input name="suffix" id="suffix" class="form-control form-control-sm" type="text" placeholder="Vide" value="{{ client.suffix }}"
-                       data-toggle="tooltip" data-placement="left" data-html="true" readonly
-                       title="{{ "Champ issu des contacts originaux, présent en lecture seule pour information" | raw }}">
-            </div>
-
-        </div>
-    </form>
-<p>&nbsp</p>
+    </div>
+</div>

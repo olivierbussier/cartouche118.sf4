@@ -1,0 +1,52 @@
+<button type="button" class="btn" data-toggle="modal" data-target="#staticBackdrop_new">
+    <img src="{{ asset('/ico/plus-circle.svg') }}" alt="edit"  class="button-edits c118-big-btn">
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop_new" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="zone-form">
+                    <div class="row">
+                        <div class="col-xs-12 col-lg-4">
+                            <label for="full" class="col-form-label form-control-sm">Nom commercial</label>
+                            <input name="full" id="full" class="form-control form-control-sm" type="text" placeholder="Vide" value=""
+                                   data-toggle="tooltip" data-placement="left" data-html="true"
+                                   title="{{ "Pour une entreprise, renseignez ici le nom commercial de la structure, comme par exemple 'cartouche 118'<br>" ~
+                                   "Pour un particulier, laissez ce champ vide" | raw }}">
+                        </div>
+
+                        <div class="col-xs-12 col-lg-4">
+                            <label for="nom" class="col-form-label form-control-sm">Nom / Raison sociale</label>
+                            <input name="nom" id="nom" class="form-control form-control-sm" type="text" placeholder="Vide" value=""
+                                   data-toggle="tooltip" data-placement="left" data-html="true"
+                                   title="{{ "Pour une entreprise, renseignez ici la raison commerciale de la structure, comme par exemple 'NPC Diffusion'<br>" ~
+                                   "Pour un particulier, renseignez ici le nom de la personne" | raw }}">
+                        </div>
+                        <div class="col-xs-12 col-lg-4">
+                            <label for="prenom" class="col-form-label form-control-sm">Prénom / Nom complet</label>
+                            <input name="prenom" id="prenom" class="form-control form-control-sm" type="text" placeholder="Vide" value=""
+                                   data-toggle="tooltip" data-placement="left" data-html="true"
+                                   title="{{ "Pour une entreprise, renseignez ici le nom complet du contact, comme par exemple 'Nicolas Bréchignac'<br>" ~
+                                   "Pour un particulier, renseignez le prénom de la personne" | raw }}">
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Abandonner</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal"
+                        data-url="{{ path('saveClient', { id: 0 }) }}"
+                        onclick="cSaveNewTitre(this)">Sauvegarder</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -14,42 +14,6 @@ use Symfony\Component\Routing\Annotation\Route;
 class MailController extends AbstractController
 {
     /**
-     * @Route("/intranet/client/addmail/{client}", name="addMail")
-     * @param $client
-     * @return Response
-     */
-    public function addMail($client = 0)
-    {
-        if ($client != 0) {
-            $mail = new Email();
-            $mail->clearId();
-        }
-        return $this->render('intranet/client/mailEdit.html.twig', [
-            'mail' => $mail,
-            'client'  => $client
-        ]);
-    }
-
-    /**
-     * @Route("/intranet/client/editmail/{id}", name="editMail")
-     * @param EntityManagerInterface $em
-     * @param $id
-     * @return Response
-     */
-    public function editMail(EntityManagerInterface $em, $id = 0)
-    {
-        if ($id != 0) {
-            $mail = $em->find(Email::class, $id);
-        } else {
-            $mail = new Email();
-            $mail->clearId();
-        }
-        return $this->render('intranet/client/mailEdit.html.twig', [
-            'mail' => $mail
-        ]);
-    }
-
-    /**
      * @Route("/intranet/client/savemail/{id}", name="saveMail")
      * @param EntityManagerInterface $em
      * @param Request $request
@@ -69,9 +33,6 @@ class MailController extends AbstractController
                 case 'nom':
                     $mail->setNom($v['value']);
                     break;
-                case 'label':
-                    $mail->setLabel($v['value']);
-                    break;
                 case 'email':
                     $mail->setEmail($v['value']);
                     break;
@@ -82,7 +43,7 @@ class MailController extends AbstractController
         }
         $em->persist($mail);
         $em->flush();
-        return $this->render('intranet/client/mailShow.html.twig', [
+        return $this->render('intranet/client/mail/mailShow.html.twig', [
             'mail' => $mail
         ]);
     }
@@ -101,23 +62,6 @@ class MailController extends AbstractController
                 $em->remove($mail);
                 $em->flush();
             }
-        }
-        return new Response("");
-    }
-
-    /**
-     * @Route("/intranet/client/cancelmail/{id}", name="cancelMail")
-     * @param EntityManagerInterface $em
-     * @param int $id
-     * @return Response
-     */
-    public function cancelMail(EntityManagerInterface $em, int $id = 0)
-    {
-        if ($id != 0) {
-            $mail = $em->find(Email::class, $id);
-            return $this->render('intranet/client/mailShow.html.twig', [
-                'mail' => $mail
-            ]);
         }
         return new Response("");
     }

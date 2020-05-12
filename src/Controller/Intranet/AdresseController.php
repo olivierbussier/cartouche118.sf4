@@ -12,41 +12,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class AdresseController extends AbstractController
 {
-    /**
-     * @Route("/intranet/client/addadr/{client}", name="addAdr")
-     * @param int $client
-     * @return Response
-     */
-    public function addAdr($client = 0)
-    {
-        if ($client != 0) {
-            $adresse = new Adresse();
-            $adresse->clearId();
-        }
-        return $this->render('intranet/client/adrEdit.html.twig', [
-            'adresse' => $adresse,
-            'client'  => $client
-        ]);
-    }
-
-    /**
-     * @Route("/intranet/client/editadr/{id}", name="editAdr")
-     * @param EntityManagerInterface $em
-     * @param $id
-     * @return Response
-     */
-    public function editAdr(EntityManagerInterface $em, $id = 0)
-    {
-        if ($id != 0) {
-            $adresse = $em->find(Adresse::class, $id);
-        } else {
-            $adresse = new Adresse();
-            $adresse->clearId();
-        }
-        return $this->render('intranet/client/adrEdit.html.twig', [
-            'adresse' => $adresse
-        ]);
-    }
 
     /**
      * @Route("/intranet/client/saveadr/{id}", name="saveAdr")
@@ -96,7 +61,7 @@ class AdresseController extends AbstractController
         }
         $em->persist($adresse);
         $em->flush();
-        return $this->render('intranet/client/adrShow.html.twig', [
+        return $this->render('intranet/client/adress/adrShow.html.twig', [
             'adresse' => $adresse
         ]);
     }
@@ -115,23 +80,6 @@ class AdresseController extends AbstractController
                 $em->remove($adr);
                 $em->flush();
             }
-        }
-        return new Response("");
-    }
-
-    /**
-     * @Route("/intranet/client/canceladr/{id}", name="cancelAdr")
-     * @param EntityManagerInterface $em
-     * @param int $id
-     * @return Response
-     */
-    public function cancelAdr(EntityManagerInterface $em, int $id = 0)
-    {
-        if ($id != 0) {
-            $adresse = $em->find(Adresse::class, $id);
-            return $this->render('intranet/client/adrShow.html.twig', [
-                'adresse' => $adresse
-            ]);
         }
         return new Response("");
     }

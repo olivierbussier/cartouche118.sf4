@@ -1,0 +1,26 @@
+<div class="card h-100">
+    <h5 class="card-header">
+        <img src="{{ asset('/ico/adresse.svg') }}" alt="home" class="c118-big-btn">
+
+        <button type="button" class="btn c118-small-btn" data-toggle="modal" data-target="#staticBackdrop_adrnew_{{ client.id }}">
+            <img src="{{ asset('/ico/plus-circle.svg') }}" alt="edit"  class="button-edits c118-big-btn">
+        </button>
+    </h5>
+
+    <div class="zone-new-edit">
+        {{ include('intranet/client/adress/adrForm.html.twig', {
+            id: 'staticBackdrop_adrnew_' ~ client.id,
+            title: 'Ajouter une adresse',
+            func: 'cSaveNew',
+            adrId: 0
+        }) }}
+    </div>
+
+    <div class="card-body">
+        <div class="zone-old-edit">
+            {% for adresse in client.adresses %}
+                {{ include('intranet/client/adress/adrShow.html.twig', { adresse: adresse }) }}
+            {% endfor %}
+        </div>
+    </div>
+</div>

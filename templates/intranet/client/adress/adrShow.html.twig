@@ -1,0 +1,40 @@
+{% macro show_line(line,fNew = true) %}
+
+    {% if line | length > 0 %}
+        {{ line | raw }}{% if fNew == true %}<br>{% endif %}
+    {% endif %}
+
+{% endmacro %}
+
+<div class="zone-item-edit">
+    <h6 class="card-title">
+
+        <button type="button" class="btn c118-small-btn" data-toggle="modal" data-target="#staticBackdrop_noteedit_{{ adresse.id }}">
+            <img src="{{ asset('/ico/pencil-square.svg') }}" alt="edit"  class="button-edits">
+        </button>
+
+        {{ include('intranet/client/adress/adrForm.html.twig', {
+            id: "staticBackdrop_noteedit_" ~ adresse.id,
+            title: 'Modifier une adresse',
+            func: 'cSave',
+            adrId: adresse.id
+        }) }}
+
+        <img src="{{ asset('/ico/trash.svg') }}" alt="del" class="button-edits"
+             data-url="{{ url('delAdr', { id: adresse.id }) }}"
+             onclick="cDel(this)">
+        {% if adresse.label %}
+            {{ adresse.label }}
+        {% else %}
+            {{ adresse.nom }}
+        {% endif %}
+    </h6>
+
+    <div class="card-text">
+    {{ _self.show_line(adresse.adresse1) }}
+    {{ _self.show_line(adresse.adresse2) }}
+    {{ _self.show_line(adresse.codePostal, false) }} {{ _self.show_line(adresse.ville) }}
+    {{ _self.show_line(adresse.pays) }}
+    </div>
+    <div class="card-text">&nbsp;</div>
+</div>
