@@ -11,8 +11,10 @@
     <div class="zone-globale">
         <div class="card">
             <h5 class="card-title">
-                <img src="{{ asset('/ico/card-list.svg') }}" alt="home" class="c118-big-btn">
-                {{ include('/intranet/client/clientAdd.html.twig', { client: 0 }) }}
+                <div class="card-header">
+                    <img src="{{ asset('/ico/card-list.svg') }}" alt="home" class="c118-big-btn">
+                    {{ include('/intranet/client/clientAdd.html.twig', { client: 0 }) }}
+                </div>
             </h5>
         </div>
 

@@ -9,6 +9,17 @@
             </div>
             <div class="modal-body">
                 <form class="zone-form">
+                    <label for="createdat" class="col-form-label form-control-sm">Date de création</label>
+                    <input name="createdat" id="createdat" class="form-control form-control-sm" type="date"
+                           placeholder=""
+                           value="{% if note.createdAt is defined %}{{ note.createdAt | date('Y-m-d') }}{% else %}{{ "now" | date('Y-m-d') }}{% endif %}">
+
+                    <label for="text" class="col-form-label form-control-sm">Adr1</label>
+                    <textarea class="form-control form-control-sm" name="text" id="text" rows="6">{% if note.text is defined %}{{ note.text | raw }}{% endif %}</textarea>
+
+                    {% if client is defined %}
+                        <input type="hidden" name="client" value="{{ client.id }}">
+                    {% endif %}
                 </form>
             </div>
             <div class="modal-footer">
