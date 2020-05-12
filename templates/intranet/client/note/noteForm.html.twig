@@ -14,7 +14,7 @@
                            placeholder=""
                            value="{% if note.createdAt is defined %}{{ note.createdAt | date('Y-m-d') }}{% else %}{{ "now" | date('Y-m-d') }}{% endif %}">
 
-                    <label for="text" class="col-form-label form-control-sm">Adr1</label>
+                    <label for="text" class="col-form-label form-control-sm">Texte de la note</label>
                     <textarea class="form-control form-control-sm" name="text" id="text" rows="6">{% if note.text is defined %}{{ note.text | raw }}{% endif %}</textarea>
 
                     {% if client is defined %}

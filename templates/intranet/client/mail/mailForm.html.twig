@@ -14,9 +14,9 @@
                            placeholder=""
                            value="{% if mail.nom is defined %}{{ mail.nom }}{% endif %}">
 
-                    <label for="email" class="col-form-label form-control-sm">Email</label>
+                    <label for="email" class="col-form-label form-control-sm">Adresse mail</label>
                     <input name="email" id="email" class="form-control form-control-sm" type="text"
-                           placeholder=""
+                           placeholder="Entrez ici une adresse sous la forme xxx@yyy.zzz"
                            value="{% if mail.email is defined %}{{ mail.email }}{% endif %}">
 
                     {% if client is defined %}
