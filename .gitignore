@@ -32,11 +32,8 @@ yarn-error.log
 ###< symfony/webpack-encore-bundle ###
 
 phploy.ini
-
 composer.lock
-
 public/test.vcf
-
 public/build/
-
 CronScripts/env
+public/.revision
