@@ -36,4 +36,4 @@ composer.lock
 public/test.vcf
 public/build/
 CronScripts/env
-public/.revision
+/public/.revision
