@@ -168,7 +168,9 @@
                 <div class="col-12 footer">
                     <div class="footer">
                         {% set tag = readfile(asset('.revision')) %}
-                        <p>Copyright &copy; 2007-2020 OBU - {{ tag }}</p>
+                        <h5>
+                            <p>Copyright &copy; 2007-2020 OBU -  {{ app.environment }} - {{ tag }}</p>
+                        </h5>
                     </div>
                 </div>
 
